@@ -202,42 +202,7 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <h1>Event Camera Calib</h1>
-        <h2>1、录制rosbag包，话题包括事件、imu数据和图像数据</h2>
-        <p>rosbag record /capture_node/camera/image /capture_node/events /capture_node/imu -O out.bag</p>
-
-
-        <h2>2、图像内参标定</h2>
-        <p>使用kalibr或者matlab（需要将rosbag中的图像导出）</p>
-
-
-        <h3>(1) kalibr</h3>
-        <p>rosrun kalibr kalibr_calibrate_cameras --bag out.bag --topics /capture_node/camera/image --models pinhole-radtan --target checkerboard.yaml</p>
-        <p>结果如下:</p>
-        <p>[在此插入kalibr的结果]</p>
-        <h3>(2) matlab(图像过多，最好先降低图像频率，后面与imu联合标定也要用到)</h3>
-        <p>i. 降低图像数据频率（这里降为4hz）</p>
-        <p>三个终端分别指令为（分先后顺序）：</p>
-        <p>降低频率：</p>
-        <p>rosrun topic_tools throttle_messages /capture_node/camera/image 4.0 /image_raw</p>
-        <p>录制降低频率后的image与imu：</p>
-        <p>rosbag record /image_raw /capture_node/imu -O sample.bag（话题名改变了）</p>
-        <p>播放开始录制的rosbag包：</p>
-        <p>rosbag play out.bag</p>
-        <p>这样就能得到一个包含4hz频率图像与imu数据的rosbag。</p>
-
-        <p>ii. rosbag图像导出</p>
-        <p>参考：[链接到图像导出的教程]</p>
-
-        <p>iii. 在matlab工具箱中进行标定</p>
-        <p>结果如下：</p>
-        <p>[在此插入matlab标定的结果]</p>
-
-        <h2>3、事件相机内参标定</h2>
-        <p>[在此插入事件相机内参标定的内容]</p>
-
-        <h2>外参标定：</h2>
-        <p>[在此插入外参标定的内容]</p>
+        <!--在此插入内容-->
       </div>
     </section>
 
