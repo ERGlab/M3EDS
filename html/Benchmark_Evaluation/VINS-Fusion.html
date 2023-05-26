@@ -1,8 +1,9 @@
 <style>
   #myDiv {
-    padding-top: 4%;
+    padding-top: 5%;
 		padding-left: 20%;
-    padding-bottom: 4%;
+    padding-right: 20%;
+    padding-bottom: 5%;
 	}
   .code-box {
       width: 70%; /* 设置固定宽度 */
@@ -14,6 +15,10 @@
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
 
     }
+  .report-img {
+    width: 75%;
+    height: auto;
+  }
 </style>
 
 <body>
@@ -389,6 +394,52 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <!--在此插入内容-->
+        <h1 align="center">VINS-Fusion Evaluation</h1>
+        <h3 align="center"> <a href="https://github.com/Huang-shulei">Shulei Huang</a></h3>
+        <h2>Introduction</h2>
+        <h3>1 The overview of VINS-Fusion</h3>
+        <p>
+          VINS-Fusion is a sensor fusion framework to fuse local states with global sensors, which achieves locally accurate and globally drift-free pose estimation and achieves accurate self-localization for autonomous applications (drones, cars, and AR/VR). 
+          Local estimations, produced by existing VO/VIO approaches, are fused with global sensors in a pose graph optimization. Within the graph optimization, local estimations are aligned into a global coordinate. 
+          Meanwhile, the accumulated drifts are eliminated. 
+          VINS-Fusion is an extension of VINS-Mono, which supports multiple visual-inertial sensor types (mono camera + IMU, stereo cameras + IMU, even stereo cameras only).
+          <a href="https://github.com/HKUST-Aerial-Robotics/VINS-Fusion">code link</a>.
+          <a href="https://arxiv.org/pdf/1901.03642.pdf">paper link</a>.
+        </p> 
+        
+        <figure style="text-align: center;">
+          <img class="report-img" src="https://erglab.github.io/M3EDS/html/Benchmark_Evaluation/VINS-Fusion_pic/Workflow_diagram_of_VINS-Fusion.png" alt="Image description">
+          <figcaption>Fig. 1. Workflow diagram of VINS-Fusion</figcaption>
+        </figure>
+
+        <h3>2 VINS-Fusion Compilation Process</h3>
+        <h4>1.1 Requirement</h4>
+          <p>
+            (1)This package requires Ubuntu 64-bit 16.04 or 18.04. ROS Kinetic or Melodic.<br>
+            (2)This package requires <a href="http://ceres-solver.org/installation.html">Ceres</a>.<br>
+          </p>
+          <h4>1.2 Build VINS-Fusion</h4>
+          <p>Clone the repository and catkin_make:</p>
+          <div class="code-box">
+            <code>
+              cd ~/catkin_ws/src<br>
+              git clone https://github.com/HKUST-Aerial-Robotics/VINS-Fusion.git<br>
+              cd ../<br>
+              catkin_make<br>
+              source ~/catkin_ws/devel/setup.bash
+            </code>
+          </div>
+          <p>if you fail in this step, try to find another computer with clean system or reinstall Ubuntu and ROS</p>
+
+
+
+          <h2>Experiment</h2>
+
+
+
+          <h2>Evaluation</h2>
+        
+
       </div>
     </section>
 
