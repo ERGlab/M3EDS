@@ -221,20 +221,24 @@
         <h1 align="center">Event_Camera_Intrinsics</h1>
         <h6 align="center"> <a href="https://github.com/xukang2311">Xu Kang</a></h6>
 	      <h2 id="简介：">简介：</h2>
-	      <p>目前EventCamera的标定方案目前有.....(关师兄csdn上试过的那些)，在这里我们采用了......</p>
+	      <p>目前EventCamera的标定方案目前有.....(关师兄csdn上试过的那些),文章采用了通过e2vid重建图像的方法进行内参标定.在这里我们以dvs346为例展示一下事件相机标定过程结果,并通过对比其中图像与事件标定结果来验证方法有有效性</p>
 	      <h2 id="流程：">流程：</h2>
 	      <h3 id="1、录制rosbag包,话题包括事件、imu数据和图像数据">1、录制rosbag包,话题包括事件、imu数据和图像数据</h3>
 	      <div class="code-box">
-        <code>rosbag record /capture\_node/camera/image /capture\_node/events /capture\_node/imu -O out.bag
+        <code>rosbag record /capture_node/camera/image /capture_node/events /capture_node/imu -O out.bag
 	      </code></div>
 	      <h3 id="2、图像内参标定">2、图像内参标定</h3>
 	      <p>使用kalibr或者matlab(需要将rosbag中的图像导出)</p>
 	      <h4 id="(1)kalibr">(1)kalibr</h4>
         <div class="code-box">
-        <code>rosrun kalibr kalibr\_calibrate\_cameras --bag out.bag --topics /capture\_node/camera/image --models pinhole-radtan --target checkerboard.yaml
+        <code>rosrun kalibr kalibr_calibrate_cameras --bag out.bag --topics /capture_node/camera/image --models pinhole-radtan --target checkerboard.yaml
 	      </code></div>
 	      <p>结果如下:</p>
-
+        <div class="code-box">
+          <code>
+            k : [253.60554237,253.65337516,172.46294632,120.33187335]
+            d : [-0.38353521,0.14974387,-0.00014053,0.00034018]
+          </code></div>
         <figure align="center">
           <img class="report-img" src="Event_Camera_Intrinsics/image_intrinsics_kalibr.jpg" alt="Image description">
           <figcaption>Fig. 1. dvs346图像kalibr标定结果 </figcaption>
@@ -245,11 +249,11 @@
 	      <p>三个终端分别指令为（分先后顺序）：</p>
 	      <p>降低频率：</p>
         <div class="code-box">
-          <code>rosrun topic\_tools throttleessages /capture\_node/camera/image 4.0 /image\_raw
+          <code>rosrun topic_tools throttleessages /capture_node/camera/image 4.0 /image_raw
         </code></div>
 	      <p>录制降低频率后的image与imu:</p>
        <div class="code-box">
-        <code>rosbag record /image\_raw /capture\_node/imu -O sample.bag(话题名改变了)
+        <code>rosbag record /image_raw /capture_node/imu -O sample.bag(话题名改变了)
        </code></div>
 
 	     <p>播放开始录制的rosbag包:</p>
@@ -259,11 +263,20 @@
  
 	     <p>这样就能得到一个包含4hz频率图像与imu数据的rosbag。</p>
 	     <h5 id="iirosbag图像导出">ii.rosbag图像导出</h5>
-	     <p>参考：<a href="https://zhuanlan.zhihu.com/p/552617948">https://zhuanlan.zhihu.com/p/552617948</a></p>
+	     <p>可以参考：<a href="https://zhuanlan.zhihu.com/p/552617948">Link</a></p>
 	     <h5 id="iii在matlab工具箱中进行标定">iii.在matlab工具箱中进行标定</h5>
-	     <p>结果如下：</p>
+	     <p>结果见于/Event_Camera_Intrinsics/4hz_iamge.yaml</p>
 	     <h3 id="3、事件相机内参标定">3、事件相机内参标定</h3>
-	     <h3 id="4、事件相机外参标定:">4、事件相机外参标定:</h3>
+       <p>对于事件相机内参,我们采用e2vid重建的方法重建出图像帧进行标定.</p>
+       <h4>(1)e2vid</h4> 
+       <p>具体方法详见网页tools中的Event Reconstruction Image
+        <a href="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image.html">(Link)</a>.
+       </p>
+       <h4>(2)kalibr</h4> 
+       <p>
+        通过多次试验发现,使用kalibr标定
+       </p>
+
      </div>
     </section>
 
