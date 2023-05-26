@@ -232,7 +232,7 @@ p {
       <div id="myDiv">
         <!--在此插入内容-->
         <h1 align="center">Sensors Synchronization</h1>
-        <h6 align="center"> <a href="https://kwanwaipang.github.io/">Guan Weipeng</a></h6>
+        <h6 align="center"> <a href="https://kwanwaipang.github.io/">Guan Weipeng</a>, <a href="https://darrenwong.github.io/">Huang Feng</a>, <a href="https://github.com/cpymaple">Chen Peiyu</a></h6>
         <h2>1. Abstract</h2>
         <p>
           In this report, we will provide a brief overview of our sensor synchronization process.
@@ -282,6 +282,24 @@ p {
 
         <h2>3. The Synchronization of Multi Sensors</h2>
         <h3>3.1. The Synchronization of Two Onboard Computer</h3>
+        <p>
+          Firstly, we install the PTP
+          <div class="code-box">
+            <code>sudo apt install ptpd</code>
+          </div>
+          Choose a machine to serve as the master node and initiate the following on it (where eth0 is the selected network interface for synchronization, please note that it requires the connected switch to support the PTP protocol):
+          <div class="code-box">
+            <code>sudo ptpd -M -i eth0</code>
+          </div>
+          On the remaining slave nodes, initiate the following:
+          <div class="code-box">
+            <code>sudo ptpd -g -i eth0</code>
+          </div>
+        If the "-C" parameter is added to both the master and slave, it will run in the foreground and print the output. For example, on the master side:
+        <div class="code-box">
+          <code>sudo ptpd -g -i eth0 -C</code>
+        </div>
+        </p>
 
         <h3>3.2 The Synchronization of Event Camera and Standard Camera</h3>
         <p>
