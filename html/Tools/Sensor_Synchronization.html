@@ -238,23 +238,30 @@ p {
         </p>
 
         <h2>2. The Synchronization of Event Cameras</h2>
+        <h3>2.1 The Synchronization of Event Cameras</h3>
         <p>
-        The event camera has an additional synchronization interface, called as "sync connectors", as shown in the figure below.
+        The event camera has an additional synchronization interface, called as "sync connectors", as shown in the figure below. (Using DAVIS346 as example reference to <a href="https://inivation.com/wp-content/uploads/2019/08/DAVIS346.pdf">Link</a>).
         </p>
 
         <figure align="center">
           <img class="report-img" src="Sensor_Synchronization/syns_connectors.png" alt="Image description">
           <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
         </figure>
-        <p>
 
-        The synchronization connectors are HiRose HR10A-7R-4P (male, SYNC OUTPUT) and HR10A-7R-4S (female, SYNC INPUT) connectors. Cables should use the matching connectors HR10A-7P-4S (female) and HR10A-7P-4P (male).
-        Please note that to keep full electrical isolation between different cameras, the cable should not be shielded, or if it is, the shield should not connect one end of the cable to the other.
-        Input signals can be 3.3V or 5V, depending on the VDD_IN supplied externally, output signals are 5V, as is VDD_OUT.
-        If you chain cameras together for synchronization, the clock and VDD will be 5V, for example.
+        <p>
+          The synchronization connectors are HiRose HR10A-7R-4P (male, SYNC OUTPUT) and HR10A-7R-4S (female, SYNC INPUT) connectors. Cables should use the matching connectors HR10A-7P-4S (female) and HR10A-7P-4P (male).
+          Please note that to keep full electrical isolation between different cameras, the cable should not be shielded, or if it is, the shield should not connect one end of the cable to the other.
+          Input signals can be 3.3V or 5V, depending on the VDD_IN supplied externally, output signals are 5V, as is VDD_OUT.
+          If you chain cameras together for synchronization, the clock and VDD will be 5V, for example.
+          <br>
+          Therefore, utilizing this sync connector, we connected four event cameras together (two DAVIS346 and two DVXplorer) as shown in the diagram below.
+          Additionally, we replaced the event camera ROS driver <a href="https://gitlab.com/inivation/dv/dv-ros">Code</a> provided by Invitation Company with our own driver <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM/tree/main/driver_code/dv-ros-master">Code</a>.
         </p>
 
-        <h3>2.1 The Synchronization of Event Cameras</h3>
+        <figure align="center">
+          <img class="report-img" src="Sensor_Synchronization/four_event_camera.jpg" alt="Image description">
+          <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
+        </figure>
 
 
 
