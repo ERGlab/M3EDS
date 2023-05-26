@@ -388,15 +388,23 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <h1 align="center">IMU</h1>
-
+        <h1 align="center">IMU Intrinsics</h1>
+        <h6 align="center"> <a href="https://github.com/lxw919">Lv Xianwei</a></h6>
+        <h2 id="简介：">简介：</h2>
+        <p>IMU的误差模型<br>
+          加速度计和陀螺仪的误差可分为确定性误差和随机误差<br>
+          确定性误差可以事先标定，包括bias,scale,misalignment等<br>
+          随机误差通常假定噪声服从高斯分布,包括Gaussian white noise,random walker等<br>
+          Scale可以看成是实际数值和输入值之间的比值<br>
+          misalignment多轴传感器制作的时候，由于制作工艺的问题，会使得xyz可能不垂直<br>
+          “White Noise”和“Bias”，都有连续时间模型和连续时间模型两种形式，两种模式可以相互转换，这里强调一下有的标定工具输出的是连续型（imu_utils），有的是离散型（kalibr_allan）。<br>
+          我这里用imu_utils 标定 imu，得到的加速度的噪声和加速度随机游走噪声以及角速度的噪声和角速度的随机游走噪声。</p>
       </div>
     </section>
 
 
   </div>
   
-
 
   <script src="https://erglab.github.io/M3EDS/js/plugins.js"></script>
   <script src="https://erglab.github.io/M3EDS/js/theme.js"></script>
