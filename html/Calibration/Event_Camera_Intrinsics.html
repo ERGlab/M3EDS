@@ -218,6 +218,7 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
+        <h1 align="center">event camera 内外参</h1>
         <h1 id="event-camera-内外参">event camera 内外参</h1>
 	      <h2 id="简介：">简介：</h2>
 	      <p>目前EventCamera的标定方案目前有.....(关师兄csdn上试过的那些)，在这里我们采用了......</p>
@@ -233,10 +234,12 @@
         <code>rosrun kalibr kalibr\_calibrate\_cameras --bag out.bag --topics /capture\_node/camera/image --models pinhole-radtan --target checkerboard.yaml
 	      </code></div>
 	      <p>结果如下:</p>
+
         <figure align="center">
           <img class="report-img" src="/home/ubuntu/M3EDS/html/Calibration/Event_Camera_Intrinsics/image_intrinsics_kalibr.jpg" alt="Image description">
           <figcaption>Fig. 1. dvs346图像kalibr标定结果 </figcaption>
         </figure>
+
 	      <h4 id="2-matlab图像过多,最好先降低图像频率,后面与imu联合标定也要用到">(2) matlab(图像过多,最好先降低图像频率,后面与imu联合标定也要用到)</h4>
 	      <h5 id="i降低图像数据频率(这里降为4hz)">i.降低图像数据频率(这里降为4hz)</h5>
 	      <p>三个终端分别指令为（分先后顺序）：</p>
