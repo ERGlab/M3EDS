@@ -1,19 +1,23 @@
 <style>
   #myDiv {
-    padding-top: 4%;
+    padding-top: 5%;
 		padding-left: 20%;
-    padding-bottom: 4%;
+    padding-right: 20%;
+    padding-bottom: 5%;
 	}
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
       background-color: #f1f1f1;
       padding: 1%;
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
-
     }
+  .report-img {
+    width: 60%;
+    height: auto;
+  }
 </style>
 
 <body>
@@ -387,9 +391,86 @@
 
 
     <section class="wrapper bg-gray">
-      <div id="myDiv">
-        <!--在此插入内容-->
-      </div>
+        <div id="myDiv">
+          <h1 align="center">GVINS Evaluation</h1>
+          <h6 align="center"> <a href="https://github.com/Huang-shulei">Shulei Huang</a></h6>
+          <h2>Introduction</h2>
+          <h3>1 The overview of GVINS</h3>
+          <p>GVINS, a non-linear optimization based system that tightly fuses GNSS raw measurements with visual and inertial information for real-time and drift-free state estimation.</p>
+          
+          <figure align="center">
+            <img class="report-img" src="https://erglab.github.io/M3EDS/html/Benchmark_Evaluation/GVINS/Workflow_diagram_of_GVINS.png" alt="Image description">
+            <figcaption>Fig. 1. Workflow diagram of GVINS</figcaption>
+          </figure>
+
+          <!-- <h2>GVINS Compilation Process</h2>-->
+          <h3><a href="https://github.com/HKUST-Aerial-Robotics/GVINS" class="dropdown-item">2 GVINS Compilation Process</a></h3>
+          <h4>1.1 C++11 Compiler</h4>
+          <p>This package requires some features of C++11.</p>
+          <!-- <div class="code-box">
+          <code>rosbag record /capture_node/camera/image /capture_node/events /capture_node/imu -O out.bag
+          </code></div> -->
+          <h4>1.2 ROS</h4>
+          <p>This package is developed under ROS Kinetic environment.</p>
+          <h4>1.3 Requirement</h4>
+          <p>
+            (1)This package uses <a href="https://gitlab.com/libeigen/eigen/-/archive/3.3.3/eigen-3.3.3.zip">Eigen 3.3.3</a> for matrix manipulation.<br>
+            (2)This package use <a href="https://ceres-solver.googlesource.com/ceres-solver">ceres 1.12.0</a> to solve the non-linear optimization problem.<br>
+            (3)This package also requires <a href="https://github.com/HKUST-Aerial-Robotics/gnss_comm">gnss_comm</a> for ROS message definitions and some utility functions. Follow <a href="https://github.com/HKUST-Aerial-Robotics/gnss_comm#2-build-gnss_comm-library">those instructions</a> to build the gnss_comm package.
+          </p>
+          <h4>1.4 Build GVINS</h4>
+          <p>Clone the repository to your catkin workspace (for example ~/catkin_ws/):</p>
+          <div class="code-box">
+            <code>
+              cd ~/catkin_ws/src/<br>
+              git clone https://github.com/HKUST-Aerial-Robotics/GVINS.git
+            </code>
+          </div>
+          <p>Then build the package with:</p>
+          <div class="code-box">
+            <code>
+              cd ~/catkin_ws/<br>
+              catkin_make<br>
+              source ~/catkin_ws/devel/setup.bash
+            </code>
+          </div>
+          <p>
+            If you encounter any problem during the building of GVINS, this author recommend you to try <a href="https://github.com/HKUST-Aerial-Robotics/GVINS#docker_section">docker</a> first.<br>
+            To simplify the building process, the author add docker in this code. 
+            Docker is like a sandbox so it can isolate this code from your local environment. 
+            To run with docker, first make sure ros and docker are installed on your machine. 
+            Then add your account to <code>docker</code> group by <code>sudo usermod -aG docker $USER</code>. 
+            Logout and re-login to avoid the Permission denied error, then type:
+          </p>
+          <div class="code-box">
+            <code>
+              cd ~/catkin_ws/src/GVINS/docker<br>
+              make build
+            </code>
+          </div>
+          <p>
+            The docker image <code>gvins:latest</code> should be successfully built after a while. Then you can run GVINS with:
+          </p>
+          <div class="code-box">
+            <code>
+              ./run.sh LAUNCH_FILE
+            </code>
+          </div>
+          <p>
+            (for example <code>./run.sh visensor_f9p.launch</code>). 
+            Open another terminal and play your rosbag file, then you should be able to see the result. 
+            If you modify the code, simply re-run <code>./run.sh LAUNCH_FILE</code> to update.
+          </p>
+          
+
+          <h2>Experiment</h2>
+
+
+
+          <h2>Evaluation</h2>
+
+  
+       </div>
     </section>
 
 
