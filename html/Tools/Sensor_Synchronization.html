@@ -16,7 +16,7 @@ p {
     display: flex;
     justify-content: center;
     width: 50%;
-    height: auto;
+    height: 50%;
 }
 
 .report-img {
@@ -270,7 +270,7 @@ p {
           <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
         </figure>
 
-        <iframe class="report-video" src="//player.bilibili.com/player.html?aid=869034367&bvid=BV1xV4y1B7qF&cid=1141562890&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+        <iframe class="report-video" src="//player.bilibili.com/player.html?aid=869034367&bvid=BV1xV4y1B7qF&cid=1141562890&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="max-width: 100%; max-height: 100%;"> </iframe>
 
         <p>
           Furthermore, to validate the synchronization effect, we simultaneously started four event cameras, recorded a rosbag, and then outputted the rostopic, as shown in the figure below.
@@ -290,6 +290,10 @@ p {
 
         <h3>3.2 The Synchronization of Event Camera and Standard Camera</h3>
         <p>
+          After synchronizing the clock cycles between two onboard computers, we set the image publishing frequency of DAVIS346 on onboard computer A to 20Hz, and the publishing frequency of the industrial camera on onboard computer B to 20Hz as well.
+          Then, we placed a stopwatch in front of both cameras.
+          We observed the stopwatch values for image topics with the same timestamps from both cameras.
+          After multiple verifications, we concluded that the time difference between the DAVIS346 on onboard computer A and the industrial camera on onboard computer B, directly capturing images, was within 10ms, which aligns with our expectations.
           To test the synchronization between the event and image data streams in DAVIS346.
         </p>
 
