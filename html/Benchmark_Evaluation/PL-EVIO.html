@@ -1,37 +1,33 @@
 <style>
-
-#myDiv {
-<!--      margin-top: 5%;-->
-<!--      margin-bottom: 5%;-->
-<!--      margin-left: 5%;-->
-<!--      margin-right: 5%;-->
-    padding-top: 5%;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-bottom: 5%;
-}
-
-p {
-  text-align: justify;
-    text-align-last: left;
-  text-justify: inter-word;
-}
-
-.report-img {
-    width: 60%;
-    height: auto;
-}
-.code-box {
-    width: 70%; /* 设置固定宽度 */
-    height: auto; /* 自适应高度 */
-    border: 1px solid #ccc;
-    border-radius: 0%;
-    background-color: #f1f1f1;
-    padding: 1%;
-    overflow: auto; /* 添加滚动条以适应内容过长的情况 */
-
+  #myDiv {
+      padding-top: 5%;
+      padding-left: 20%;
+      padding-right: 20%;
+      padding-bottom: 5%;
   }
-</style>
+  
+  p {
+    text-align: justify;
+      text-align-last: left;
+    text-justify: inter-word;
+  }
+  
+  .report-img {
+      width: 60%;
+      height: auto;
+  }
+  
+  .code-box {
+      width: 100%; /* 设置固定宽度 */
+      height: auto; /* 自适应高度 */
+      border: 1px solid #ccc;
+      border-radius: 0%;
+      background-color: #f1f1f1;
+      padding: 1%;
+      overflow: auto; /* 添加滚动条以适应内容过长的情况 */
+  
+    }
+  </style>
 
 <body>
   <meta charset="utf-8"/>
@@ -408,15 +404,33 @@ p {
         <!--在此插入内容-->
 
         <h1 align="center">PL-EVIO: Robust Monocular Event-based Visual Inertial Odometry with Point and Line Features</h1>
-        <h3 align="center"> <a href="https://github.com/cpymaple">Chen Peiyu</a>, <a href="https://kwanwaipang.github.io/">Guan Weipeng</a></h3>
+        <h3 align="center"> <a href="https://github.com/cpymaple">Peiyu Chen</a>, <a href="https://kwanwaipang.github.io/">Weipeng Guan</a></h3>
 
-        <h1>Abstract</h1>
+        <h1>Introduction</h1>
+        <p>
+        Pl-EVIO is a robust, high-accurate, and real-time optimization-based monocular event-based visual-inertial odometry (VIO) method with event-corner
+        features, line-based event features, and point-based image features. This framework leverages the point-based features in 
+        the nature scene and line-based features in the human-made scene to provide more additional structure and constraints through well-design
+        feature management. The following demonstrates the overview of PL-EVIO frameworks and three different kinds of features in PL-EVIO framework.
+        </p>
+
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="PL_EVIO_pic/The framework of PL-EVIO.png" alt="Image description">
+          <figcaption>Fig. 1. The framework of PL-EIO(Event + IMU) and PL-EVIO(Event + Image + IMU)</figcaption>
+        </figure>
+        <br>
+
+        <figure style="text-align: center;">
+          <img style = "width: 80%" src="PL_EVIO_pic/three_features.png" alt="Image description">
+          <figcaption style="text-align: left;">Fig. 2. Three different kinds of features in PL-EVIO framework: event-corner features, event-based line features, and
+            image-based point features</figcaption>
+        </figure>
+
 
         <h1>Experiment</h1>
 
         <h1>Result</h1>
 
-        <h1>Reference</h1>
 
       </div>
     </section>

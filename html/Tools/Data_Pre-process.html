@@ -1,20 +1,33 @@
 <style>
   #myDiv {
-    padding-top: 4%;
-		padding-left: 20%;
-    padding-bottom: 4%;
-	}
+      padding-top: 5%;
+      padding-left: 20%;
+      padding-right: 20%;
+      padding-bottom: 5%;
+  }
+  
+  p {
+    text-align: justify;
+      text-align-last: left;
+    text-justify: inter-word;
+  }
+  
+  .report-img {
+      width: 60%;
+      height: auto;
+  }
+  
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
       background-color: #f1f1f1;
       padding: 1%;
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
-
+  
     }
-</style>
+  </style>
 
 <body>
   <meta charset="utf-8"/>
@@ -388,7 +401,46 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+        <h1 align="center">Data pre-process</h1>
+        <h6 align="center"> <a href="https://github.com/cpymaple"> Peiyu Chen</a></h6>
+
+        <h2>1. Abstract</h2>
+        <p>
+          In this report, we provide a brief overview of our Data pre-process.
+          This primarily involves modify the frequency of event streams.
+        </p>
+
+        <h2>2. Modify the frequency of event streams</h2>
+
+        <p>
+          The frequency of our event streams is 1000Hz. You can use  <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM/tree/main/Others/process_data/change_event_frequency/events_repacking_helper"> events_repacking_helper</a>
+          to extract event streams from the original bag and modify the frequency of event streams to a fixed frequency to meet your specific requirements. This tool is modified based on <a href=" https://github.com/HKUST-Aerial-Robotics/ESVO/tree/master/events_repacking_helper"> ESVO</a>.  
+        </p>
+
+        <p>
+          This package provides an example of preparing a bag file for <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM#3-esvio"> ESVIO</a>.
+          A bag file recorded by a stereo event camera (e.g., a pair of DAVIS sensors) typically consists of the following topics:
+          <div class="code-box">
+          <code> /dvs/left/events
+            <br>
+                 /dvs/right/events
+          </code></div>
+        </p>
+
+        <p>
+          You need to set the input and output paths as arguments in the file repacking.launch, and then run the following command 
+        </p>
+
+        <div class="code-box">
+        <code>
+          roslaunch events_repacking_helper repacking.launch
+        </code></div>
+
+        <p>
+          Finally, the output bag file will be saved in the output path you set.
+        </p>
+
+
       </div>
     </section>
 
