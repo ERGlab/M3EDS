@@ -397,7 +397,10 @@
           <h2>Introduction</h2>
           <h3>1 The overview of GVINS</h3>
           <p>GVINS, a non-linear optimization based system that tightly fuses GNSS raw measurements with visual and inertial information for real-time and drift-free state estimation. 
-            This system aims to provide accurate global 6-DoF estimation under complex indoor-outdoor environment where GNSS signals may be intermittent or even totally unavailable.</p>
+            This system aims to provide accurate global 6-DoF estimation under complex indoor-outdoor environment where GNSS signals may be intermittent or even totally unavailable.
+            <a href="https://github.com/HKUST-Aerial-Robotics/GVINS">code link</a>.
+            <a href="https://arxiv.org/pdf/2103.07899.pdf">paper link</a>.
+          </p>
           
           <figure style="text-align: center;">
             <img class="report-img" src="https://erglab.github.io/M3EDS/html/Benchmark_Evaluation/GVINS_pic/Workflow_diagram_of_GVINS.png" alt="Image description">
@@ -405,21 +408,16 @@
           </figure>
 
           <!-- <h2>GVINS Compilation Process</h2>-->
-          <h3><a href="https://github.com/HKUST-Aerial-Robotics/GVINS" class="dropdown-item">2 GVINS Compilation Process</a></h3>
-          <h4>1.1 C++11 Compiler</h4>
-          <p>This package requires some features of C++11.</p>
-          <!-- <div class="code-box">
-          <code>rosbag record /capture_node/camera/image /capture_node/events /capture_node/imu -O out.bag
-          </code></div> -->
-          <h4>1.2 ROS</h4>
-          <p>This package is developed under ROS Kinetic environment.</p>
-          <h4>1.3 Requirement</h4>
+          <h3>2 GVINS Compilation Process</h3>
+          <h4>1.1 Requirement</h4>
           <p>
-            (1)This package uses <a href="https://gitlab.com/libeigen/eigen/-/archive/3.3.3/eigen-3.3.3.zip">Eigen 3.3.3</a> for matrix manipulation.<br>
-            (2)This package use <a href="https://ceres-solver.googlesource.com/ceres-solver">ceres 1.12.0</a> to solve the non-linear optimization problem.<br>
-            (3)This package also requires <a href="https://github.com/HKUST-Aerial-Robotics/gnss_comm">gnss_comm</a> for ROS message definitions and some utility functions. Follow <a href="https://github.com/HKUST-Aerial-Robotics/gnss_comm#2-build-gnss_comm-library">those instructions</a> to build the gnss_comm package.
+            (1)This package requires some features of C++11.<br>
+            (2)This package is developed under ROS Kinetic environment.<br>
+            (3)This package uses <a href="https://gitlab.com/libeigen/eigen/-/archive/3.3.3/eigen-3.3.3.zip">Eigen 3.3.3</a> for matrix manipulation.<br>
+            (4)This package use <a href="https://ceres-solver.googlesource.com/ceres-solver">ceres 1.12.0</a> to solve the non-linear optimization problem.<br>
+            (5)This package also requires <a href="https://github.com/HKUST-Aerial-Robotics/gnss_comm">gnss_comm</a> for ROS message definitions and some utility functions. Follow <a href="https://github.com/HKUST-Aerial-Robotics/gnss_comm#2-build-gnss_comm-library">those instructions</a> to build the gnss_comm package.
           </p>
-          <h4>1.4 Build GVINS</h4>
+          <h4>1.2 Build GVINS</h4>
           <p>Clone the repository to your catkin workspace (for example ~/catkin_ws/):</p>
           <div class="code-box">
             <code>
