@@ -12,12 +12,9 @@ p {
   text-justify: inter-word;
 }
 
-.numbered-heading {
-  counter-increment: section;
-}
-
-.numbered-heading::before {
-  content: counter(section) ". ";
+.report-img {
+    width: 30%;
+    height: auto;
 }
 
 .code-box {
@@ -204,7 +201,7 @@ p {
                   <li class="nav-item dropdown">
                     <a href="#" data-bs-toggle="dropdown" class="nav-link">Contact Us </a>
                     <ul class="dropdown-menu">
-                      
+
                       <li class="nav-item">
                         <a href="http://www.fsgraduate.neu.edu.cn/2021/0916/c8025a203219/page.htm" class="dropdown-item">Xiaoguang Ma</a>
                       </li>
@@ -214,7 +211,7 @@ p {
                     </ul>
                   </li>
                 </ul>
-              </div>  
+              </div>
             </div>
             <!-- /.navbar-other -->
           </div>
@@ -234,21 +231,39 @@ p {
         <h1 align="center">Sensors Synchronization</h1>
         <h3 align="center"> <a href="https://kwanwaipang.github.io/">Guan Weipeng</a></h3>
 
-        <h1 class="numbered-heading">Abstract</h1>
+        <h1>1. Abstract</h1>
         <p>
           In this report, we will provide a brief overview of our sensor synchronization process.
           This primarily involves synchronizing event cameras, synchronizing different types of sensors, and synchronizing onboard computers across multiple platforms.
         </p>
 
-        <h1 class="numbered-heading"> The Synchronization of Event Cameras</h1>
-        <h2 class="numbered-heading"> The Synchronization of Event Cameras</h2>
+        <h1>2. The Synchronization of Event Cameras</h1>
+        <p>
+        The event camera has an additional synchronization interface, called as "sync connectors", as shown in the figure below.
+        </p>
+
+        <figure align="center">
+          <img class="report-img" src="Sensor_Synchronization/syns_connectors.png" alt="Image description">
+          <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
+        </figure>
+        <p>
+
+        The synchronization connectors are HiRose HR10A-7R-4P (male, SYNC OUTPUT) and HR10A-7R-4S (female, SYNC INPUT) connectors. Cables should use the matching connectors HR10A-7P-4S (female) and HR10A-7P-4P (male).
+        Please note that to keep full electrical isolation between different cameras, the cable should not be shielded, or if it is, the shield should not connect one end of the cable to the other.
+        Input signals can be 3.3V or 5V, depending on the VDD_IN supplied externally, output signals are 5V, as is VDD_OUT.
+        If you chain cameras together for synchronization, the clock and VDD will be 5V, for example.
+        </p>
+
+        <h2>2.1 The Synchronization of Event Cameras</h2>
 
 
 
-        <h1 class="numbered-heading"> The Synchronization of Two Onboard Computer</h1>
+        <h1>3. The Synchronization of Two Onboard Computer</h1>
+
 
 
       </div>
+
     </section>
 
 
