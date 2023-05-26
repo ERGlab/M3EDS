@@ -17,6 +17,17 @@ p {
     height: auto;
 }
 
+#video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#video-container iframe {
+  max-width: 100%;
+  max-height: auto;
+}
+
 .code-box {
     width: 70%; /* 设置固定宽度 */
     height: auto; /* 自适应高度 */
@@ -263,8 +274,19 @@ p {
           <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
         </figure>
 
-        <iframe src="//player.bilibili.com/player.html?aid=869034367&bvid=BV1xV4y1B7qF&cid=1141562890&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+        <iframe class="video-container" src="//player.bilibili.com/player.html?aid=869034367&bvid=BV1xV4y1B7qF&cid=1141562890&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
+        <p>
+          Furthermore, to validate the synchronization effect, we simultaneously started four event cameras, recorded a rosbag, and then outputted the rostopic, as shown in the figure below.
+          It can be observed that <pre<code>/DAVIS346 left/events: 4482</code></pre>, <code>/DAVIS346 right/events: 4482</code>, <code>/DVXplorer left/events: 4483</code>, and <code>/DVXplorer right/events: 4480</code>.
+          The data volume from all four event cameras is similar.
+          Additionally, from the video demo, it can be seen that when the event cameras are started, there is a waiting period until all of them have finished initializing.
+          Moreover, the difference in data volume between <code>/DAVIS346 left/events</code> and <code>/DAVIS346 left/imu</code> is only 1, and both are recorded at 1000Hz.
+        </p>
+        <figure align="center">
+          <img class="report-img" src="Sensor_Synchronization/number_of_event_after_synchronization.png" alt="Image description">
+          <figcaption>Fig. 2. The rosbag information for the four event cameras </figcaption>
+        </figure>
 
 
         <h2>3. The Synchronization of Two Onboard Computer</h2>
@@ -283,3 +305,5 @@ p {
   <script src="https://erglab.github.io/M3EDS/js/plugins.js"></script>
   <script src="https://erglab.github.io/M3EDS/js/theme.js"></script>
 </body>
+
+<!--md转html：https://marked.js.org/demo/-->
