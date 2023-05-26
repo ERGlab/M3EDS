@@ -283,10 +283,10 @@ p {
 
         <p>
           Furthermore, to validate the synchronization effect, we simultaneously started four event cameras, recorded a rosbag, and then outputted the rostopic, as shown in the figure below.
-          It can be observed that <mark>/DAVIS346 left/events: 4482</mark>, <mark>/DAVIS346 right/events: 4482</mark>, <mark>/DVXplorer left/events: 4483</mark>, and <mark>/DVXplorer right/events: 4480</mark>.
+          It can be observed that "/DAVIS346 left/events: 4482", "/DAVIS346 right/events: 4482", "/DVXplorer left/events: 4483", and "/DVXplorer right/events: 4480".
           The data volume from all four event cameras is similar.
           Additionally, from the video demo, it can be seen that when the event cameras are started, there is a waiting period until all of them have finished initializing.
-          Moreover, the difference in data volume between <<mark>>/DAVIS346 left/events</mark>> and <mark>/DAVIS346 left/imu</mark>> is only 1, and both are recorded at 1000Hz.
+          Moreover, the difference in data volume between "/DAVIS346 left/events" and "/DAVIS346 left/imu" is only 1, and both are recorded at 1000Hz.
         </p>
         <figure align="center">
           <img class="report-img" src="Sensor_Synchronization/number_of_event_after_synchronization.png" alt="Image description">
