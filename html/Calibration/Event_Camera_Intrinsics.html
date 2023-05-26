@@ -402,49 +402,119 @@
 	      <div class="code-box">
         <code>rosbag record /capture_node/camera/image /capture_node/events /capture_node/imu -O out.bag
 	      </code></div>
+        <p>
+          --/capture_node/camera/image 图像话题<br>
+          --/capture_node/events 事件话题<br>
+          --/capture_node/imu imu话题<br>
+          --out.bag 文件名<br>
+        </p>
 	      <h3 id="2、图像内参标定">2、图像内参标定</h3>
 	      <p>使用kalibr或者matlab(需要将rosbag中的图像导出)</p>
 	      <h4 id="(1)kalibr">(1)kalibr</h4>
+        <h5>i.install</h4>
+          <p>
+            前往kalibr的官网根据教程进行安装,链接为：
+            <a href="https://github.com/ethz-asl/kalibr">https://github.com/ethz-asl/kalibr</a>
+          </p>
+        <h5>ii.calib</h4>
+        <p>进入kalibr工作空间内运行以下指令(可能需要先source devel/setup.bash 一下)</p>
         <div class="code-box">
         <code>rosrun kalibr kalibr_calibrate_cameras --bag out.bag --topics /capture_node/camera/image --models pinhole-radtan --target checkerboard.yaml
 	      </code></div>
+        <p>
+          --bag 含有所需标定话题的rosbag包,这里是上面录制的out.bag<br>
+          --topics 待标定图像的topic,这里是/capture_node/camera/image<br>
+          --models 相机模型<br>
+          --target 标定板的一些参数<br>
+        </p>
 	      <p>结果如下:</p>
         <div class="code-box">
           <code>
-            k : [253.60554237,253.65337516,172.46294632,120.33187335]<br>
-            d : [-0.38353521,0.14974387,-0.00014053,0.00034018]
+            cam0:<br>
+            cam_overlaps: []<br>
+            camera_model: pinhole<br>
+            distortion_coeffs: [-0.38176694245439546, 0.14885485907996424, 3.70127391038794e-05, -0.00017056761391653452]<br>
+            distortion_model: radtan<br>
+            intrinsics: [252.37893909717883, 252.40414164107983, 173.4386346201833, 120.19819514545445]<br>
+            resolution: [346, 260]<br>
+            rostopic: /capture_node/camera/image<br>
           </code></div>
           <p></p>
         <figure align="center">
-          <img class="report-img" src="Event_Camera_Intrinsics/image_intrinsics_kalibr.jpg" alt="Image description">
-          <figcaption>Fig. 1. dvs346图像kalibr标定结果 </figcaption>
+          <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/kalibr/reprojection_error.png" alt="Image description">
+          <figcaption>Fig. 1. dvs346图像kalibr标定重投影误差 </figcaption>
         </figure>
-
-	      <h4 id="2-matlab图像过多,最好先降低图像频率,后面与imu联合标定也要用到">(2) matlab(图像过多,最好先降低图像频率,后面与imu联合标定也要用到)</h4>
+        <figure align="center">
+          <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/kalibr/intrinsics.png" alt="Image description">
+          <figcaption>Fig. 2. dvs346图像kalibr标定结果 </figcaption>
+        </figure>
+	      <h4 id="2-matlab图像过多,最好先降低图像频率,后面与imu联合标定外参也要用到">(2) matlab(图像过多,最好先降低图像频率,后面与imu联合标定外参也要用到)</h4>
 	      <h5 id="i降低图像数据频率(这里降为4hz)">i.降低图像数据频率(这里降为4hz)</h5>
-	      <p>三个终端分别指令为（分先后顺序）：</p>
+        <p>首先开启一个终端运行roscore节点</p>
+        <div class="code-box">
+          <code>roscore
+        </code></div>
+	      <p>三个终端分别指令为（分先后顺序运行）：</p>
 	      <p>降低频率：</p>
         <div class="code-box">
-          <code>rosrun topic_tools throttleessages /capture_node/camera/image 4.0 /image_raw
+          <code>rosrun topic_tools throttle messages /capture_node/camera/image 4.0 /image_raw
         </code></div>
+        <p>
+          --/capture_node/camera/image  需要降低频率的话题名
+          --/image_raw 降低频率后的话题名
+        </p>
 	      <p>录制降低频率后的image与imu:</p>
        <div class="code-box">
         <code>rosbag record /image_raw /capture_node/imu -O sample.bag(话题名改变了)
        </code></div>
+       <p>
+        --/image_raw 将降低频率后的图像话题重新跟imu一起录入
+      </p>
 
-	     <p>播放开始录制的rosbag包:</p>
+	     <p>播放含有需要降低频率话题的rosbag包:</p>
        <div class="code-box">
         <code>rosbag play out.bag
        </code></div>
  
 	     <p>这样就能得到一个包含4hz频率图像与imu数据的rosbag。</p>
+       <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/1.png" alt="Image description">
+        <figcaption>Fig. 3. 降低前后rosbag包对比图(上为处理前的，下为处理后的) </figcaption>
+      </figure>
+
 	     <h5 id="iirosbag图像导出">ii.rosbag图像导出</h5>
 	     <p>可以参考：<a href="https://zhuanlan.zhihu.com/p/552617948">Link</a></p>
+       <p>导出图像如图4所示:</p>
+       <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/matlab/out_image.png" alt="Image description">
+        <figcaption>Fig. 4. 从rosbag中导出的图像 </figcaption>
+      </figure>
 	     <h5 id="iii在matlab工具箱中进行标定">iii.在matlab工具箱中进行标定</h5>
-	     <p>结果见于链接
-        <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/4hz_image.yaml">(link)</a>
+       <p>将上述导出的图像导入至matlabCamera Calibrator工具箱中并点击上面的Calibrate进行标定:</p>
+       <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/matlab/matlab1.png" alt="Image description">
+        <figcaption>Fig. 5. matlab标定工具箱图像导入 </figcaption>
+      </figure>
 
-       </p>
+       <p>找出其中使重投影误差较大的图像并删去</p>
+       <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/matlab/matlab2.png" alt="Image description">
+        <figcaption>Fig. 6. 选中误差较大的图像并删去 </figcaption>
+      </figure>
+
+      <p>点击Export Camera Parameters将标定结果导出</p>
+      <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/matlab/matlab3.png" alt="Image description">
+        <figcaption>Fig. 7. 导出标定结果 </figcaption>
+      </figure>
+
+      <p>标定好的相机内参位于工作区中，内参标定结果如下图：</p>
+
+      <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/image/matlab/matlab4.png" alt="Image description">
+        <figcaption>Fig. 8. 内参标定结果 </figcaption>
+      </figure>
+
 	     <h3 id="3、事件相机内参标定">3、事件相机内参标定</h3>
        <p>对于事件相机内参,我们采用e2vid重建的方法重建出图像帧进行标定.</p>
        <h4>(1)e2vid</h4> 
@@ -453,13 +523,47 @@
        </p>
        <h4>(2)kalibr</h4> 
        <p>
-        通过多次试验发现,使用kalibr标定e2vid重建的图像会出现畸变值异常的情况,所以采用matlab进行标定。
+        通过e2vid可以生成重建图像,运行python代码将图片转换为rosbag进行标定,转换代码链接为：
+        <a href="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image.html">(Link)</a>.
        </p>
-       <h4>(3)matlab</h4> 
+       <div class="code-box">
+        <code>python images_to_rosbag.py --rosbag_folder /img_out --image_folder /e2calib --image_topic /dvs/image_reconstructed
+       </code></div>
        <p> 
-        根据重建的图像在matlab工具箱标定,结果见于链接
-        <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/4hz_event.yaml">(link)</a>
+        --rosbag_folder rosbag输出文件夹<br>
+        --image_topic rosbag中重建图像的topic<br>
+        至此可以得到一个事件重建图像的rosbag包,可以采取上面图像内参kalibr标定方法进行标定,结果如图9所示:
        </p>
+       <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/event/kalibr/intrinsics.png" alt="Image description">
+        <figcaption>Fig. 9. 事件重建图像标定结果 </figcaption>
+      </figure>
+      <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/event/kalibr/reprojection_error.png" alt="Image description">
+        <figcaption>Fig. 10. 重投影误差 </figcaption>
+      </figure>
+
+      <p> 
+        注:使用重建图像进行kalibr标定会出现畸变异常的情况,上面标定的是正常的,但是在多次标定的过程中会出现如图11所示的畸变异常的情况
+      </p>
+      <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/event/kalibr/errord.png" alt="Image description">
+        <figcaption>Fig. 11. 具有异常畸变的标定结果 </figcaption>
+      </figure>
+       
+       <h4>(3)matlab</h4> 
+      <p> 
+        根据重建的图像在matlab工具箱标定,步骤与图像内参matlab标定方法相同,结果如下图12所示:
+      <p> 
+      <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/event/matlab/1.png" alt="Image description">
+        <figcaption>Fig. 12. 事件重建图像标定内参 </figcaption>
+      </figure>  
+      <figure align="center">
+        <img class="report-img" src="/Event_Camera_Intrinsics/dvs346/event/matlab/error.png" alt="Image description">
+        <figcaption>Fig. 12. 事件重建图像标定重投影误差 </figcaption>
+      </figure>  
+
        <h2 id="对比分析">对比分析</h2>
 
        <p>标定结果如下：</p>
@@ -467,27 +571,19 @@
         <code>
           (1)kalibr标定结果<br>
           图像标定结果：<br>
-          k : [253.60554237,253.65337516,172.46294632,120.33187335]<br>
-          d : [-0.38353521,0.14974387,-0.00014053,0.00034018]<br>
+          k : [ 252.3789391   252.40414164  173.43863462  120.19819515] <br>
+          d : [-0.38176694  0.14885486  0.00003701 -0.00017057] <br>
+          事件标定结果：<br>
+          k : [ 253.84773123  253.88799685  174.01053551  123.19547128] <br>
+          d : [-0.38261608  0.14698837 -0.00143755 -0.00033804] <br>
           (2)matlab标定结果<br>
           图像标定结果：<br>
-          cam0:<br>
-            cam_overlaps: []<br>
-            camera_model: pinhole<br>
-            distortion_coeffs: [-0.3912, 0.1596, 0, 0]<br>
-            distortion_model: radtan<br>
-            intrinsics: [254.0080, 253.9810, 173.8548, 121.3664]<br>
-            resolution: [346, 260]<br>
-            rostopic: /iamge_raw<br>
+          k : [ 252.3789391   252.40414164  173.43863462  120.19819515] <br>
+          d : [-0.38176694  0.14885486  0.00003701 -0.00017057] <br>
           事件标定结果：<br>
-          cam0:<br>
-            cam_overlaps: []<br>
-            camera_model: pinhole<br>
-            distortion_coeffs: [-0.3908, 0.1590, 0, 0]<br>
-            distortion_model: radtan<br>
-            intrinsics: [253.6016, 253.6231, 174.1880, 121.6994]<br>
-            resolution: [346, 260]<br>
-            rostopic: /eventimage<br>
+          k : [ 253.84773123  253.88799685  174.01053551  123.19547128] <br>
+          d : [-0.38261608  0.14698837 -0.00143755 -0.00033804] <br>
+
       </code></div>
        <p>
         将以上标定结果进行对比,可以发现采用的内参标定方法的事件与图像标定结果接近,可将其拓展到没有image的事件相机(如dvxplorer)
