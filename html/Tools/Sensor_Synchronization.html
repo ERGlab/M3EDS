@@ -12,6 +12,13 @@ p {
   text-justify: inter-word;
 }
 
+.report-video {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    height: auto;
+}
+
 .report-img {
     width: 30%;
     height: auto;
@@ -263,9 +270,7 @@ p {
           <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
         </figure>
 
-        <div style="justify-content: center; width: 50%; height: auto;">
-        <iframe src="//player.bilibili.com/player.html?aid=869034367&bvid=BV1xV4y1B7qF&cid=1141562890&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-        </div>
+        <iframe class="report-video" src="//player.bilibili.com/player.html?aid=869034367&bvid=BV1xV4y1B7qF&cid=1141562890&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
         <p>
           Furthermore, to validate the synchronization effect, we simultaneously started four event cameras, recorded a rosbag, and then outputted the rostopic, as shown in the figure below.
