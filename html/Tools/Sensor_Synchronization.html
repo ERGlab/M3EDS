@@ -1,19 +1,35 @@
 <style>
-  #myDiv {
-    padding-top: 4%;
-		padding-left: 20%;
-    padding-bottom: 4%;
-	}
-  .code-box {
-      width: 70%; /* 设置固定宽度 */
-      height: auto; /* 自适应高度 */
-      border: 1px solid #ccc;
-      border-radius: 0%;
-      background-color: #f1f1f1;
-      padding: 1%;
-      overflow: auto; /* 添加滚动条以适应内容过长的情况 */
+#myDiv {
+      margin-top: 5%;
+      margin-bottom: 5%;
+      margin-left: 5%;
+      margin-right: 5%;
+}
 
-    }
+p {
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+}
+
+.numbered-heading {
+  counter-increment: section;
+}
+
+.numbered-heading::before {
+  content: counter(section) ". ";
+}
+
+.code-box {
+    width: 70%; /* 设置固定宽度 */
+    height: auto; /* 自适应高度 */
+    border: 1px solid #ccc;
+    border-radius: 0%;
+    background-color: #f1f1f1;
+    padding: 1%;
+    overflow: auto; /* 添加滚动条以适应内容过长的情况 */
+
+  }
 </style>
 
 <body>
@@ -214,6 +230,24 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <!--在此插入内容-->
+
+        <h1 align="center">Sensors Synchronization</h1>
+        <h3 align="center"> <a href="https://kwanwaipang.github.io/">Guan Weipeng</a></h3>
+
+        <h1 class="numbered-heading">Abstract</h1>
+        <p>
+          In this report, we will provide a brief overview of our sensor synchronization process.
+          This primarily involves synchronizing event cameras, synchronizing different types of sensors, and synchronizing onboard computers across multiple platforms.
+        </p>
+
+        <h1 class="numbered-heading"> The Synchronization of Event Cameras</h1>
+        <h2 class="numbered-heading"> The Synchronization of Event Cameras</h2>
+
+
+
+        <h1 class="numbered-heading"> The Synchronization of Two Onboard Computer</h1>
+
+
       </div>
     </section>
 
