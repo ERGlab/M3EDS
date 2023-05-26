@@ -16,7 +16,7 @@
 
     }
   .report-img {
-  width: 30%;
+  width: auto;
   height: auto;
 }
 </style>
@@ -236,9 +236,10 @@
 	      <p>结果如下:</p>
         <div class="code-box">
           <code>
-            k : [253.60554237,253.65337516,172.46294632,120.33187335]
+            k : [253.60554237,253.65337516,172.46294632,120.33187335]<br>
             d : [-0.38353521,0.14974387,-0.00014053,0.00034018]
           </code></div>
+          <p></p>
         <figure align="center">
           <img class="report-img" src="Event_Camera_Intrinsics/image_intrinsics_kalibr.jpg" alt="Image description">
           <figcaption>Fig. 1. dvs346图像kalibr标定结果 </figcaption>
@@ -265,7 +266,10 @@
 	     <h5 id="iirosbag图像导出">ii.rosbag图像导出</h5>
 	     <p>可以参考：<a href="https://zhuanlan.zhihu.com/p/552617948">Link</a></p>
 	     <h5 id="iii在matlab工具箱中进行标定">iii.在matlab工具箱中进行标定</h5>
-	     <p>结果见于/Event_Camera_Intrinsics/4hz_iamge.yaml</p>
+	     <p>结果见于链接
+        <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/4hz_image.yaml">(link)</a>
+
+       </p>
 	     <h3 id="3、事件相机内参标定">3、事件相机内参标定</h3>
        <p>对于事件相机内参,我们采用e2vid重建的方法重建出图像帧进行标定.</p>
        <h4>(1)e2vid</h4> 
@@ -274,7 +278,39 @@
        </p>
        <h4>(2)kalibr</h4> 
        <p>
-        通过多次试验发现,使用kalibr标定
+        通过多次试验发现,使用kalibr标定e2vid重建的图像会出现畸变值异常的情况,所以采用matlab进行标定。
+       </p>
+       <h4>(3)matlab</h4> 
+       <p> 
+        根据重建的图像在matlab工具箱标定,结果见于链接
+        <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/4hz_event.yaml">(link)</a>
+       </p>
+       <h2 id="对比分析">对比分析</h2>
+
+       <p>标定结果如下：</p>
+       <div class="code-box">
+        <code>
+          图像标定结果：<br>
+          cam0:<br>
+            cam_overlaps: []<br>
+            camera_model: pinhole<br>
+            distortion_coeffs: [-0.3912, 0.1596, 0, 0]<br>
+            distortion_model: radtan<br>
+            intrinsics: [254.0080, 253.9810, 173.8548, 121.3664]<br>
+            resolution: [346, 260]<br>
+            rostopic: /iamge_raw<br>
+          事件标定结果：<br>
+          cam0:<br>
+            cam_overlaps: []<br>
+            camera_model: pinhole<br>
+            distortion_coeffs: [-0.3908, 0.1590, 0, 0]<br>
+            distortion_model: radtan<br>
+            intrinsics: [253.6016, 253.6231, 174.1880, 121.6994]<br>
+            resolution: [346, 260]<br>
+            rostopic: /eventimage<br>
+      </code></div>
+       <p>
+        将以上标定结果进行对比,可以发现采用的内参标定方法的事件与图像标定结果接近,可将其拓展到没有image的事件相机(如dvxplorer)
        </p>
 
      </div>
