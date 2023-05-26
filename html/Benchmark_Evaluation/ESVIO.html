@@ -1,20 +1,33 @@
 <style>
   #myDiv {
-    padding-top: 4%;
-		padding-left: 20%;
-    padding-bottom: 4%;
-	}
+      padding-top: 5%;
+      padding-left: 20%;
+      padding-right: 20%;
+      padding-bottom: 5%;
+  }
+  
+  p {
+    text-align: justify;
+      text-align-last: left;
+    text-justify: inter-word;
+  }
+  
+  .report-img {
+      width: 60%;
+      height: auto;
+  }
+  
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
       background-color: #f1f1f1;
       padding: 1%;
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
-
+  
     }
-</style>
+  </style>
 
 <body>
   <meta charset="utf-8"/>
@@ -388,7 +401,38 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+        <h1 align="center">ESVIO: Event-based Stereo Visual Inertial Odometry</h1>
+        <h3 align="center"> <a href="https://github.com/cpymaple">Peiyu Chen</a>, <a href="https://kwanwaipang.github.io/">Weipeng Guan</a></h3>
+
+        <h1>Introduction</h1>
+        <p>
+        ESVIO is the first event-based stereo visual-inertial odometry, which leverages the complementary advantages of event streams, standard images,
+        and inertial measurements. The pipeline includes the ESIO (purely event-based) and ESVIO (event with image-aided), which achieves spatial and temporal associations be-
+        tween consecutive stereo event streams. A well-design back-end tightly-coupled fused the multi-sensor measurement to obtain robust state estimation
+        under aggressive motion and HDR scenes. Below we demonstrates the structure of ESVIO and ESIO pipelines, and ESVIO provides the real-time pose
+        feedback for drones under aggressive motion.
+        </p>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="ESVIO_pic/framework.png" alt="Image description">
+          <figcaption>Fig. 1. The structure of ESVIO and ESIO pipelines</figcaption>
+        </figure>
+        <br>
+
+        <figure style="text-align: center;">
+          <img style = "width: 60%" src="ESVIO_pic/firstpic.png" alt="Image description">
+          <figcaption style="text-align: left;">Fig. 2. ESVIO provides robust and accurate, real-time pose feedback for drones under aggressive motion. Events
+            provide rich and reliable features, while only a few features are tracked in image frames in high-speed motion. Left bottom:
+            stereo event-based feature tracking. Right bottom: stereo image-based feature tracking.</figcaption>
+        </figure>
+
+        
+
+
+
+        <h1>Experiment</h1>
+
+        <h1>Result</h1>
       </div>
     </section>
 
