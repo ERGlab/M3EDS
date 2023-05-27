@@ -6,7 +6,7 @@
     padding-bottom: 5%;
 	}
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
@@ -15,6 +15,7 @@
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
 
     }
+
 </style>
 
 <body>
@@ -390,6 +391,40 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <!--在此插入内容-->
+        <h1 align="center">Driving</h1>
+        <h2>1 Introduction</h2>
+        <h3>1.1 sensor list</h3>
+        <h4>
+          (1)3D LiDAR sensor (<a href="https://velodynelidar.com/products/hdl-32e/">HDL 32E Velodyne</a>): (360 HFOV, +10~-30 VFOV, 80m range, 10Hz)<br>
+          (2)IMU (<a href="https://www.xsens.com/products/mti-10-series">Xsens Mti-10</a>, 100 Hz, AHRS)<br>
+          (3)GNSS receiver: u-blox M8T or u-blox F9P (to be updated)<br>
+          (4)camera:1920X1200 pixels, 79.4°X96.8°, 10Hz<br>
+          (5)<a href="https://www.novatel.com/products/span-gnss-inertial-systems/span-combined-systems/span-cpt/">SPAN-CPT</a>:(RTK GNSS/INS, RMSE: 5cm, 1Hz)
+        </h4>
+        <h2>2 Data</h2>
+        <h3>2.1 Urban_day</h3>
+        <center>
+          <table style="width: 80%;">
+            <tr>
+              <td rowspan="3"><img style="width: 40%; height: auto;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/1.gif" alt="Image"></td>
+              <td>
+                <h3>Data | <a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>GT | <a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h3>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>Calib | <a href="https://github.com/Huang-shulei/GIR_uart">txt</a></h3>
+              </td>
+            </tr>
+          </table>
+        </center>
+        
+        
       </div>
     </section>
 
