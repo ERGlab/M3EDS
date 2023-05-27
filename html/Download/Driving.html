@@ -16,6 +16,7 @@
 
     }
 
+
 </style>
 
 <body>
@@ -393,32 +394,46 @@
         <!--在此插入内容-->
         <h1 align="center">Driving</h1>
         <h2>1 Introduction</h2>
-        <h3>1.1 sensor list</h3>
+        <h3>1.1 Sensor list</h3>
         <h4>
           (1)3D LiDAR sensor (<a href="https://velodynelidar.com/products/hdl-32e/">HDL 32E Velodyne</a>): (360 HFOV, +10~-30 VFOV, 80m range, 10Hz)<br>
           (2)IMU (<a href="https://www.xsens.com/products/mti-10-series">Xsens Mti-10</a>, 100 Hz, AHRS)<br>
           (3)GNSS receiver: u-blox M8T or u-blox F9P (to be updated)<br>
-          (4)camera:1920X1200 pixels, 79.4°X96.8°, 10Hz<br>
+          (4)camera: 1920X1200 pixels, 79.4°X96.8°, 10Hz<br>
           (5)<a href="https://www.novatel.com/products/span-gnss-inertial-systems/span-combined-systems/span-cpt/">SPAN-CPT</a>:(RTK GNSS/INS, RMSE: 5cm, 1Hz)
         </h4>
+        <h3>1.2 Sensor setups</h3>
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="PL_EVIO_pic/The framework of PL-EVIO.png" alt="Image description">
+          <figcaption>Fig. 1. The location of sensors </figcaption>
+        </figure>
         <h2>2 Data</h2>
         <h3>2.1 Urban_day</h3>
         <center>
           <table style="width: 80%;">
             <tr>
-              <td rowspan="3"><img src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/test.gif" alt="Image"></td>
+              <td rowspan="3"><img style="text-align: center; width: 70%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/test.gif" alt="Image"></td>
               <td>
-                <h3>Data | <a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h3>
+                <h3 style="text-align: left;">Data：</h3>
+              </td>
+              <td>
+                <h3 style="text-align: center;"><a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h3>
               </td>
             </tr>
             <tr>
               <td>
-                <h3>GT | <a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h3>
+                <h3 style="text-align: left;">GT：</h3>
+              </td>
+              <td>
+                <h3 style="text-align: center;"><a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h3>
               </td>
             </tr>
             <tr>
               <td>
-                <h3>Calib | <a href="https://github.com/Huang-shulei/GIR_uart">txt</a></h3>
+                <h3 style="text-align: left;">Calibration：</h3>
+              </td>
+              <td>
+                <h3 style="text-align: center;"><a href="https://github.com/Huang-shulei/GIR_uart">txt</a></h3>
               </td>
             </tr>
           </table>
