@@ -15,6 +15,10 @@
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
 
     }
+  .report-img {
+    width: 60%;
+    height: auto;
+  }
 </style>
 
 <body>
@@ -392,6 +396,55 @@
         <!--在此插入内容-->
         <h1 align="center">ROS Uart Package of GNSS</h1>
         <h3 align="center"> <a href="https://github.com/Huang-shulei">Shulei Huang</a></h3>
+        <h2>1 The overview of our GNSS/INS-RTK</h2>
+        <p>The GNSS/INS-RTK that we use is the <a href="https://doc.hipnuc.com/doc_gen/CH300/CH310_um_cn.pdf">CH310S_4G</a> of <a href="http://www.hipnuc.com/index.html">HiPNUC</a>. 
+          CH310S is a high-performance and high-precision single antenna GNSS/INS-RTK integrated navigation system that utilizes high-performance IMU, 
+          full frequency RTK-GNSS system, odometer and other sensors, and is equipped with self-developed data fusion algorithms. 
+          It can output real-time navigation information such as position, speed, and attitude timing.  
+        </p>
+        <h2>2 GIR_uart Compilation Process</h2>
+        <p>
+          We have designed a ROS package based on the serial port protocol of CH310S_4G, which can read and convert serial port information into rostopic. 
+          Here are the steps to compile and use the <a href="https://github.com/Huang-shulei/GIR_uart">GIR_uart</a>:
+        </p>
+        <h3>2.1 Requirement</h3>
+        <p>
+          (1)This package uses serial.
+        </p>
+        <div class="code-box">
+          <code>
+            sudo apt-get install ros-[your ros edition]-serial
+          </code>
+        </div>
+        <h3>2.2 Build GIR_uart</h3>
+        <div class="code-box">
+          <code>
+            cd ~/catkin_ws/src<br>
+            git clone https://github.com/Huang-shulei/GIR_uart.git<br>
+            cd ~/catkin_ws<br>
+            catkin_make<br>
+            source ~/catkin_ws/devel/setup.bash
+          </code>
+        </div>
+        <h3>2.3 Run GIR_uart</h3>
+        <div class="code-box">
+          <code>
+            rosrun GIR_uart uart_node
+          </code>
+        </div>
+        <h2>3 The topic list of GIR_uart</h2>
+        <div class="code-box">
+          <code>
+            /IMU (Raw information of 6-axis IMU)<br>
+            /GNSS_RTK (RTK positioning information, including longitude, latitude, and altitude)
+          </code>
+        </div>
+        <figure style="text-align: center;">
+          <img class="report-img" src="https://erglab.github.io/M3EDS/html/Tools/ROS_Uart_Package_of_GNSS_pic/ROS_Uart_Package_of_GNSS.png" alt="Image description">
+          <figcaption>Fig. 1. The topic list of GIR_uart</figcaption>
+        </figure>
+
+
       </div>
     </section>
 
