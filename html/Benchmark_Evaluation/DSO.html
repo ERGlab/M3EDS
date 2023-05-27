@@ -388,7 +388,35 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+        <h1 align="center">Direct Sparse Odometry</h1>
+        <h3 align="center"> <a href="https://github.com/xukang2311">Kang Xu</a></h3>
+        <h2>Introduction</h2>
+        <p>
+          Direct Sparse Odometry (DSO) was a visual odometry method based on a novel, 
+          highly accurate sparse and direct structure and motion formulation. 
+          It combined a fully direct probabilistic model (minimizing a photometric error) with consistent, 
+          joint optimization of all model parameters, including geometry-represented as inverse depth in a reference frame-and camera motion. 
+          This was achieved in real time by omitting the smoothness prior used in other direct methods and instead sampling pixels evenly throughout the images. 
+          Since our method does not depend on keypoint detectors or descriptors, 
+          it can naturally sample pixels from across all image regions that have intensity gradient, 
+          including edges or smooth intensity variations on essentially featureless walls. 
+          The proposed model integrates a full photometric calibration, accounting for exposure time, lens vignetting, and non-linear response functions. 
+          The presented approach significantly outperformed state-of-the-art direct and indirect methods in a variety of real-world settings, 
+          both in terms of tracking accuracy and robustness.
+          <a href="https://github.com/JakobEngel/dso">code link</a>.
+          <a href="https://ieeexplore.ieee.org/abstract/document/7898369">paper link</a>.
+          <a href="https://vision.in.tum.de/dso">vedio link</a>.
+          
+        </p> 
+        
+        <figure style="text-align: center;">
+          <img class="report-img" src="Benchmark_Evaluation/DSO_pic/2.jpg" alt="Image description">
+          <figcaption>Fig. 1. Workflow diagram of DSO(cite from: <a href="https://zhuanlan.zhihu.com/p/29177540">link</a>)</figcaption>
+        </figure>
+        <figure style="text-align: center;">
+          <img class="report-img" src="Benchmark_Evaluation/DSO_pic/1.jpg" alt="Image description">
+          <figcaption>Fig. 2. Example of DSO Operation</figcaption>
+        </figure>
       </div>
     </section>
 
