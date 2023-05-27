@@ -6,7 +6,7 @@
     padding-bottom: 5%;
 	}
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
@@ -390,6 +390,104 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <!--在此插入内容-->
+        <h1 align="center">Event Reconstruction Image</h1>
+        <h3 align="center"> <a href="https://github.com/Huang-shulei">Shulei Huang</a></h3>
+        <h2>1 The overview of event reconstruction image</h2>
+        <p>
+          Due to the unique way event cameras collect data, they cannot directly use calibration methods such as Kalibr for images. 
+          Here, we will introduce a method of reconstructing images from events using deep learning, 
+          which is referenced from the paper <a href="https://rpg.ifi.uzh.ch/docs/TPAMI19_Rebecq.pdf">High Speed and High Dynamic Range Video with an Event Camera</a>.
+          <a href="https://github.com/uzh-rpg/e2calib">code link</a>.
+        </p>
+        <iframe src="https://www.youtube.com/watch?v=eomALySSGVU" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="text-align: center; display: block; margin: 0 auto; width: 60%; height: 40vh;"></iframe>
+        
+        <h2>2 Environment configuration</h2>
+        <p>
+          This package is based on Pytorch, so it needs to be run in the virtual environment of Anaconda. 
+          The following will introduce the environment configuration process of <a href="https://github.com/uzh-rpg/e2calib">E2calib</a>:
+        </p>
+        <h3>2.1 Requirement</h3>
+        <P>
+          (1)Pytorch >= 1.0<br>
+          (2)Numpy,Scipy,H5py,Tqdm,Rosbag<br>
+          (3)Python<br>
+          (4)OpenCV
+        </P>
+        <h3>2.2 Configurate environment with Anaconda</h3>
+        <div class="code-box">
+          <code>
+            conda create -n E2calib python=3.7<br>
+            conda activate E2calib<br>
+            conda install numpy scipy h5py tqdm<br>
+            conda install -c conda-forge opencv<br>
+            conda install pytorch torchvision cudatoolkit=$your_cuda_version<br>
+            #The specific installation commands for Python are subject to the official website.<br>
+            conda install pyyaml pycryptodomex<br>
+            pip install gnupg rospkg<br>
+            #rosbag needs these pyyaml pycryptodomex gnupg rospkg<br>
+            pip install rosbag 
+          </code>
+        </div>
+        <h2>3 Run</h2>
+        <p>
+          Run the following code in a virtual environment called <code>E2calib</code> to reconstructe image:
+        </p>
+        <h3>3.1 Convert the event flow in rosbag to .h5 format</h3>
+        <div class="code-box">
+          <code>
+            cd python<br>
+            python convert.py --input_file test.bag --output_file test.h5 --ros_topic /davis/events 
+          </code>
+        </div>
+        <p>
+          <code>--input_file</code> : the address of the rosbag that needs to be converted.<br>
+          <code>--output_file</code> : the address of the output .h5 file.<br>
+          <code>--ros_topic</code> : the topic name of the event stream that needs to be converted in rosbag.
+        </p>
+        <h3>3.2 Offline reconstructe the .h5 file into an image through a pre-trained model</h3>
+        <p>
+          Download pre-trained model:
+        </p>
+        <div class="code-box">
+          <code>
+            cd reconstruction/e2vid<br>
+            wget "http://rpg.ifi.uzh.ch/data/E2VID/models/E2VID_lightweight.pth.tar" -O pretrained/E2VID_lightweight.pth.tar
+          </code>
+        </div>
+        <p>
+          Offline reconstructe image:
+        </p>
+        <div class="code-box">
+          <code>
+            python offline_reconstruction.py  --h5file test.h5 --output_folder path_to_folder --freq_hz 5 --upsample_rate 1 --height 260 --width 346
+          </code>
+        </div>
+        <p>
+          <code>--h5file</code> : the address of the input .h5 file.<br>
+          <code>--output_folder</code> : the output address of the reconstructed image.<br>
+          <code>--freq_hz</code> : the frame rate of the reconstructed image.<br>
+          <code>--upsample_rate</code> : Upsample rate.<br>
+          <code>--height</code> : the height of the reconstructed image.<br>
+          <code>--width</code> : the width of the reconstructed image.
+        </p>
+        <h2>4 Our reconstruction image</h2>
+        <figure style="text-align: center;">
+          <img style="width: 40%; height: 50%;" src="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image_pic/reconstruction_1.png" alt="Image description">
+          <img style="width: 40%; height: 50%;" src="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image_pic/reconstruction_2.png" alt="Image description">
+          <img style="width: 40%; height: 50%;" src="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image_pic/reconstruction_3.png" alt="Image description">
+          <img style="width: 40%; height: 50%;" src="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image_pic/reconstruction_4.png" alt="Image description">
+          <figcaption>Fig. 1. Our reconstruction image</figcaption>
+        </figure>
+
+
+
+
+        
+
+
+
+
+
       </div>
     </section>
 
