@@ -389,7 +389,56 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+        <h1 align="center">LeGO-LOAM</h1>
+        <h3 align="center"> <a href="https://github.com/lxw919">Lv Xianwei</a></h3>
+        <h2>Introduction</h2>
+        <p>
+          LeGO-LOAM is a lightweight and ground-optimized lidar odometry and mapping method, LeGO-LOAM, for realtime six degree-of-freedom pose estimation with ground vehicles. 
+          LeGO-LOAM is lightweight, as it can achieve realtime pose estimation on a low-power embedded system. LeGOLOAM is ground-optimized, as it leverages the presence of a ground plane in its segmentation and optimization steps. 
+          It first apply point cloud segmentation to filter out noise, and feature extraction to obtain distinctive planar and edge features. 
+          A two-step Levenberg-Marquardt optimization method then uses the planar and edge features to solve different components of the six degree-of-freedom transformation across consecutive scans. 
+                    Here are some reference links:
+          <a href="https://github.com/RobustFieldAutonomyLab/LeGO-LOAM.git">code link</a>.
+          <a href="https://ieeexplore.ieee.org/abstract/document/8594299/">paper link</a>.
+          
+        </p> 
+        
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="legoloam_pic/frame.png" alt="Image description">
+          <figcaption>Fig. 1. Workflow diagram of LeGO-LOAM</figcaption>
+        </figure>
+
+        <h3>2 <LeGO-LOAM></LeGO-LOAM> Compilation Process</h3>
+        <h4>2.1 Requirement</h4>
+        <p>
+          ubuntu20.04 、ros-noetic、cmake、gcc、g++、eigen、pcl1.10、gtsam、code、bag       </p>
+        <h4>2.2 Build LeGO-LOAM</h4>
+        <p>Clone the repository and catkin_make:</p>
+        <div class="code-box">
+          <code>
+            cd ~/catkin_ws/src<br>
+            git clone https://github.com/RobustFieldAutonomyLab/LeGO-LOAM.git <br>
+            cd ../<br>
+            catkin_make<br>
+            source ~/catkin_ws/devel/setup.bash
+          </code>
+        </div>
+        
+        <h4>2.3 Run LeGO-LOAM</h4>
+       
+        <div class="code-box">
+          <code>
+            roslaunch lego_loam run.launch<br>
+            播放数据集，虽然/imu/data 是可选的，但如果提供它可以大大提高估计精度：<br>
+            rosbag play *.bag --clock --topic /velodyne_points /imu/data <br>
+
+          </code>
+        </div>
+
+        
+        <h1>Experiment</h1>
+
+        <h1>Result</h1>
       </div>
     </section>
 

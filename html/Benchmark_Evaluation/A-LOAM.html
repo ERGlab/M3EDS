@@ -390,7 +390,68 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+        <h1 align="center">A-LOAM</h1>
+        <h3 align="center"> <a href="https://github.com/lxw919">Lv Xianwei</a></h3>
+        <h2>Introduction</h2>
+        <p>
+          LOAM is a real-time method for odometry and mapping using range measurements from a 2-axis lidar moving
+          in 6-DOF. 
+          It achieves both low-drift and low-computational complexity with-
+          out the need for high accuracy ranging or inertial measurements.
+          The key idea in obtaining this level of performance is the
+          division of the complex problem of simultaneous localization and
+          mapping, which seeks to optimize a large number of variables
+          simultaneously, by two algorithms. 
+          One algorithm performs
+          odometry at a high frequency but low fidelity to estimate velocity
+          of the lidar.
+          Another algorithm runs at a frequency of an order of
+          magnitude lower for fine matching and registration of the point
+          cloud.
+          Combination of the two algorithms allows the method to
+          map in real-time. The method has been evaluated by a large set
+          of experiments as well as on the KITTI odometry benchmark.
+          Here are some reference links:
+          <a href="GitHub - HKUST-Aerial-Robotics/A-LOAM: Advanced implementation of LOAM">code link</a>.
+          <a href="https://www.ri.cmu.edu/pub_files/2014/7/Ji_LidarMapping_RSS2014_v8.pdf">paper link</a>.
+          
+        </p> 
+        
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="aloam_pic/frame.png" alt="Image description">
+          <figcaption>Fig. 1. Workflow diagram of LOAM</figcaption>
+        </figure>
+
+        <h3>2 <LOAM></LOAM> Compilation Process</h3>
+        <h4>2.1 Requirement</h4>
+        <p>
+          ubuntu20.04 、ros-noetic、cmake、gcc、g++、opencv、cv-bridge、eigen、pcl1.10、ceres-solver-1.14.0、aloam源码、bag包。        </p>
+        <h4>2.2 Build A-LOAM</h4>
+        <p>Clone the repository and catkin_make:</p>
+        <div class="code-box">
+          <code>
+            cd ~/catkin_ws/src<br>
+            git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git <br>
+            cd ../<br>
+            catkin_make<br>
+            source ~/catkin_ws/devel/setup.bash
+          </code>
+        </div>
+        <p>if you fail in this step, try to find another computer with clean system or reinstall Ubuntu and ROS</p>
+        
+        <h4>2.3 Run LOAM</h4>
+       
+        <div class="code-box">
+          <code>
+            roslaunch aloam_velodyne xxxxx.launch<br>
+
+          </code>
+        </div>
+
+        
+        <h1>Experiment</h1>
+
+        <h1>Result</h1>
       </div>
     </section>
 
