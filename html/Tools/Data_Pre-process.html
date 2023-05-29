@@ -417,24 +417,55 @@
           to extract event streams from the original bag and modify the frequency of event streams to a fixed frequency to meet your specific requirements. This tool is modified based on <a href=" https://github.com/HKUST-Aerial-Robotics/ESVO/tree/master/events_repacking_helper"> ESVO</a>.  
         </p>
 
+        <h3>2.1 Events_repacking_helper Installation</h3>
+        
+        <p>
+          After cloning this repository, you can run the following command to install this tool
+
+          <div class="code-box">
+            <code> cd ~/catkin_ws/src
+              <br>
+                   catkin build events_repacking_helper
+            </code></div>
+        </p>
+
+
         <p>
           This package provides an example of preparing a bag file for <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM#3-esvio"> ESVIO</a>.
           A bag file recorded by a stereo event camera (e.g., a pair of DAVIS sensors) typically consists of the following topics:
           <div class="code-box">
-          <code> /dvs/left/events
+          <code> /davis_left/events
             <br>
-                 /dvs/right/events
+                 /davis_right/events
           </code></div>
         </p>
 
         <p>
-          You need to set the input and output paths as arguments in the file repacking.launch, and then run the following command 
+           The original frequency of /davis_left/events is 60Hz: 
+        </p>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="Data_Pre-process/60hz.jpg" alt="Image description">
+          <figcaption>Fig. 1. The original frequency of /davis_left/events topic is 60Hz</figcaption>
+        </figure>
+
+        <p>
+          You need to set the input and output paths as arguments in the file repacking.launch and change the event topics in the file EventMessageEditor.cpp, and then run the following command 
         </p>
 
         <div class="code-box">
         <code>
           roslaunch events_repacking_helper repacking.launch
         </code></div>
+
+        <p>
+          After running the above command, the frequency of event streams will be modified to 1000Hz as follow:
+        </p>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="Data_Pre-process/1000hz.jpg" alt="Image description">
+          <figcaption>Fig. 2. The modified frequency of /davis_left/events topic is 1000Hz</figcaption>
+        </figure>
 
         <p>
           Finally, the output bag file will be saved in the output path you set.
