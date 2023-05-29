@@ -390,7 +390,7 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <h1 align="center">VINS-Mono</h1>
-        <h3 align="center"> <a href="https://github.com/lxw919">Lv Xianwei</a></h3>
+        <h3 align="center"> <a href="https://github.com/lxw919">Xianwei Lv</a></h3>
         <h2>Introduction</h2>
         <p>
           VINS-MONO is a robust and versatile monocular visual-inertial state estimator. 
@@ -409,15 +409,89 @@
         
         <figure style="text-align: center;">
           <img style = "width: 70%" src="Vins-mono_pic/frame.png" alt="Image description">
-          <figcaption>Fig. 1. Workflow diagram of VINS-MONOlink</figcaption>
+          <figcaption>Fig. 1. Workflow diagram of VINS-MONO</figcaption>
         </figure>
 
         <h3>2 <VINS-Mono></VINS-Mono> Compilation Process</h3>
         <h4>2.1 Requirement</h4>
         <p>
           This package requires ubuntu20.04 、ros-noetic、cmake、gcc、g++、 Pangolin_v0.5、opencv-3.3.1、cv-bridge、eigen-3.3.3、ceres-solver-1.14.0、vins-mono code、bag<br>
-
+          
+          During the installation of third-party libraries, there may be many version mismatch issues. <br>
+          Below are just examples of installation. <br>
+          Please make sure to match the versions, otherwise compilation will have significant problems. <br>
+          If there are any issues during the appeal process, please search online to resolve them.<br>
         </p>
+
+        <p>install dependence</p>
+        <div class="code-box">
+          <code>
+            sudo apt-get update <br>
+            sudo apt-get install git gcc g++ vim make cmake <br>
+          </code>
+        </div>
+
+        <p>install Pangolin</p>
+        <div class="code-box">
+          <code>
+            sudo apt-get install libglew-dev libboost-dev libboost-thread-dev libboost-filesystem-dev <br>
+            sudo apt-get install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswscale-dev libpng-dev <br>
+            download <a href="https://github.com/stevenlovegrove/Pangolin/archive/refs/tags/v0.6.zip">Pangolin</a> <br>
+            cd Pangolin <br>
+            mkdir build && cd build<br>
+            cmake -DCPP11_NO_BOOST=1 .. <br>
+            make <br>
+            sudo make install <br>
+          </code>
+        </div>
+
+        <p>install OpenCV</p>
+        <div class="code-box">
+          <code>
+            sudo apt-get install build-essential libgtk2.0-dev libavcodec-dev  <br>
+            sudo apt-get install libavformat-dev libjpeg.dev libtiff5.dev  <br>
+            sudo apt-get install libswscale-dev libjasper-dev  <br>
+            sudo apt-get install libcanberra-gtk-module libcanberra-gtk3-module  <br>
+            download <a href="https://github.com/opencv/opencv/releases">opencv</a> <br>
+            cd opencv <br>
+            mkdir build && cd build <br>
+            cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..<br>
+            make <br>
+            sudo make install <br>
+          </code>
+        </div>
+
+        <p>install Eigen3</p>
+        <div class="code-box">
+          <code>
+            download <a href="https://github.com/eigenteam/eigen-git-mirror">Eigen3</a> <br>
+            cd eigen3<br>
+            mkdir build && cd build<br>
+            cmake ..<br>
+            make<br>
+            sudo make install<br>
+          </code>
+        </div>
+
+        <p>install Ceres</p>
+        <div class="code-box">
+          <code>
+            sudo apt-get install libgoogle-glog-dev libgflags-dev<br>
+            sudo apt-get install libatlas-base-dev<br>
+            download <a href="http://ceres-solver.org/ceres-solver-2.1.0.tar.gz">Ceres</a> <br>
+            mkdir ceres-bin <br>
+            cd ceres-bin <br>
+            cmake ../ceres-solver-1.14.0 <br>
+            make  <br>
+            sudo make install <br>
+
+          </code>
+        </div>    
+
+
+
+
+
         <h4>2.2 Build VINS-MONO</h4>
         <p>Clone the repository and catkin_make:</p>
         <div class="code-box">
@@ -429,7 +503,6 @@
             source ~/catkin_ws/devel/setup.bash
           </code>
         </div>
-        <p>if you fail in this step, try to find another computer with clean system or reinstall Ubuntu and ROS</p>
         
         <h4>2.3 Run VINS-MONO</h4>
        
