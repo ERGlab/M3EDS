@@ -411,7 +411,50 @@
         <h3>2 <LeGO-LOAM></LeGO-LOAM> Compilation Process</h3>
         <h4>2.1 Requirement</h4>
         <p>
-          ubuntu20.04 、ros-noetic、cmake、gcc、g++、eigen、pcl1.10、gtsam、code、bag       </p>
+          ubuntu20.04 、ros-noetic、cmake、gcc、g++、eigen、pcl1.10、gtsam、code、bag <br>
+          During the installation of third-party libraries, there may be many version mismatch issues. <br>
+          Below are just examples of installation. <br>
+          Please make sure to match the versions, otherwise compilation will have significant problems. <br>
+          If there are any issues during the appeal process, please search online to resolve them.<br> 
+              </p>
+
+              <p>install dependence</p>
+              <div class="code-box">
+                <code>
+                  sudo apt-get update <br>
+                  sudo apt-get install git gcc g++ vim make cmake <br>
+                </code>
+              </div>
+      
+              <p>install Eigen3</p>
+              <div class="code-box">
+                <code>
+                  download <a href="https://github.com/eigenteam/eigen-git-mirror">Eigen3</a> <br>
+                  cd eigen3<br>
+                  mkdir build && cd build<br>
+                  cmake ..<br>
+                  make<br>
+                  sudo make install<br>
+                </code>
+              </div>
+      
+              
+              
+              <p>install gtsam</p>
+              <div class="code-box">
+                <code>
+                  wget -O ~/Downloads/gtsam.zip https://github.com/borglab/gtsam/archive/4.0.0-alpha2.zip<br>
+                  cd ~/Downloads/ && unzip gtsam.zip -d ~/Downloads/<br>
+                  cd ~/Downloads/gtsam-4.0.0-alpha2/<br>
+                  mkdir build && cd build<br>
+                  cmake ..<br>
+                  make<br>
+                  sudo make install<br>
+      
+                </code>
+              </div>
+
+
         <h4>2.2 Build LeGO-LOAM</h4>
         <p>Clone the repository and catkin_make:</p>
         <div class="code-box">
