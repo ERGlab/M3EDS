@@ -390,16 +390,95 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <h1 align="center">IMU Intrinsics</h1>
-        <h6 align="center"> <a href="https://github.com/lxw919">Lv Xianwei</a></h6>
+        <h6 align="center"> <a href="https://github.com/lxw919">Xianwei Lv</a></h6>
+
         <h2 id="简介：">简介：</h2>
         <p>IMU的误差模型<br>
-          加速度计和陀螺仪的误差可分为确定性误差和随机误差<br>
-          确定性误差可以事先标定，包括bias,scale,misalignment等<br>
-          随机误差通常假定噪声服从高斯分布,包括Gaussian white noise,random walker等<br>
-          Scale可以看成是实际数值和输入值之间的比值<br>
-          misalignment多轴传感器制作的时候，由于制作工艺的问题，会使得xyz可能不垂直<br>
-          “White Noise”和“Bias”，都有连续时间模型和连续时间模型两种形式，两种模式可以相互转换，这里强调一下有的标定工具输出的是连续型（imu_utils），有的是离散型（kalibr_allan）。<br>
+          加速度计和陀螺仪的误差可分为确定性误差和随机误差,确定性误差可以事先标定，包括bias,scale,misalignment等.
+          随机误差通常假定噪声服从高斯分布,包括Gaussian white noise,random walker等.
+          Scale可以看成是实际数值和输入值之间的比值.misalignment多轴传感器制作的时候，由于制作工艺的问题，会使得xyz可能不垂直.
+          “White Noise”和“Bias”，都有连续时间模型和连续时间模型两种形式，两种模式可以相互转换，这里强调一下有的标定工具输出的是连续型（imu_utils），有的是离散型（kalibr_allan）。
           我这里用imu_utils 标定 imu，得到的加速度的噪声和加速度随机游走噪声以及角速度的噪声和角速度的随机游走噪声。</p>
+
+        <h2 id="方法与流程：">方法与流程：</h2>
+        <p>Allan 方差法是 20 世纪 60 年代由美国国家标准局的 David Allan 提出的,它是一种基于时域的分析方法。简要的流程如下:<br>
+          1. 保持传感器绝对静止获取数据。<br>
+          2. 对数据进行分段,设定时间段的时长。<br>
+          3. 将传感器数据按照时间段进行平均。<br>
+          4. 计算方差,绘制艾伦曲线。。<br>
+        </p>
+ 
+        <p>1.安装依赖项</p>
+        <div class="code-box">
+          <code>sudo apt-get install libdw-dev
+          </code></div>
+
+        <p>2.安装imu驱动,能够录制imu topic。</p>
+
+        <p>3.下载imu_utils和code_utils</p>
+        <p>imu_utils下载地址为:<a href="https://github.com/gaowenliang/imu_utils">https://github.com/gaowenliang/imu_utils</a><br>
+          code_utils下载地址为: <a href="https://github.com/gaowenliang/code_utils">https://github.com/gaowenliang/code_utils</a><br>
+        </p>
+
+        <p>4.在编译之前我们先注意三个问题</p>
+        <p>
+          (1)安装ceres库,code_imu依赖ceres。<br>
+          (2)不要同时把imu_utils和code_utils一起放到src下进行编译。由于imu_utils 依赖 code_utils，所以先把code_utils放在工作空间的src下面，进行编译。<br>
+        </p>  
+        <p>5..编译</p>
+
+        <p>建立一个文件夹catkin_ws,内部文件夹src;先将code_utils放置于src内<br>
+          <div class="code-box">
+            <code>cd catkin_ws/src <br>
+              git clone https://github.com/gaowenliang/code_utils.git<br>
+              cd ..<br>
+              catkin_make<br>
+            </code></div>
+
+          再把imu_utils也放到工作空间的src下面，不要删除之前的文件，再编译：<br>
+          
+          <div class="code-box">
+            <code>cd catkin_ws/src <br>
+              cd catkin_ws/src<br>
+              git clone https://github.com/gaowenliang/imu_utils.git<br>
+              cd ..<br>
+              catkin_make<br>
+            </code></div>
+            编译安装完成
+        </p>    
+
+        <p>6.标定</p>
+        <p>
+          1、让IMU保持静止两个小时,录制IMU数据;
+          <div class="code-box">
+            <code>rosbag record 话题名 -O imu.bag <br>
+            </code></div>
+          2、然后根据需求对src/imu_utils/launch文件进行修改:主要包括话题名字、时长之类的； <br>
+          3、播放录制好的bag,一定要倍速播放。 <br>
+          <div class="code-box">
+            <code>rosbag play -r 200 imu-.bag (200倍速度发布) <br>
+            </code></div>
+
+          4、run launch <br>
+           <div class="code-box">
+            <code>roslaunch imu_utils xxx.launch <br>
+            </code></div> <br>
+          5、最后标定结果文件保存在src里找到对应的yaml文件 <br>
+        </p>
+
+
+
+
+
+        <h2 id="分析：">分析：</h2>
+          
+
+        <h2 id="参考：">参考：</h2>
+
+        <p><a href="https://blog.csdn.net/weixin_53073284/article/details/123341141?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165399820816782248580386%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165399820816782248580386&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-2-123341141-null-null.142%5Ev11%5Epc_search_result_control_group,157%5Ev12%5Enew_style&utm_term=%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8imu_utils%E6%A0%87%E5%AE%9A&spm=1018.2226.3001.4187"> csdn</a>
+        </p>
+
+
       </div>
     </section>
 

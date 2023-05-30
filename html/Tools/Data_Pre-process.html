@@ -402,7 +402,7 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <h1 align="center">Data pre-process</h1>
-        <h6 align="center"> <a href="https://github.com/cpymaple"> Peiyu Chen</a></h6>
+        <h6 align="center"> <a href="https://github.com/cpymaple"> Peiyu Chen, Weipeng Guan</a></h6>
 
         <h2>1. Abstract</h2>
         <p>
@@ -417,18 +417,42 @@
           to extract event streams from the original bag and modify the frequency of event streams to a fixed frequency to meet your specific requirements. This tool is modified based on <a href=" https://github.com/HKUST-Aerial-Robotics/ESVO/tree/master/events_repacking_helper"> ESVO</a>.  
         </p>
 
+        <h3>2.1 Events_repacking_helper Installation</h3>
+        
+        <p>
+          After cloning this repository, you can run the following command to install this tool
+
+          <div class="code-box">
+            <code> cd ~/catkin_ws/src
+              <br>
+                   catkin build events_repacking_helper
+            </code></div>
+        </p>
+
+        <h3>2.2 Events_repacking_helper Usage</h3>
+
+
         <p>
           This package provides an example of preparing a bag file for <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM#3-esvio"> ESVIO</a>.
           A bag file recorded by a stereo event camera (e.g., a pair of DAVIS sensors) typically consists of the following topics:
           <div class="code-box">
-          <code> /dvs/left/events
+          <code> /davis_left/events
             <br>
-                 /dvs/right/events
+                 /davis_right/events
           </code></div>
         </p>
 
         <p>
-          You need to set the input and output paths as arguments in the file repacking.launch, and then run the following command 
+           The original frequency of /davis_left/events is 60Hz: 
+        </p>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="Data_Pre-process/60hz.jpg" alt="Image description">
+          <figcaption>Fig. 1. The original frequency of /davis_left/events topic is 60Hz</figcaption>
+        </figure>
+
+        <p>
+          You need to set the input and output paths as arguments in the file repacking.launch and change the event topics in the file EventMessageEditor.cpp, and then run the following command 
         </p>
 
         <div class="code-box">
@@ -437,14 +461,95 @@
         </code></div>
 
         <p>
+          After running the above command, the frequency of event streams will be modified to 1000Hz as follow:
+        </p>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="Data_Pre-process/1000hz.jpg" alt="Image description">
+          <figcaption>Fig. 2. The modified frequency of /davis_left/events topic is 1000Hz</figcaption>
+        </figure>
+
+        <p>
           Finally, the output bag file will be saved in the output path you set.
         </p>
+
+      <h2>3. Filter Topic from rosbag</h2>
+      <p>
+        The new rosbag from events_repacking_helper only contain the event streams. 
+        If you want to use the data sequence in multi-sensor fusion SLAM systems, you need to filter the topic from the raw rosbag and them merge it with the rosbag from events_repacking_helper. 
+      </p>
+      <div class="code-box">
+        <code>
+          rosbag filter input.bag output.bag "topic == 'topic_name_1' or topic == 'topic_name_2'"
+        </code>
+      </div>
+
+      <p>
+        For example, we want to filter the topic: "/dvs/image_raw", "/dvs/imu" and "/optitrack/davis" from dynamic_rotation.bag of <a href="https://rpg.ifi.uzh.ch/davis_data.html">DAVIS240C</a>, we can use the following command
+      </p>
+      <div class="code-box">
+        <code>
+          rosbag filter /home/kwanwaipang/dataset/EVI-SAM/davis240c/dynamic_rotation.bag /home/kwanwaipang/dataset/EVI-SAM/davis240c/dynamic_rotation_other.bag "topic == '/dvs/image_raw' or topic == '/dvs/imu' or topic == '/optitrack/davis' "
+        </code>
+      </div>
+      
+      <br>
+
+      <figure style="text-align: center;">
+        <img style="width: 48%;" src="Data_Pre-process/before_filter.png" alt="Image description">
+        <img style="width: 48%;" src="Data_Pre-process/after_filter.png" alt="Image description">
+        <figcaption>Fig. 3. The Topics of the rosbag before and after filtering</figcaption>
+      </figure>
+
+      <h2>4. Merge rosbag</h2>
+      <p>
+        After filtering the topic from the raw rosbag, we can merge the rosbag from events_repacking_helper and the filtered rosbag.
+        We firstly obtain the 1000HZ event rosbag from events_repacking_helper (as shown in Fig.4).
+      </p>
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Data_Pre-process/event_1000hz.png" alt="Image description">
+        <figcaption>Fig. 4. The modified frequency of /davis_left/events topic is 1000Hz</figcaption>
+      </figure>
+
+      <p>
+        And then we merge it with the filtered rosbag from the previous section3.
+        The code of the merge rosbag can be obtain form <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM/tree/main/Others/process_data/data_merge/mpl_dataset_toolbox">Link</a>.
+      </p>
+
+      <div class="code-box">
+        <code>
+          catkin build mpl_dataset_toolbox
+          <br>
+          roslaunch mpl_dataset_toolbox bag_merger.launch directory_path:=[path_to_directory]
+          <br>
+          roslaunch mpl_dataset_toolbox bag_merger.launch directory_path:=/home/kwanwaipang/dataset/EVI-SAM/davis240c/dynamic_rotation
+        </code>
+      </div>
+
+      <p>
+        Note the the rosbags are needed to be in the same folder, with the following renamed files (we will fix this in the future). 
+      </p>
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Data_Pre-process/repack_the_merge_bag.png" alt="Image description">
+        <figcaption>Fig. 5. Repacking the rosbags for Merging</figcaption>
+      </figure>
+
+      <p>
+        Finally, we can obtain the final merged rosbag.
+        Note that the number of msgs of "/dvs/image_raw", "/dvs/imu" and "/optitrack/davis" are same as the left side of Fig.3.
+        While the number of msgs of "/dvs/events" is similar to "/dvs/imu", which is 1000 HZ.
+      </p>
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Data_Pre-process/after_merge.png" alt="Image description">
+        <figcaption>Fig. 6. The Final Merged rosbag</figcaption>
+      </figure>
 
 
       </div>
     </section>
-
-
   </div>
   
 
