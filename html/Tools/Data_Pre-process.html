@@ -473,11 +473,39 @@
           Finally, the output bag file will be saved in the output path you set.
         </p>
 
+      <h3>2.3 Filter Topic from rosbag</h3>
+      <p>
+        The new rosbag from events_repacking_helper only contain the event streams. 
+        If you want to use the data sequence in multi-sensor fusion SLAM systems, you need to filter the topic from the raw rosbag and them merge it with the rosbag from events_repacking_helper. 
+      </p>
+      <div class="code-box">
+        <code>
+          rosbag filter input.bag output.bag "topic == 'topic_name_1' or topic == 'topic_name_2'"
+        </code>
+      </div>
+
+      <p>
+        For example, we want to filter the topic: "/dvs/image_raw", "/dvs/imu" and "/optitrack/davis" from dynamic_rotation.bag of <a href="https://rpg.ifi.uzh.ch/davis_data.html">DAVIS240C</a>, we can use the following command
+      </p>
+      <div class="code-box">
+        <code>
+          rosbag filter /home/kwanwaipang/dataset/EVI-SAM/davis240c/dynamic_rotation.bag /home/kwanwaipang/dataset/EVI-SAM/davis240c/dynamic_rotation_other.bag "topic == '/dvs/image_raw' or topic == '/dvs/imu' or topic == '/optitrack/davis' "
+        </code>
+      </div>
+      
+      <br>
+
+      <figure style="text-align: center;">
+        <img style="width: 48%;" src="Data_Pre-process/before_filter.png" alt="Image description">
+        <img style="width: 48%;" src="Data_Pre-process/after_filter.png" alt="Image description">
+        <figcaption>Fig. 3. The Topics of the rosbag before and after filtering</figcaption>
+      </figure>
+
+      <h3>2.4 Merge rosbag</h3>
+
 
       </div>
     </section>
-
-
   </div>
   
 
