@@ -411,14 +411,19 @@ p {
       </p>
 
       <h2>2. The Synchronization of Event Cameras</h2>
-      <h3>2.1 The Synchronization of Event Cameras</h3>
+      <!-- <h3>2.1 The Synchronization of Event Cameras</h3> -->
       <p>
         The event camera has an additional synchronization interface, called as "sync connectors", as shown in the figure below. (Using DAVIS346 as example reference to <a href="https://inivation.com/wp-content/uploads/2019/08/DAVIS346.pdf">Link</a>,
         same as DVXplorer <a href="https://inivation.com/wp-content/uploads/2023/03/DVXplorer.pdf">Link</a>).
       </p>
 
-      <figure align="center">
+      <!-- <figure align="center">
         <img class="report-img" src="Sensor_Synchronization/syns_connectors.png" alt="Image description">
+        <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
+      </figure> -->
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Sensor_Synchronization/syns_connectors.png" alt="Image description">
         <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346</figcaption>
       </figure>
 
@@ -434,9 +439,14 @@ p {
         Additionally, we replaced the event camera ROS driver <a href="https://gitlab.com/inivation/dv/dv-ros">Code</a> provided by Invitation Company with our own driver <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM/tree/main/driver_code/dv-ros-master">Code</a>.
       </p>
 
-      <figure align="center">
+      <!-- <figure align="center">
         <img class="report-img" src="Sensor_Synchronization/four_event_camera.jpg" alt="Image description">
-        <figcaption>Fig. 1. Sync connector pinouts on DAVIS 346 </figcaption>
+        <figcaption>Fig. 2. Sync connector pinouts on DAVIS 346 </figcaption>
+      </figure> -->
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Sensor_Synchronization/four_event_camera.jpg" alt="Image description">
+        <figcaption>Fig. 2. Sync connector pinouts on DAVIS 346</figcaption>
       </figure>
 
       <p>
@@ -474,17 +484,27 @@ p {
         Additionally, from the video demo, it can be seen that when the event cameras are started, there is a waiting period until all of them have finished initializing.
         Moreover, the difference in data volume between "/DAVIS346 left/events" and "/DAVIS346 left/imu" is only 1, and both are recorded at 1000Hz.
       </p>
-      <figure align="center">
+      <!-- <figure align="center">
         <img class="report-img" src="Sensor_Synchronization/number_of_event_after_synchronization.png" alt="Image description">
-        <figcaption>Fig. 2. The rosbag information for the four event cameras </figcaption>
+        <figcaption>Fig. 3. The rosbag information for the four event cameras </figcaption>
+      </figure> -->
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Sensor_Synchronization/number_of_event_after_synchronization.png" alt="Image description">
+        <figcaption>Fig. 3. The rosbag information for the four event cameras</figcaption>
       </figure>
 
 
       <h2>3. The Synchronization of Multi Sensors</h2>
 
-      <figure align="center">
+      <!-- <figure align="center">
         <img  style="width: 100%" src="Sensor_Synchronization/structure_of_syns.png" alt="Image description">
-        <figcaption>Fig. 3. The Structure of Our Sensors Synchronization </figcaption>
+        <figcaption>Fig. 4. The Structure of Our Sensors Synchronization </figcaption>
+      </figure> -->
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Sensor_Synchronization/structure_of_syns.png" alt="Image description">
+        <figcaption>Fig. 4. The Structure of Our Sensors Synchronization</figcaption>
       </figure>
 
       <h3>3.1. The Synchronization of Two Onboard Computer</h3>
@@ -528,17 +548,17 @@ p {
         After multiple verifications, we concluded that the time difference between the DAVIS346 on onboard computer A and the industrial camera on onboard computer B, directly capturing images, was within 10ms, which aligns with our expectations.
       </p>
 
-      <figure align="center">
+      <figure style="text-align: center;">
         <img style="width: 48%;" src="Sensor_Synchronization/event_camera_synchronization.jpg" alt="Image description">
         <img style="width: 48%;" src="Sensor_Synchronization/image_synchronization.jpg" alt="Image description">
-        <figcaption>Fig. 4. Synchronization Testing between the Event Camera (left) and the Standard Camera (right) </figcaption>
+        <figcaption>Fig. 5. Synchronization Testing between the Event Camera (left) and the Standard Camera (right) </figcaption>
       </figure>
 
       <p>
         We further test the synchronization between the event and image data streams in DAVIS346 as following:
       </p>
 
-        <figure align="center">
+        <figure style="text-align: center;">
           <img style="width: 48%;" src="Sensor_Synchronization/event_vs_image_1.png" alt="Image description">
           <img style="width: 48%;" src="Sensor_Synchronization/event_vs_image_2.png" alt="Image description">
           <img style="width: 48%;" src="Sensor_Synchronization/event_vs_image_3.png" alt="Image description">
@@ -547,16 +567,21 @@ p {
           <img style="width: 48%;" src="Sensor_Synchronization/event_vs_image_6.png" alt="Image description">
           <img style="width: 48%;" src="Sensor_Synchronization/event_vs_image_7.png" alt="Image description">
           <img style="width: 48%;" src="Sensor_Synchronization/event_vs_image_8.png" alt="Image description">
-          <figcaption>Fig. 5. Synchronization Testing between the Event and Image from DAVIS346 </figcaption>
+          <figcaption>Fig. 6. Synchronization Testing between the Event and Image from DAVIS346 </figcaption>
         </figure>
 
       <h3>3.3. The Synchronization of Other Sensors</h3>
       <p>
         Our sensor platform can be seen as following:
       </p>
-      <figure align="center">
+      <!-- <figure align="center">
         <img class="report-img" src="Sensor_Synchronization/four_event_camera_platform.jpg" alt="Image description">
-        <figcaption>Fig. 6. Sensor Setup</figcaption>
+        <figcaption>Fig. 7. Sensor Setup</figcaption>
+      </figure> -->
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Sensor_Synchronization/four_event_camera_platform.jpg" alt="Image description">
+        <figcaption>Fig. 7. Sensor Setup</figcaption>
       </figure>
 
 
