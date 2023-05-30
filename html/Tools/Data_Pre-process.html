@@ -502,6 +502,51 @@
       </figure>
 
       <h2>4. Merge rosbag</h2>
+      <p>
+        After filtering the topic from the raw rosbag, we can merge the rosbag from events_repacking_helper and the filtered rosbag.
+        We firstly obtain the 1000HZ event rosbag from events_repacking_helper (as shown in Fig.4).
+      </p>
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Data_Pre-process/event_1000hz.png" alt="Image description">
+        <figcaption>Fig. 4. The modified frequency of /davis_left/events topic is 1000Hz</figcaption>
+      </figure>
+
+      <p>
+        And then we merge it with the filtered rosbag from the previous section3.
+        The code of the merge rosbag can be obtain form <a href="https://github.com/arclab-hku/Event_based_VO-VIO-SLAM/tree/main/Others/process_data/data_merge/mpl_dataset_toolbox">Link</a>.
+      </p>
+
+      <div class="code-box">
+        <code>
+          catkin build mpl_dataset_toolbox
+          <br>
+          roslaunch mpl_dataset_toolbox bag_merger.launch directory_path:=[path_to_directory]
+          <br>
+          roslaunch mpl_dataset_toolbox bag_merger.launch directory_path:=/home/kwanwaipang/dataset/EVI-SAM/davis240c/dynamic_rotation
+        </code>
+      </div>
+
+      <p>
+        Note the the rosbags are needed to be in the same folder, with the rename as follow (we will fix this in the future).
+        and 
+      </p>
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Data_Pre-process/repack_the_merge_bag.png" alt="Image description">
+        <figcaption>Fig. 5. Repacking the rosbags for Merging</figcaption>
+      </figure>
+
+      <p>
+        Finally, we can obtain the final merge rosbag.
+        Note that the number of msgs of "/dvs/image_raw", "/dvs/imu" and "/optitrack/davis" are same as the left side of Fig.3.
+        While the number of msgs of "/dvs/events" is similar to "/dvs/imu", which is 1000 HZ.
+      </p>
+
+      <figure style="text-align: center;">
+        <img style="width: 60%;" src="Data_Pre-process/after_merge.png" alt="Image description">
+        <figcaption>Fig. 6. The Final Merge rosbag</figcaption>
+      </figure>
 
 
       </div>
