@@ -39,7 +39,7 @@
         </div>
         <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
           <div class="offcanvas-header d-lg-none">
-            <h3 class="text-white fs-30 mb-0">M3EDS</h3>
+            <h4 class="text-white fs-30 mb-0">M3EDS</h4>
             <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" class="btn-close btn-close-white"></button>
           </div>
           <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
@@ -215,8 +215,8 @@
             </div>
             <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
               <div class="offcanvas-header d-lg-none">
-                <h3 class="text-white fs-30 mb-0">
-                </h3>
+                <h4 class="text-white fs-30 mb-0">
+                </h4>
                 <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" class="btn-close btn-close-white"></button>
               </div>
               <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
@@ -392,6 +392,97 @@
         <!--在此插入内容-->
         <h1 align="center">Standard_Camera_Intrinsics</h1>
         <h6 align="center"> <a href="https://github.com/xukang2311">Kang Xu</a></h6>
+        <h2>简介：</h2>
+        <p>
+          以driving场景下使用的FLIR BFLY-U3-23S3C相机为例,通过kalibr工具箱进行内参的标定。
+        </p>
+        <h2>流程：</h2>
+        <h3>1、录制rosbag包</h3>
+        <p>
+          将所需标定相机对应的话题录制为rosbag包,下图为标定包可视化。
+        </p>
+        <figure style="text-align: center;">
+          <img class="width: 60%" src="Standard_Camera_Intrinsics/rviz.gif" alt="Image description">
+          <figcaption>Fig. 1. topic可视化 </figcaption>
+        </figure>
+
+        <h3>2、Kalibr标定</h3>
+
+        <h4>(1)install</h4>
+        <p>
+          前往kalibr的官网根据教程进行安装,链接为：
+          <a href="https://github.com/ethz-asl/kalibr">https://github.com/ethz-asl/kalibr</a>
+        </p>
+
+        <h4>(2)configuration file</h4>
+        <p>
+          传统相机内参标定的配置文件主要为target 参数，根据录制标定包使用的标定板参数填写,
+          棋盘格要注意横放与竖放参数不同,录制rosbag 的时候为竖放,所以参数如下所示。
+          <div class="code-box">
+            <code>
+              target_type: 'checkerboard'<br>
+              targetCols: 6<br>
+              targetRows: 8<br>
+              rowSpacingMeters: 0.105<br>
+              colSpacingMeters: 0.105
+            </code>
+          </div>
+        </p>
+        <h4>(3)标定</h4>
+        <p>进入kalibr工作空间内运行以下指令(可能需要先source devel/setup.bash 一下)</p>
+        <div class="code-box">
+        <code>rosrun kalibr kalibr_calibrate_cameras --bag out.bag --topics /image --models pinhole-radtan --target checkerboard.yaml
+	      </code></div>
+        <p>
+          --bag 含有所需标定话题的rosbag包,这里是上面录制的out.bag<br>
+          --topics 待标定图像的topic,这里是/image<br>
+          --models 相机模型<br>
+          --target 上面填写的标定板yaml配置文件<br>
+        </p>
+        <p>结果如下:</p>
+        <div class="code-box">
+          <code>
+            cam0:<br>
+            cam_overlaps: []<br>
+            camera_model: pinhole<br>
+            distortion_coeffs: [-0.16224835632285683, 0.08652833589756073, 0.00017154098782927365, -0.0028237681161006186]<br>
+            distortion_model: radtan<br>
+            intrinsics: [1118.843402630531, 1117.42013115746, 1004.4308335224291, 593.9267515276289]<br>
+            resolution: [1920, 1200]<br>
+            rostopic: /camera_right/image_raw<br>
+          </code>
+        </div>
+
+        <figure style="text-align: center;">
+          <img class="width: 60%" src="Standard_Camera_Intrinsics/error.png" alt="Image description">
+          <figcaption>Fig. 2. kalibr标定重投影误差 </figcaption>
+        </figure>
+
+        <h3>3、Matlab标定</h3>
+        <p>详细过程见于Event_Camera_Intrinsics,这里只列出标定结果与重投影误差</p>
+        <div class="code-box">
+          <code>
+            cam0:<br>
+            cam_overlaps: []<br>
+            camera_model: pinhole<br>
+            distortion_coeffs: [-0.151037205816726, 0.0903438899916861, 0, 0]<br>
+            distortion_model: radtan<br>
+            intrinsics: [1080.32383527149, 1076.51917189926, 985.521195497639, 593.210064278479]<br>
+            resolution: [1920, 1200]<br>
+            rostopic: /camera_right/image_raw<br>
+          </code>
+        </div>
+        <figure style="text-align: center;">
+          <img class="width: 60%" src="Standard_Camera_Intrinsics/matlab.png" alt="Image description">
+          <figcaption>Fig. 3. Matlab标定重投影误差 </figcaption>
+        </figure>
+        <h2>总结：</h2>
+        <p>相比及低分辨率相机(如dvs346)，分辨率比较大的相机从重投影误差看,使用matlab标定出的重投影误差显然小于使用kalibr标定出来的结果.并且使用matlab可以手动
+          选择不用视角下的图像，可以更好的覆盖到整个视野.除此之外,在进行没有图像的事件相机标定过程中,由于e2vid重建图像存在模糊、干扰等情况,
+          所以事件相机使用根据重建图像转化的rosbag包进行kalibr标定时存在较大误差(详细过程见于Event_Camera_Intrinsics)。基于此,所有的
+          相机标定结果都使用matlab标定结果,kalibr的结果用于交叉验证。
+        </p>
+
         
       </div>
     </section>
