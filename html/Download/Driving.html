@@ -13,6 +13,12 @@
     padding-bottom: 5%;
 	}
 
+  p {
+text-align: justify;
+text-align-last: left;
+text-justify: inter-word;
+}
+
   .code-box {
       width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
@@ -400,16 +406,29 @@
       <div id="myDiv">
         <!--在此插入内容-->
         <h1 align="center">Driving</h1>
+
+        <h6 align="center">
+          <a href="https://darrenwong.github.io/">Feng Huang</a>,
+          <a href="https://kwanwaipang.github.io/">Weipeng Guan</a>,
+          <a href="https://github.com/cpymaple">Peiyu Chen</a>,
+          <a href="https://github.com/Huang-shulei">Shulei Huang</a>,
+          <a href="https://github.com/xukang2311">Kang Xu</a>,
+          <a href="https://github.com/lxw919">Xianwei Lv</a>,
+          <a href="https://github.com/Pirkaklo">Yihan Zhong</a>
+        </h6>
+
         <h2>Introduction</h2>
         <h6>
-          Multi-sensor fusion for localization and mapping in urban is still a challenging problem. 
-          In urban scenes, the excessive dynamic objects and large changes in light distort the performance of cameras and lidar.
-          In addition, due to the existence of high-rise buildings, the accuracy of GNSS is seriously challenged.
-          M3EDS-Driving hopes to provide a challenging dataset.
-          Therefore, this dataset has added 4 event cameras in addition to lidar and RGB cameras to further accelerate SLAM research in urban scenes.
-          This dataset includes sensor measurements from LiDAR, RGB cameras, event cameras, and IMUs, as well as precise ground truth from the SPAN-CPT system.
-          Different from the existing event camera-based Drving dataset, M3EDS-Driving focuses more on urban scenes than DSEC dataset, and contains more challenging scenes than ViViD++. 
-          In summary, M3EDS-Driving will be a dataset that pays more attention to urban scenes and contains more challenging scenes. 
+          <p>
+          Multi-sensor fusion for localization and mapping in urban is still a challenging problem.
+          Urban scenes are characterized by numerous dynamic objects and frequent lighting variations, which adversely affect the performance of cameras and lidar systems.
+          Furthermore, the presence of high-rise buildings poses a serious obstacle to the accuracy of GNSS.
+          To address these challenges, M3EDS-Driving introduces a comprehensive dataset aimed at accelerating SLAM research in urban scenes.
+          In addition to lidar and RGB cameras, this dataset incorporates four event cameras to enhance the collection of visual information.
+          It includes sensor measurements from LiDAR, RGB cameras, event cameras, and IMUs, along with precise ground truth data obtained from the SPAN-CPT system.
+          Unlike existing event camera-based driving datasets, M3EDS-Driving specifically emphasizes urban scenes, particularly those that are more challenging in nature.
+          </p>
+
         </h6>
         <br>
 
