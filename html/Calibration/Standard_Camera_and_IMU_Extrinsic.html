@@ -390,9 +390,133 @@
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <!--在此插入内容-->
+        <h1 align="center">Camera_and_IMU_Extrinsic</h1>
+        <h6 align="center"> <a href="https://github.com/xukang2311">Kang Xu</a></h6>
+        <h2>简介：</h2>
+        <p>
+            在相机与imu的外参标定中.事件相机与传统相机并没有大的差别,主要差别在标定包的获取过程中,
+            以dvxplorer和FLIR BFLY-U3-23S3C相机为例,介绍了使用kalibr进行事件相机和传统相机与imu的外参标定过程及结果.
+        </p>
+        <h2>流程：</h2>
+
+        <h3>1、录制rosbag包</h3>
+        <p>录制的时候注意要尽量运动的平滑一些,速度不要太快,也不可太慢,要充分激励imu.</p>
+        <h4>(1)事件相机</h4>
+
+        <h5>i.录制话题</h5>
+        <p>录制imu和事件相机对应的话题,如图1所示:</p>
+        <figure style="text-align: center;">
+          <img class="width: 60%" src="Camera_and_IMU_Extrinsics/dvx_event_imu.png" alt="Image description">
+          <figcaption>Fig. 1. dvx event and imu </figcaption>
+        </figure>
+
+        <h5>ii.rosbag 包处理</h5>
+
+        <p>
+          使用rosbag editor(安装与使用请参考:<a href="https://github.com/facontidavide/rosbag_editor">Link</a>)
+          
+          将上面录制的包分离为只含imu消息与只含事件消息的rosbag包。
+
+          后者用于重建图像,具体方法详见网页tools中的Event Reconstruction Image
+          <a href="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image.html">(Link)</a>.
+
+          获得重建图像后,运行python代码将图片转换为rosbag,转换代码链接为：
+          <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/dvs346/event/kalibr/images_to_rosbag.py">
+            https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/dvs346/event/kalibr/images_to_rosbag.py</a>.
+        </p>
+        <h5>iii.rosbag 包合并</h5>
+
+        <p>
+          将上面分离出的只含imu消息的rosbag包与重建图像的rosbag包进行合并,具体方法详见网页tools中的Data pre-process
+          <a href="https://erglab.github.io/M3EDS/html/Tools/Data_Pre-process.html">(Link)</a>.
+          通过上面步骤,即可得到用于事件相机与imu外参标定的rosbag包.
+        </p>
+        <figure style="text-align: center;">
+          <img class="width: 60%" src="Camera_and_IMU_Extrinsics/dvx_imu.png" alt="Image description">
+          <figcaption>Fig. 2. dvx 重建图像 与 imu </figcaption>
+        </figure>
+        <h4>(2)传统相机</h4>
+        <p>
+          传统相机直接录制即可得到用于标定的rosbag包.
+        </p>
+        <figure style="text-align: center;">
+          <img class="width: 60%" src="Camera_and_IMU_Extrinsics/rgb_imu.png" alt="Image description">
+          <figcaption>Fig. 3. 传统相机图像与imu </figcaption>
+        </figure>
+
+
+        <h3>2、kalibr标定</h3>
+        <p>进入kalibr工作空间内运行以下指令(可能需要先source devel/setup.bash 一下)</p>
+        <div class="code-box">
+        <code>
+          rosrun kalibr kalibr_calibrate_imu_camera 
+          --target checkerboard.yaml 
+          --bag image_imu.bag 
+          --cam camera.yaml 
+          --imu imu.yaml 
+          --imu-models scale-misalignment
+	      </code></div>
+        <p>
+          --target 标定板的一些参数,注意横放与竖放参数有差别<br>
+          --bag 含有imu消息与图像消息(传统相机的rgb图像或基于事件相机事件流重建出的图像)的rosbag包<br>
+          --cam 相机内参文件(获取方法见于Event_Camera_Intrinsics与Standard_Camera_Intrinsics)<br>
+          --imu imu内参文件(获取方法见于IMU_Intrinsic_Calibration) <br>
+          --imu-models imu模型
+          
+        </p>
+	      <p>标定结果如下:</p>
+        <div class="code-box">
+          <code>
+            事件相机:<br>
+            cam0:<br>
+            T_cam_imu:<br>
+            - [0.9997422588222811, -0.02001746287604113, 0.01071060712234844, -0.06221593621272268]<br>
+            - [0.01029935593289703, -0.02053601067811628, -0.9997360629350108, -0.051090683104806286]<br>
+            - [0.020232132667874752, 0.9995887021397524, -0.020324550727504498, -0.39893710199304666]<br>
+            - [0.0, 0.0, 0.0, 1.0]<br>
+            cam_overlaps: []<br>
+            camera_model: pinhole<br>
+            distortion_coeffs: [-0.392284303511741, 0.197170640598008, 0, 0]<br>
+            distortion_model: radtan<br>
+            intrinsics: [564.876270222055, 562.715380641741, 346.856114369583, 265.341885433265]<br>
+            resolution: [640, 480]<br>
+            rostopic: /ex2_dvx_left_reconstruction_image<br>
+            timeshift_cam_imu: 0.9604708226887384<br>
+          </code></div>
+          <div class="code-box">
+            <code>
+              传统相机:<br>
+              cam0:<br>
+              T_cam_imu:<br>
+              - [0.9998698145365037, -0.006122574459816224, 0.014928766215645779, 0.04356622890941122]<br>
+              - [0.014809180352380559, -0.0191330654913891, -0.9997072641439556, -0.02204373277280234]<br>
+              - [0.006406415224450121, 0.9997981995817385, -0.01903990433499364, -0.14281966654391087]<br>
+              - [0.0, 0.0, 0.0, 1.0]<br>
+              cam_overlaps: []<br>
+              camera_model: pinhole<br>
+              distortion_coeffs: [-0.146017223858946, 0.082234840924577, 0, 0]<br>
+              distortion_model: radtan<br>
+              intrinsics: [1068.42870237679, 1064.36748532345, 953.624929519216, 607.201198303378]<br>
+              resolution: [1920, 1200]<br>
+              rostopic: /camera_left/image_raw<br>
+              timeshift_cam_imu: -0.021772368032966484<br>
+            </code></div>
+        <figure style="text-align: center;">
+          <img class="report-img" src="Camera_and_IMU_Extrinsics/dvx_imu_error.png" alt="Image description">
+          <figcaption>Fig. 4. dvx重建图像与imu标定重投影误差 </figcaption>
+        </figure>
+        <figure style="text-align: center;">
+          <img class="report-img" src="Camera_and_IMU_Extrinsics/rgb_imu_error.png" alt="Image description">
+          <figcaption>Fig. 5. 图像与imu标定重投影误差 </figcaption>
+        </figure>
+
+        <h2>总结：</h2>
+        <p>
+
+          展示了事件相机和传统相机分别与imu进行外参标定的结果.
+        </p>
       </div>
     </section>
-
 
   </div>
   
