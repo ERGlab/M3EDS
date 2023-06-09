@@ -482,25 +482,147 @@
           </code>
         </div>
         
-        <h4>2.3 Run LIO-SAMM</h4>
+        <h4>2.3 Run LIO-SAM</h4>
        
         <div class="code-box">
           <code>
             roslaunch lio_sam run.launch <br>
             rosbag play xxxx.bag <br>
-
+            rosbag record -o night_liosam_traj.bag /lio_sam/mapping/odometry 
           </code>
         </div>
 
         
         <h1>Experiment</h1>
+
         <div class="code-box">
           <code>
-            python   bagtotum.py    .bag     /lio_sam/mapping/odometry     liosam_night_tum.txt  <br>
+
+          python  bagtotum.py  night_liosam_traj.bag  /lio_sam/mapping/odometry   liosam_night_tum.txt   #use python to get txt    <br>
+
+          evo_traj  bag  night_liosam_traj.bag   /lio_sam/mapping/odometry   --save_as_tum               #use evo to get tum    <br>
+
+          evo_traj tum  lio_sam_mapping_odometry.tum --ref=gt.txt -va -p                                 #评估轨迹   <br>
+
+          evo_ape tum  lio_sam_mapping_odometry.tum   gt.txt  -a -s -p                                    #评估ape   <br>
+
+          evo_ape tum  liosam _night_tum.txt gt.txt  -a -s -p                                              #用txt评估ape,因为时间戳对不上的话就用txt评估  <br>
           </code>
         </div>
 
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="liosam_pic/run.gif" alt="Image description">
+          <figcaption>Fig. Run of LIO-SAM</figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="liosam_pic/traj.png" alt="Image description">
+          <figcaption>Fig. traj of LIO-SAM</figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="liosam_pic/xyz.png" alt="Image description">
+          <figcaption>Fig. evo xyz of LIO-SAM</figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="liosam_pic/rpy.png" alt="Image description">
+          <figcaption>Fig. evo rpy of LIO-SAM</figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="liosam_pic/ape.png" alt="Image description">
+          <figcaption>Fig. ape of LIO-SAM</figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="liosam_pic/align.png" alt="Image description">
+          <figcaption>Fig. align of LIO-SAM</figcaption>
+        </figure>
+
         <h1>Result</h1>
+
+        <p>算了平均位置误差(欧氏距离以米为单位)与gt的总距离的百分比 </p>
+
+        <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; text-align: center; width: 100%;">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Sequence</th>
+              <th>APE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="8" style="border-bottom: 1px solid;">Driving</td>
+              <td>Urban day</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Urban night</td>
+              <td>0.18</td>
+            </tr>
+            <tr>
+              <td>Urban Tunnel day</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Urban Tunnel night</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Urban Harsh day</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Urban Harsh night</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Urban Highway day</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Urban Highway night</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td rowspan="8" style="border-bottom: 1px solid;">UGV</td>
+              <td>Street day</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Street night</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Parkway day</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Parkway night</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Elevator</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>MCR 01</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>MCR 02</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>MCR 03</td>
+              <td></td>
+            </tr>
+            <!-- 在此处添加更多行以填充其他部分的数据 -->
+          </tbody>
+        </table>
+        
       </div>
     </section>
 
