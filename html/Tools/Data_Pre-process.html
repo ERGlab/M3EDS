@@ -549,7 +549,30 @@
       
       <h2>5. GT generation</h2>
       <h3>5.1 M3EDS-Driving-gt</h3>
+      <p>
+        The generation of M3EDS Driving gt referred to <a href="https://github.com/IPNL-POLYU/UrbanNavDataset/tree/master/tools">Link</a>.<br>
+        First, download it and carefully read the readme. Specifically, first <br>
 
+        <div class="code-box">
+          <code>
+            cd gt_vis <br>
+            pip3 install numpy-quaternion matplotlib pymap3d <br>
+          </code>
+        </div>
+
+        then  change the 'novatel_path'<br>
+        execute <br>
+        <div class="code-box">
+          <code>
+            python3 run_vehicle_path.py 
+          </code>
+        </div>
+
+        You will get the truth value in tum format, and then you can use evo to evaluate the trajectory.<br>
+
+
+        
+      </p>
       </div>
     </section>
   </div>
