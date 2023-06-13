@@ -1,12 +1,17 @@
 <style>
   #myDiv {
     padding-top: 5%;
-		padding-left: 20%;
+    padding-left: 20%;
     padding-right: 20%;
     padding-bottom: 5%;
 	}
+  p {
+  text-align: justify;
+    text-align-last: left;
+  text-justify: inter-word;
+}
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
@@ -15,6 +20,10 @@
       overflow: auto; /* 添加滚动条以适应内容过长的情况 */
 
     }
+  .report-img {
+  width: 60%;
+  height: auto;
+}
 </style>
 
 <body>
@@ -389,7 +398,118 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+
+
+
+
+        <h1 align="center">VLP32C-IMU</h1>
+        <h3 align="center"> <a href="https://github.com/lxw919">Xianwei Lv</a></h3>
+
+        <h2>1 Abstract</h2>
+
+        <p>
+          In the report, we presented the calibration of external parameters for LiDAR VLP32C and IMU
+          Currently, the only open source calibration package available online is the APRIL-ZJU open-source solution 
+          lidar_IMU_Calib, lidar align, and a few others, among which lidar align has low accuracy in listening and speaking,
+          So in the end, we chose Lidar, an open-source solution from ZJU lidar_IMU_Calib,
+          After querying on Github, it was found that it currently only supports VLP-16 line LiDAR,
+          And we are using VLP32C line lidar, but according to the author's description, it should be easy to expand,
+          That is, modify the <mark>/include/utils</mark> from the downloaded code:<mark>dataset_reader.h and vlp_Common.h</mark> file, 
+          modify the relevant functions, variables, constants, etc. related to the type of LiDAR.
+          Here are some reference links of code and Blog:
+          <a href="https://github.com/ethz-asl/lidar_align.git">code link</a>.
+          <a href="https://blog.csdn.net/weixin_46416017/article/details/120316198?ops_request_misc=&request_id=&biz_id=102&utm_term=%E6%B5%99%E5%A4%A7%E5%BC%80%E6%BA%90%E5%8C%85lidar_imu_calib&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-3-120316198.142^v88^control_2,239^v2^insert_chatgpt&spm=1018.2226.3001.4187
+          ">Blog</a>.
+        </p>
+
+
+        <h2>2 Process</h2>
+
+        <h5>1、安装Pangolin和ceres1.14</h5>
+        <h5></h5>
+        <h5></h5>
+        <h5></h5>
+        <h5></h5>
+        <h5></h5>
+        <h5></h5>
+        <h5></h5>
+
+
+
+
+
+        2、创建ros工作空间,and clone the source code for the project and build it.
+        mkdir -p ~/lidar_imu_ws/src
+        cd ~/lidar_imu_ws/src
+        catkin_init_workspace
+        git clone https://github.com/APRIL-ZJU/lidar_IMU_calib
+        
+        3、仍然是在src文件夹的终端中执行下列指令(下载ndt_omp)
+        wstool init
+        wstool merge lidar_IMU_calib/depend_pack.rosinstall
+        wstool update
+        
+        
+        4、编译
+        cd …/…
+        catkin_make
+        source ./devel/setup.bash （设置变量环境)
+
+        5、录制标定包
+
+        rosbag  record  -o  cal_held_vlp_imu.bag   /IMU_data  /velodyne_points
+        rosbag info cal_held_vlp_imu.bag
+
+        6、cd lidar_imu_ws/
+
+        修改licalib_gui.launch/calib.sh
+        roslaunch li_calib licalib_gui.launch
+
+        7、process
+
+        Initialization  Euler_ItoL initial degree:  179.487  179.947 -80.1375
+
+        BatchOptimization
+
+        Association
+
+        Refinement
+
+        Save map
+
+        8、show pcd
+        pcl_viewer refined_map.pcd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </section>
 
