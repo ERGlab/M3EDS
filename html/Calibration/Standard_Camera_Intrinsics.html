@@ -392,32 +392,36 @@
         <!--在此插入内容-->
         <h1 align="center">Standard_Camera_Intrinsics</h1>
         <h6 align="center"> <a href="https://github.com/xukang2311">Kang Xu</a></h6>
-        <h2>简介：</h2>
+        <h2>Abstract</h2>
         <p>
-          以driving场景下使用的FLIR BFLY-U3-23S3C相机为例,通过kalibr工具箱进行内参的标定。
+          Taking the FLIR BFLY-U3-23S3C camera used in the driving scene as an example, 
+          intrinsics calibration is performed using the Kalibr toolbox.
         </p>
-        <h2>流程：</h2>
-        <h3>1、录制rosbag包</h3>
+        <h2>Procession</h2>
+        <h3>1、Record rosbag package</h3>
         <p>
-          将所需标定相机对应的话题录制为rosbag包,下图为标定包可视化。
+          Record the topic corresponding to the required calibration camera as a rosbag package, 
+          and the following image shows the visualization of the calibration package。
         </p>
         <figure style="text-align: center;">
           <img class="width: 60%" src="Standard_Camera_Intrinsics/rviz.gif" alt="Image description">
-          <figcaption>Fig. 1. topic可视化 </figcaption>
+          <figcaption>Fig. 1.Images visualization </figcaption>
         </figure>
 
-        <h3>2、Kalibr标定</h3>
+        <h3>2、Kalibr calibration</h3>
 
         <h4>(1)install</h4>
         <p>
-          前往kalibr的官网根据教程进行安装,链接为：
+          Go to Kalibr's official website to install according to the tutorial, link to:
           <a href="https://github.com/ethz-asl/kalibr">https://github.com/ethz-asl/kalibr</a>
         </p>
 
         <h4>(2)configuration file</h4>
         <p>
-          传统相机内参标定的配置文件主要为target 参数，根据录制标定包使用的标定板参数填写,
-          棋盘格要注意横放与竖放参数不同,录制rosbag 的时候为竖放,所以参数如下所示。
+          The configuration files for traditional camera internal calibration mainly include target parameters, 
+          which are filled in based on the calibration board parameters used in the recording calibration package,
+          The checkerboard should pay attention to the different parameters of horizontal and vertical placement. 
+          When recording ROSBAG, it is vertical, so the parameters are shown below.
           <div class="code-box">
             <code>
               target_type: 'checkerboard'<br>
@@ -428,18 +432,19 @@
             </code>
           </div>
         </p>
-        <h4>(3)标定</h4>
-        <p>进入kalibr工作空间内运行以下指令(可能需要先source devel/setup.bash 一下)</p>
+        <h4>(3)Calibration</h4>
+        <p>Enter the Kalibr workspace and run the following instructions 
+          (You may need to first source dev/setup. bash)</p>
         <div class="code-box">
         <code>rosrun kalibr kalibr_calibrate_cameras --bag out.bag --topics /image --models pinhole-radtan --target checkerboard.yaml
 	      </code></div>
         <p>
-          --bag 含有所需标定话题的rosbag包,这里是上面录制的out.bag<br>
-          --topics 待标定图像的topic,这里是/image<br>
-          --models 相机模型<br>
-          --target 上面填写的标定板yaml配置文件<br>
+          --bag rosbag package<br>
+          --topics image topic<br>
+          --models image model<br>
+          --target checkerboard parameters<br>
         </p>
-        <p>结果如下:</p>
+        <p>results:</p>
         <div class="code-box">
           <code>
             cam0:<br>
@@ -455,11 +460,12 @@
 
         <figure style="text-align: center;">
           <img class="width: 60%" src="Standard_Camera_Intrinsics/error.png" alt="Image description">
-          <figcaption>Fig. 2. kalibr标定重投影误差 </figcaption>
+          <figcaption>Fig. 2. Calibration reprojection error using Kalibr </figcaption>
         </figure>
 
-        <h3>3、Matlab标定</h3>
-        <p>详细过程见于Event_Camera_Intrinsics,这里只列出标定结果与重投影误差</p>
+        <h3>3、Matlab calibration</h3>
+        <p>Detailed process can be found in Event_ Camera_ Intrinsics, 
+          only the calibration results and reprojection errors are listed here</p>
         <div class="code-box">
           <code>
             cam0:<br>
@@ -474,13 +480,13 @@
         </div>
         <figure style="text-align: center;">
           <img class="width: 60%" src="Standard_Camera_Intrinsics/matlab.png" alt="Image description">
-          <figcaption>Fig. 3. Matlab标定重投影误差 </figcaption>
+          <figcaption>Fig. 3. Calibration reprojection error using Matlab </figcaption>
         </figure>
-        <h2>总结：</h2>
-        <p>相比及低分辨率相机(如dvs346)，分辨率比较大的相机从重投影误差看,使用matlab标定出的重投影误差显然小于使用kalibr标定出来的结果.并且使用matlab可以手动
-          选择不用视角下的图像，可以更好的覆盖到整个视野.除此之外,在进行没有图像的事件相机标定过程中,由于e2vid重建图像存在模糊、干扰等情况,
-          所以事件相机使用根据重建图像转化的rosbag包进行kalibr标定时存在较大误差(详细过程见于Event_Camera_Intrinsics)。基于此,所有的
-          相机标定结果都使用matlab标定结果,kalibr的结果用于交叉验证。
+        <h2>Conclusion </h2>
+        <p>Compared to low resolution cameras (such as dvs346), cameras with higher resolutions have significantly smaller reprojection errors compared to those calibrated using kalibr. Additionally, using MATLAB allows for manual calibration
+          Choosing images from different perspectives can better cover the entire field of view. In addition, during the calibration process of event cameras without images, due to blurring, interference, and other issues in e2vid reconstructed images,
+          So there is a significant error when using the rosbag package converted from the reconstructed image for Kalibr calibration of the event camera (detailed process can be found in Event_Camera_Intrinsics). Based on this, all
+          The camera calibration results are all calibrated using MATLAB, and the Kalibr results are used for cross validation.
         </p>
 
         

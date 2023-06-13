@@ -392,61 +392,69 @@
         <!--在此插入内容-->
         <h1 align="center">Camera_and_IMU_Extrinsic</h1>
         <h6 align="center"> <a href="https://github.com/xukang2311">Kang Xu</a></h6>
-        <h2>简介：</h2>
+        <h2>Abstract</h2>
         <p>
-            在相机与imu的外参标定中.事件相机与传统相机并没有大的差别,主要差别在标定包的获取过程中,
-            以dvxplorer和FLIR BFLY-U3-23S3C相机为例,介绍了使用kalibr进行事件相机和传统相机与imu的外参标定过程及结果.
+          In the extrinsic calibration of cameras and IMU, there is no significant difference between event cameras and traditional cameras, 
+          mainly in the process of obtaining calibration packages,
+          Taking dvxplorer and FLIR BFLY-U3-23S3C cameras as examples, 
+          this paper introduces the external calibration process and results of event cameras and traditional cameras with imu using kalibr.
         </p>
-        <h2>流程：</h2>
+        <h2>Procession</h2>
 
-        <h3>1、录制rosbag包</h3>
-        <p>录制的时候注意要尽量运动的平滑一些,速度不要太快,也不可太慢,要充分激励imu.</p>
-        <h4>(1)事件相机</h4>
+        <h3>1、Record rosbag package</h3>
+        <p>When recording, be sure to move as smoothly as possible, 
+          not too fast or too slow, and fully motivate the IMU</p>
+        <h4>(1)Event cameras</h4>
 
-        <h5>i.录制话题</h5>
-        <p>录制imu和事件相机对应的话题,如图1所示:</p>
+        <h5>i.Record topics</h5>
+        <p>Record the topic corresponding to the IMU and event camera, as shown in Figure 1:</p>
         <figure style="text-align: center;">
           <img class="width: 60%" src="Camera_and_IMU_Extrinsics/dvx_event_imu.png" alt="Image description">
           <figcaption>Fig. 1. dvx event and imu </figcaption>
         </figure>
 
-        <h5>ii.rosbag 包处理</h5>
+        <h5>ii.rosbag package process</h5>
 
         <p>
-          使用rosbag editor(安装与使用请参考:<a href="https://github.com/facontidavide/rosbag_editor">Link</a>)
+          Using the rosbag editor (please refer to:<a href="https://github.com/facontidavide/rosbag_editor">Link</a>)
           
-          将上面录制的包分离为只含imu消息与只含事件消息的rosbag包。
+          Separate the recorded package above into rosbag packages that only contain IMU messages and event messages.
 
-          后者用于重建图像,具体方法详见网页tools中的Event Reconstruction Image
+          The latter is used for image reconstruction, 
+          and the specific method can be found in the Event Reconstruction Image in the webpage tools
           <a href="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image.html">(Link)</a>.
 
-          获得重建图像后,运行python代码将图片转换为rosbag,转换代码链接为：
+          After obtaining the reconstructed image, run Python code to convert the image into ROSBAG. 
+          The conversion code link is:
           <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/dvs346/event/kalibr/images_to_rosbag.py">
             https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/dvs346/event/kalibr/images_to_rosbag.py</a>.
         </p>
-        <h5>iii.rosbag 包合并</h5>
+        <h5>iii.Merge osbag package </h5>
 
         <p>
-          将上面分离出的只含imu消息的rosbag包与重建图像的rosbag包进行合并,具体方法详见网页tools中的Data pre-process
+          Merge the separated rosbag package containing only IMU messages with the ROSBAG package of the reconstructed image. 
+          For specific methods, 
+          please refer to the Data pre process in the webpage tools
           <a href="https://erglab.github.io/M3EDS/html/Tools/Data_Pre-process.html">(Link)</a>.
-          通过上面步骤,即可得到用于事件相机与imu外参标定的rosbag包.
+          By following the above steps, the rosbag package for event camera and IMU external parameter calibration can be obtained
         </p>
         <figure style="text-align: center;">
           <img class="width: 60%" src="Camera_and_IMU_Extrinsics/dvx_imu.png" alt="Image description">
-          <figcaption>Fig. 2. dvx 重建图像 与 imu </figcaption>
+          <figcaption>Fig. 2. dvx reconstruction images 与 imu </figcaption>
         </figure>
-        <h4>(2)传统相机</h4>
+        <h4>(2)Traditional cameras</h4>
         <p>
-          传统相机直接录制即可得到用于标定的rosbag包.
+          Traditional cameras can directly record to obtain rosbag packages for calibration.
         </p>
         <figure style="text-align: center;">
           <img class="width: 60%" src="Camera_and_IMU_Extrinsics/rgb_imu.png" alt="Image description">
-          <figcaption>Fig. 3. 传统相机图像与imu </figcaption>
+          <figcaption>Fig. 3. traditional camera and imu </figcaption>
         </figure>
 
 
-        <h3>2、kalibr标定</h3>
-        <p>进入kalibr工作空间内运行以下指令(可能需要先source devel/setup.bash 一下)</p>
+        <h3>2、Kalibr Calitration</h3>
+        <p>Enter the Kalibr workspace and run the following instructions 
+          (You may need to first source dev/setup. bash)</p>
         <div class="code-box">
         <code>
           rosrun kalibr kalibr_calibrate_imu_camera 
@@ -457,17 +465,17 @@
           --imu-models scale-misalignment
 	      </code></div>
         <p>
-          --target 标定板的一些参数,注意横放与竖放参数有差别<br>
-          --bag 含有imu消息与图像消息(传统相机的rgb图像或基于事件相机事件流重建出的图像)的rosbag包<br>
-          --cam 相机内参文件(获取方法见于Event_Camera_Intrinsics与Standard_Camera_Intrinsics)<br>
-          --imu imu内参文件(获取方法见于IMU_Intrinsic_Calibration) <br>
-          --imu-models imu模型
+          --target Some parameters of the calibration board should be noted that there are differences between horizontal and vertical parameters<br>
+          --bag rosbag package containing IMU messages and image messages<br>
+          --cam Camera intrinsics file (see Event_Camera_Intrinsics and Standard_Camera_Intrinsics for obtaining methods)<br>
+          --imu IMU intrinsics file (see IMU_Intrinsic_Calibration for the method of obtaining) <br>
+          --imu-models imu model
           
         </p>
-	      <p>标定结果如下:</p>
+	      <p>Results:</p>
         <div class="code-box">
           <code>
-            事件相机:<br>
+            Event Camera:<br>
             cam0:<br>
             T_cam_imu:<br>
             - [0.9997422588222811, -0.02001746287604113, 0.01071060712234844, -0.06221593621272268]<br>
@@ -485,7 +493,7 @@
           </code></div>
           <div class="code-box">
             <code>
-              传统相机:<br>
+              Traditional camera:<br>
               cam0:<br>
               T_cam_imu:<br>
               - [0.9998698145365037, -0.006122574459816224, 0.014928766215645779, 0.04356622890941122]<br>
@@ -503,22 +511,26 @@
             </code></div>
         <figure style="text-align: center;">
           <img class="report-img" src="Camera_and_IMU_Extrinsics/dvx_imu_error.png" alt="Image description">
-          <figcaption>Fig. 4. dvx重建图像与imu标定重投影误差 </figcaption>
+          <figcaption>Fig. 4. Dvx reconstruction images and imu calibration of reprojection error </figcaption>
         </figure>
         <figure style="text-align: center;">
           <img class="report-img" src="Camera_and_IMU_Extrinsics/rgb_imu_error.png" alt="Image description">
-          <figcaption>Fig. 5. 图像与imu标定重投影误差 </figcaption>
+          <figcaption>Fig. 5. Images and imu calibration of reprojection error </figcaption>
         </figure>
 
-        <h2>总结：</h2>
+        <h2>Conclusion</h2>
         <p>
 
-          为了验证基于事件相机重建图像与imu外参标定方案的有效性,我们选择了具有图像与事件的dvs346相机,使用相同的相机内参与imu内参.采集标定
-          包之后将其中的图像与事件重建图像在kalibr中分别与imu进行外参标定.结果如下所示:
+          To verify the effectiveness of the event based camera reconstruction image and imu external parameter calibration scheme, 
+          we selected a dvs346 camera with both images and events, 
+          and used the same camera to participate in imu internal parameter acquisition and calibration
+          After the package is packaged, 
+          the images and event reconstruction images are externally calibrated with IMU in Kalibr. 
+          The results are as follows:
         </p>
           <div class="code-box">
           <code>
-            dvs346重建图像:<br>
+            dvs346 reconstruction image:<br>
             T_cam_imu:<br>
             - [-0.99944484 -0.02962565 -0.01524232 -0.00201907]<br>
             - [-0.02977555 0.99950951 0.00970351 0.00829386]<br>
@@ -527,7 +539,7 @@
           </code></div>
           <div class="code-box">
             <code>
-            dvs346图像:<br>
+            dvs346 image:<br>
             T_cam_imu:<br>
             - [-0.99950297, -0.02744539, -0.01551036, -0.00220836]<br>
             - [-0.0275675, 0.99959018, 0.00771412, 0.00733739]<br>
@@ -536,14 +548,16 @@
             </code></div>
         <figure style="text-align: center;">
           <img class="report-img" src="Camera_and_IMU_Extrinsics/dvs346_event.png" alt="Image description">
-          <figcaption>Fig. 6. dvs346重建图像与imu标定重投影误差 </figcaption>
+          <figcaption>Fig. 6. Reconstructed images from dvs346 and reprojection errors calibrated with imu </figcaption>
         </figure>
         <figure style="text-align: center;">
           <img class="report-img" src="Camera_and_IMU_Extrinsics/dvs346_image.png" alt="Image description">
-          <figcaption>Fig. 7. dvs346图像与imu标定重投影误差 </figcaption>
+          <figcaption>Fig. 7.Images from dvs346 and reprojection errors calibrated with imu </figcaption>
         </figure>            
 
-        由上面结果可以看出,通过两种图像标定出的旋转矩阵基本完全一致,并且平移误差为毫米级,在误差接受范围内,说明了利用重建图像进行外参标定的结果是可靠的.
+        From the above results, it can be seen that the Rotation matrix calibrated by the two images is basically identical, 
+        and the translation error is millimeter level, which is within the acceptable range of error, 
+        indicating that the result of external parameter calibration using the reconstructed image is reliable
 
       </div>
     </section>

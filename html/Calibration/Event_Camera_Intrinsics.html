@@ -400,39 +400,44 @@
       <div id="myDiv">
         <h1 align="center">Event_Camera_Intrinsics</h1>
         <h6 align="center"> <a href="https://github.com/xukang2311">Kang Xu</a></h6>
-	      <h2 id="简介：">简介：</h2>
-	      <p>目前EventCamera的标定方案目前有.....(关师兄csdn上试过的那些),文章采用了通过e2vid重建图像的方法进行内参标定.在这里我们以dvs346为例展示一下事件相机标定过程结果,并通过对比其中图像与事件标定结果来验证方法有有效性</p>
-	      <h2 id="流程：">流程：</h2>
-	      <h3 id="1、录制rosbag包,话题包括事件、imu数据和图像数据">1、录制rosbag包,话题包括事件、imu数据和图像数据</h3>
+	      <h2>Abstract</h2>
+	      <p>The article adapt the method of reconstructing images through E2vid for intrinsic calibration of event camera. 
+          Here, we used dvs346 as an example to demonstrate the results of the event camera calibration process, 
+          and verified the effectiveness of the method by comparing the image and event calibration results</p>
+	      <h2>Procession</h2>
+	      <h3>1、Record rosbag package</h3>
 	      <div class="code-box">
         <code>rosbag record /capture_node/camera/image /capture_node/events /capture_node/imu -O out.bag
 	      </code></div>
         <p>
-          --/capture_node/camera/image 图像话题<br>
-          --/capture_node/events 事件话题<br>
-          --/capture_node/imu imu话题<br>
-          --out.bag 文件名<br>
+          --/capture_node/camera/image image topic<br>
+          --/capture_node/events  events topic<br>
+          --/capture_node/imu imu topic <br>
+          --out.bag file name<br>
         </p>
-	      <h3 id="2、图像内参标定">2、图像内参标定</h3>
-	      <p>使用kalibr或者matlab(需要将rosbag中的图像导出)</p>
+	      <h3>2、Image intrinsic calibration</h3>
+	      <p>
+          Using Kalibr or MATLAB (requires exporting images from rosbag)
+          </p>
 	      <h4 id="(1)kalibr">(1)kalibr</h4>
         <h5>i.install</h4>
           <p>
-            前往kalibr的官网根据教程进行安装,链接为：
+            Go to Kalibr's official website to install according to the tutorial, link:
             <a href="https://github.com/ethz-asl/kalibr">https://github.com/ethz-asl/kalibr</a>
           </p>
         <h5>ii.calib</h4>
-        <p>进入kalibr工作空间内运行以下指令(可能需要先source devel/setup.bash 一下)</p>
+        <p>Enter the Kalibr workspace and run the following instructions 
+          (You may need to first source dev/setup. bash)</p>
         <div class="code-box">
         <code>rosrun kalibr kalibr_calibrate_cameras --bag out.bag --topics /capture_node/camera/image --models pinhole-radtan --target checkerboard.yaml
 	      </code></div>
         <p>
-          --bag 含有所需标定话题的rosbag包,这里是上面录制的out.bag<br>
-          --topics 待标定图像的topic,这里是/capture_node/camera/image<br>
-          --models 相机模型<br>
-          --target 标定板的一些参数<br>
+          --bag rosbag package<br>
+          --topics image topic<br>
+          --models image model<br>
+          --target checkerboard parameters<br>
         </p>
-	      <p>结果如下:</p>
+	      <p>result:</p>
         <div class="code-box">
           <code>
             cam0:<br>
@@ -447,88 +452,98 @@
           <p></p>
         <figure style="text-align: center;">
           <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/kalibr/reprojection_error.png" alt="Image description">
-          <figcaption>Fig. 1. dvs346图像kalibr标定重投影误差 </figcaption>
+          <figcaption>Fig. 1. Calibration reprojection error of Dvs346 image using Kalibr</figcaption>
         </figure>
         <figure style="text-align: center;">
           <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/kalibr/intrinsics.png" alt="Image description">
-          <figcaption>Fig. 2. dvs346图像kalibr标定结果 </figcaption>
+          <figcaption>Fig. 2. Calibration results of Dvs346 image using Kalibr </figcaption>
         </figure>
-	      <h4 id="2-matlab图像过多,最好先降低图像频率,后面与imu联合标定外参也要用到">(2) matlab(图像过多,最好先降低图像频率,后面与imu联合标定外参也要用到)</h4>
-	      <h5 id="i降低图像数据频率(这里降为4hz)">i.降低图像数据频率(这里降为4hz)</h5>
-        <p>首先开启一个终端运行roscore节点</p>
+	      <h4>(2) Matlab (If there are too many images, it is best to reduce the image frequency first, 
+          and then use it to jointly calibrate extrinsics with IMU)</h4>
+	      <h5>i.Reduce the frequency of image data to 4Hz</h5>
+        <p>First, start a terminal to run the roscore node</p>
         <div class="code-box">
           <code>roscore
         </code></div>
-	      <p>三个终端分别指令为（分先后顺序运行）：</p>
-	      <p>降低频率：</p>
+	      <p>
+          The instructions for the three terminals are (run in sequence):
+          </p>
+	      <p>
+          Reduce frequency:
+          </p>
         <div class="code-box">
           <code>rosrun topic_tools throttle messages /capture_node/camera/image 4.0 /image_raw
         </code></div>
         <p>
-          --/capture_node/camera/image  需要降低频率的话题名<br>
-          --/image_raw 降低频率后的话题名
+          --/capture_node/camera/image  topic  that need to be reduced in frequency
+          <br>
+          --/image_raw topic name after reducing frequency
         </p>
-	      <p>录制降低频率后的image与imu:</p>
+	      <p>Record the image and imu after reducing the frequency:</p>
        <div class="code-box">
-        <code>rosbag record /image_raw /capture_node/imu -O sample.bag(话题名改变了)
+        <code>rosbag record /image_raw /capture_node/imu -O sample.bag
        </code></div>
        <p>
-        --/image_raw 将降低频率后的图像话题重新跟imu一起录入
+        --/image_raw record the image topic with IMU after reducing the frequency
       </p>
 
-	     <p>播放含有需要降低频率话题的rosbag包:</p>
+	     <p>Play rosbag package containing topics that require frequency reduction:</p>
        <div class="code-box">
         <code>rosbag play out.bag
        </code></div>
  
-	     <p>这样就能得到一个包含4hz频率图像与imu数据的rosbag。</p>
+	     <p>This will result in a rosbag containing a 4Hz frequency image and IMU data</p>
        <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/1.png" alt="Image description">
-        <figcaption>Fig. 3. 降低前后rosbag包对比图(上为处理前的，下为处理后的) </figcaption>
+        <figcaption>Fig. 3. Comparison of rosbag package before and after reduction (top shows before processing, bottom shows after processing) </figcaption>
       </figure>
 
-	     <h5 id="iirosbag图像导出">ii.rosbag图像导出</h5>
-	     <p>可以参考：<a href="https://zhuanlan.zhihu.com/p/552617948">Link</a></p>
-       <p>导出图像如图4所示:</p>
+	     <h5>ii.Export images in rosbag package</h5>
+	     <p>refer to:<a href="https://zhuanlan.zhihu.com/p/552617948">Link</a></p>
+       <p>
+        Export images as shown in Figure 4:</p>
        <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/matlab/out_image.png" alt="Image description">
-        <figcaption>Fig. 4. 从rosbag中导出的图像 </figcaption>
+        <figcaption>Fig. 4. images from rosbag package </figcaption>
       </figure>
-	     <h5 id="iii在matlab工具箱中进行标定">iii.在matlab工具箱中进行标定</h5>
-       <p>将上述导出的图像导入至matlabCamera Calibrator工具箱中并点击上面的Calibrate进行标定:</p>
+	     <h5>iii.Calibration in Matlab</h5>
+       <p>Import the exported image into the Matlab Camera Calibrator toolbox and click on Calibrate above for calibration:</p>
        <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/matlab/matlab1.png" alt="Image description">
-        <figcaption>Fig. 5. matlab标定工具箱图像导入 </figcaption>
+        <figcaption>Fig. 5. Import images into Matlab </figcaption>
       </figure>
 
-       <p>找出其中使重投影误差较大的图像并删去</p>
+       <p>Identify the images that cause significant reprojection errors and delete them</p>
        <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/matlab/matlab2.png" alt="Image description">
-        <figcaption>Fig. 6. 选中误差较大的图像并删去 </figcaption>
+        <figcaption>Fig. 6. Select images with significant errors and delete them </figcaption>
       </figure>
 
-      <p>点击Export Camera Parameters将标定结果导出</p>
+      <p>Export Camera Parameters</p>
       <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/matlab/matlab3.png" alt="Image description">
-        <figcaption>Fig. 7. 导出标定结果 </figcaption>
+        <figcaption>Fig. 7. Calitration results </figcaption>
       </figure>
 
-      <p>标定好的相机内参位于工作区中，内参标定结果如下图：</p>
+      <p>The calibrated camera internal parameters are located in the work area, 
+        and the calibration results of intrinsics are shown in the following figure:</p>
 
       <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/image/matlab/matlab4.png" alt="Image description">
-        <figcaption>Fig. 8. 内参标定结果 </figcaption>
+        <figcaption>Fig. 8. Intrinsic calibration results </figcaption>
       </figure>
 
-	     <h3 id="3、事件相机内参标定">3、事件相机内参标定</h3>
-       <p>对于事件相机内参,我们采用e2vid重建的方法重建出图像帧进行标定.</p>
+	     <h3>3、Intrinsics calibration of event cameras</h3>
+       <p>For event camera Intrinsics we use the e2vid reconstruction method to reconstruct image frames for calibration</p>
        <h4>(1)e2vid</h4> 
-       <p>具体方法详见网页tools中的Event Reconstruction Image
+       <p>For specific methods, please refer to the Event Reconstruction Image in the webpage tools:
         <a href="https://erglab.github.io/M3EDS/html/Tools/Event_Reconstruction_Image.html">(Link)</a>.
        </p>
        <h4>(2)kalibr</h4> 
        <p>
-        通过e2vid可以生成重建图像,运行python代码将图片转换为rosbag进行标定,转换代码链接为：
+        Through e2vid, reconstructed images can be generated, 
+        and Python code can be run to convert the images into rosbag for calibration. 
+        The conversion code link is:
         <a href="https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/dvs346/event/kalibr/images_to_rosbag.py">
           https://github.com/ERGlab/M3EDS/blob/main/html/Calibration/Event_Camera_Intrinsics/dvs346/event/kalibr/images_to_rosbag.py</a>.
        </p>
@@ -536,65 +551,71 @@
         <code>python images_to_rosbag.py --rosbag_folder /img_out --image_folder /e2calib --image_topic /dvs/image_reconstructed
        </code></div>
        <p> 
-        --rosbag_folder rosbag输出文件夹<br>
-        --image_topic rosbag中重建图像的topic<br>
-        至此可以得到一个事件重建图像的rosbag包,可以采取上面图像内参kalibr标定方法进行标定,结果如图9所示:
+        --rosbag_folder rosbag output folder<br>
+        --image_topic the topic of reconstruction images<br>
+        At this point, a rosbag package for event reconstruction images can be obtained, 
+        which can be calibrated using the Kalibr calibration method mentioned above. The results are shown in Figure 9:
        </p>
        <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/event/kalibr/intrinsics.png" alt="Image description">
-        <figcaption>Fig. 9. 事件重建图像标定结果 </figcaption>
+        <figcaption>Fig. 9. Event reconstruction image calibration results </figcaption>
       </figure>
       <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/event/kalibr/reprojection_error.png" alt="Image description">
-        <figcaption>Fig. 10. 重投影误差 </figcaption>
+        <figcaption>Fig. 10. re-projection error </figcaption>
       </figure>
 
       <p> 
-        注:使用重建图像进行kalibr标定会出现畸变异常的情况,上面标定的是正常的,但是在多次标定的过程中会出现如图11所示的畸变异常的情况
+        Note: Using reconstructed images for Kalibr calibration may result in abnormal distortion. 
+        The above calibration is normal, but during multiple calibrations, abnormal distortion may occur as shown in Figure 11
       </p>
       <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/event/kalibr/errord.png" alt="Image description">
-        <figcaption>Fig. 11. 具有异常畸变的标定结果 </figcaption>
+        <figcaption>Fig. 11. Calibration results with abnormal distortion </figcaption>
       </figure>
        
        <h4>(3)matlab</h4> 
       <p> 
-        根据重建的图像在matlab工具箱标定,步骤与图像内参matlab标定方法相同,结果如下图12所示:
+        According to the reconstructed image, calibrate it in the Matlab toolbox, 
+        following the same steps as the image intrinsic calibration using Matlab. 
+        The results are shown in Figure 12:
       <p> 
       <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/event/matlab/1.png" alt="Image description">
-        <figcaption>Fig. 12. 事件重建图像标定内参 </figcaption>
+        <figcaption>Fig. 12. Event reconstruction image calibration intrinsics </figcaption>
       </figure>  
       <figure style="text-align: center;">
         <img class="report-img" src="Event_Camera_Intrinsics/dvs346/event/matlab/error.png" alt="Image description">
-        <figcaption>Fig. 13. 事件重建图像标定重投影误差 </figcaption>
+        <figcaption>Fig. 13. Event reconstruction image calibration reprojection error </figcaption>
       </figure>  
 
-       <h2 id="对比分析">对比分析</h2>
+       <h2>Comparation analysis </h2>
 
-       <p>标定结果如下：</p>
+       <p>The calibration results are as follows:</p>
        <div class="code-box">
         <code>
-          (1)kalibr标定结果<br>
-          图像标定结果：<br>
+          (1)kalibr results<br>
+          Intrinsics based on images<br>
           k : [ 252.3789391   252.40414164  173.43863462  120.19819515] <br>
           d : [-0.38176694  0.14885486  0.00003701 -0.00017057] <br>
-          事件标定结果：<br>
+          Intrinsics based on events<br>
           k : [ 253.84773123  253.88799685  174.01053551  123.19547128] <br>
           d : [-0.38261608  0.14698837 -0.00143755 -0.00033804] <br>
-          (2)matlab标定结果<br>
-          图像标定结果：<br>
+          (2)Matlab results<br>
+          Intrinsics based on images:<br>
           k : [ 254.0247   253.9952  173.8491  121.3679] <br>
           d : [-0.3912  0.1596  0 0] <br>
-          事件标定结果：<br>
+          Intrinsics based on events<br>
           k : [ 253.6016   253.6231 174.1880  121.6994] <br>
           d : [-0.3908  0.1590 0 0] <br>
       </code></div>
        <p>
-        将以上标定结果进行对比,可以发现采用的内参标定方法的事件与图像标定结果接近,可将其拓展到没有image的事件相机(如dvxplorer),
-        但是要注意kalibr标定重建图像中畸变异常问题。
+        Comparing the above calibration results, 
+        it can be found that the events using the intrinsics calibration method are similar to the image calibration results, 
+        which can be extended to event cameras without images (such as dvexplorer),
+        However, attention should be paid to the issue of abnormal distortion in the Kalibr calibration and reconstruction images.
        </p>
-       <h2 id="简介：">参考：</h2>
+       <h2>reference:</h2>
         <p> 
           Kalibr:<a href="https://github.com/ethz-asl/kalibr">https://github.com/ethz-asl/kalibr</a>
         </p>
