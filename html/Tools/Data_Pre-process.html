@@ -1,3 +1,4 @@
+
 <style>
   #myDiv {
       padding-top: 5%;
@@ -546,8 +547,45 @@
         <img style="width: 60%;" src="Data_Pre-process/after_merge.png" alt="Image description">
         <figcaption>Fig. 6. The Final Merged rosbag</figcaption>
       </figure>
+      
+      <h2>5. GT generation</h2>
+      <h3>5.1 M3EDS-Driving-gt</h3>
+      <p>
+
+        The ground truth of the M3EDS Driving dataset is generated in the SPAN-CPT system.
+        Referred to <a href="https://github.com/IPNL-POLYU/UrbanNavDataset/tree/master/tools">Link</a>.
+        The script loads all SPAN-CPT Ground True data and converts them to ENU frame or LiDAR local frame (set convert_body_frame = True) with the first line as origin.
+        And convert the GT to local coordinate based on the first message and the heading following TUM format.<br>
+        Specifically, first download it and then install some dependencies
+        <br> 
+
+        <div class="code-box">
+          <code>
+            cd gt_vis <br>
+            pip3 install numpy-quaternion matplotlib pymap3d <br>
+          </code>
+        </div> <br>
+
+        Then  change the 'novatel_path' in "run_vehicle_path.py"  and execute (as shown in Fig.7)<br>  <br>
+
+        <div class="code-box">
+          <code>
+            python3 run_vehicle_path.py 
+          </code>
+        </div> <br>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="Data_Pre-process/drving gt.png" alt="Driving GT to TUM format">
+          <figcaption>Fig. 7. Driving GT to TUM format</figcaption>
+        </figure> <br>
+
+        You will get the truth value in TUM format, and then you can use evo tools to evaluate the algorithm performance
+
+        .<br>
 
 
+        
+      </p>
       </div>
     </section>
   </div>

@@ -5,8 +5,19 @@
     padding-right: 20%;
     padding-bottom: 5%;
 	}
+  p {
+    text-align: justify;
+      text-align-last: left;
+    text-justify: inter-word;
+  }
+  
+  .report-img {
+      width: 60%;
+      height: auto;
+  }
+
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
@@ -389,7 +400,104 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <!--在此插入内容-->
+        <h1 align="center">VLP-32C_Driver</h1>
+        <h6 align="center"> <a href="https://github.com/lxw919"> Xianwei Lv</a></h6>   
+        <h2>1. Abstract</h2>
+
+        <p>In this report, we will provide a brief overview of our VLP-32C Driver configuration process
+          This primary involves configuring Ethernet, 
+          download and compile driver, 
+          display point clouds and topics</p>
+
+
+
+        <h2>2.  Configuring Ethernet</h2>
+
+        <p>
+          Firstly, connect the network cable to the PC to ensure 
+          that the browser can log in to 192.168.1.201 normally and enter the LIDAR settings interface.
+           (default setting address), set ipv4:
+          IP address: 192.168.1.x (x can be all values from 1 to 254 except for 201, as 201 is the IP of LiDAR),
+           I set 192.168.1.49
+          Subnet Mask: 255.255.255.0.
+        </p>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="VLP-32C_Driver_pic/web.png" alt="Image description">
+          <figcaption>Fig. 1. The ip config of LIDAR</figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img style="width: 60%;" src="VLP-32C_Driver_pic/wifi.png" alt="Image description">
+          <figcaption>Fig. 2. The Ethernet ip of LIDAR</figcaption>
+        </figure>
+
+
+
+
+
+        <h2>3. Download and Compile Driver</h2>
+
+          <p>        Download the driver package from the official website, then create a new ROS workspace, execute compilation, and source the workspace
+          </p>
+
+        <div class="code-box">
+          <code>
+              mkdir -p vlp_ws/src   <br>
+              cd vlp_ws/src<br>
+              git clone https://github.com/ros-drivers/velodyne.git<br>
+              cd ..<br>
+              catkin_make<br>
+              source devel/setup.bash         <br>
+         </code></div>
+
+
+        <h2>4. Display </h2>
+
+          <p>After compilation, run the launch file in the workspace, and then start rviz to display the point cloud</p>
+          <div class="code-box">
+            <code>
+              roslaunch velodyne_pointcloud VLP-32C_points.launch<br>
+           </code></div><br>
+
+           <figure style="text-align: center;">
+            <img style="width: 60%;" src="VLP-32C_Driver_pic/run.png" alt="Image description">
+            <figcaption>Fig. 3. The launch of LIDAR </figcaption>
+          </figure>
+  
+           <p> Run rviz (3D visualization tool)</p>
+
+
+           <div class="code-box">
+            <code>
+              rviz
+            </code></div><br>
+          
+            <p> Click add, add pointcloud2 by topic, 
+              and modify the frame ID to velodyne to display the obtained 3D point cloud image in real-time. </p>
+
+              <figure style="text-align: center;">
+                <img style="width: 60%;" src="VLP-32C_Driver_pic/pointcloud.png" alt="Image description">
+                <figcaption>Fig. 4. The pointcloud of LIDAR</figcaption>
+              </figure>
+
+            <div class="code-box">
+              <code>
+                rostopic list      <br>
+                rosbag record /velodyne_packets (in compressed format, or velodyne points)
+
+             </code></div>
+
+
+
+
+
+
+      
+      
+      
+      
+      
       </div>
     </section>
 
