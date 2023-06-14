@@ -114,13 +114,13 @@ text-justify: inter-word;
                     <a href="https://erglab.github.io/M3EDS/html/Calibration/Event_Camera_Intrinsics.html" class="dropdown-item">Event Camera Intrinsics</a>
                   </li>
                   <li class="nav-item">
-                    <a href="https://erglab.github.io/M3EDS/html/Calibration/Event_Camera_and_IMU_Extrinsic.html" class="dropdown-item">Event Camera and IMU Extrinsic</a>
+                    
                   </li>
                   <li class="nav-item">
                     <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_Intrinsics.html" class="dropdown-item">Standard Camera Intrinsics</a>
                   </li>
                   <li class="nav-item">
-                    <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_and_IMU_Extrinsic.html" class="dropdown-item">Standard Camera and IMU Extrinsic</a>
+                    <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_and_IMU_Extrinsic.html" class="dropdown-item">Camera and IMU Extrinsic</a>
                   </li>
                   <li class="nav-item">
                     <a href="https://erglab.github.io/M3EDS/html/Calibration/Camera-LiDAR_Extrinsic.html" class="dropdown-item">Camera-LiDAR Extrinsic</a>
@@ -293,13 +293,13 @@ text-justify: inter-word;
                         <a href="https://erglab.github.io/M3EDS/html/Calibration/Event_Camera_Intrinsics.html" class="dropdown-item">Event Camera Intrinsics</a>
                       </li>
                       <li class="nav-item">
-                        <a href="https://erglab.github.io/M3EDS/html/Calibration/Event_Camera_and_IMU_Extrinsic.html" class="dropdown-item">Event Camera and IMU Extrinsic</a>
+                        
                       </li>
                       <li class="nav-item">
                         <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_Intrinsics.html" class="dropdown-item">Standard Camera Intrinsics</a>
                       </li>
                       <li class="nav-item">
-                        <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_and_IMU_Extrinsic.html" class="dropdown-item">Standard Camera and IMU Extrinsic</a>
+                        <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_and_IMU_Extrinsic.html" class="dropdown-item">Camera and IMU Extrinsic</a>
                       </li>
                       <li class="nav-item">
                         <a href="https://erglab.github.io/M3EDS/html/Calibration/Camera-LiDAR_Extrinsic.html" class="dropdown-item">Camera-LiDAR Extrinsic</a>
@@ -518,7 +518,7 @@ text-justify: inter-word;
           <!-- (3)Left slant LiDAR (<a href="http://wiki.ros.org/lslidar_c16">Lslidar C16</a>) -->
           <details>
             <summary>
-              (3)Left slant LiDAR (<a href="http://wiki.ros.org/lslidar_c16">Lslidar C16</a>)
+              (3)RGB-D Camera (<a href="https://www.intelrealsense.com/zh-hans/depth-camera-d455/">Lslidar C16</a>)
             </summary>
             <br>
             <table>
@@ -527,7 +527,15 @@ text-justify: inter-word;
                   <h4>Frequency:</h4>
                 </td>
                 <td>
-                  <h4>10Hz</h4>
+                  <h4>30Hz</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Resolution:</h4>
+                </td>
+                <td>
+                  <h4>1280*720 pixel</h4>
                 </td>
               </tr>
               <tr>
@@ -535,23 +543,7 @@ text-justify: inter-word;
                   <h4>FOV:</h4>
                 </td>
                 <td>
-                  <h4>360°(Horizontal)，-15°∼15°(Vertical)</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>Beam:</h4>
-                </td>
-                <td>
-                  <h4>16</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>Distance:</h4>
-                </td>
-                <td>
-                  <h4>up to 150m</h4>
+                  <h4>87°(Horizontal),58°(Vertical)</h4>
                 </td>
               </tr>
             </table>
@@ -563,7 +555,7 @@ text-justify: inter-word;
           <!-- (4)IMU (<a href="https://www.xsens.com/products/mti-10-series">Xsens Mti-10</a>) -->
           <details>
             <summary>
-              (4)IMU (<a href="https://www.xsens.com/products/mti-10-series">Xsens Mti-10</a>)
+              (4)IMU (<a href="https://www.hipnuc.com/product_attitude_ch10x.html">Hipnuc CH104_UM_CN</a>)
             </summary>
             <br>
             <table>
@@ -575,22 +567,6 @@ text-justify: inter-word;
                   <h4>400Hz</h4>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <h4>Accelerometer in-run Bias Instability:</h4>
-                </td>
-                <td>
-                  <h4>15μg</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>Gyroscope in-run Bias Instability:</h4>
-                </td>
-                <td>
-                  <h4>18°/h</h4>
-                </td>
-              </tr>
             </table>
             <br>
           </details>
@@ -600,53 +576,7 @@ text-justify: inter-word;
           <!-- (5)GNSS receivers -->
           <details>
             <summary>
-              (5)GNSS receivers
-            </summary>
-            <br>
-            <table>
-              <tr>
-                <td rowspan="3">
-                  <h4>Quantity:</h4>
-                </td>
-                <td>
-                  <h4>u-blox ZED-F9P(X2)</h4>
-                </td>
-                <td>&nbsp&nbsp&nbsp&nbsp</td>
-                <td rowspan="3">
-                  <h4>Frequency:</h4>
-                </td>
-                <td>
-                  <h4>u-blox ZED-F9P(1Hz,10Hz)</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>EVK-M8T(x1)</h4>
-                </td>
-                <td>&nbsp&nbsp&nbsp&nbsp</td>
-                <td>
-                  <h4>EVK-M8T(1Hz)</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>NovAtel Flexpak6(x1)</h4>
-                </td>
-                <td>&nbsp&nbsp&nbsp&nbsp</td>
-                <td>
-                  <h4>NovAtel Flexpak6(1Hz)</h4>
-                </td>
-              </tr>
-            </table>
-            <br>
-          </details>
-        </h4>
-
-        <h4 style="display: flex;">
-          <!-- (6)RTK GNSS/INS -->
-          <details>
-            <summary>
-              (6)RTK GNSS/INS (<a href="https://www.xsens.com/products/mti-10-series">Xsens Mti-10</a>)
+              (5)GNSS/INS-RTK (<a href="https://www.hipnuc.com/product_position_nav_ch310.html">Hipnuc CH310S</a>)
             </summary>
             <br>
             <table>
@@ -655,23 +585,7 @@ text-justify: inter-word;
                   <h4>Frequency:</h4>
                 </td>
                 <td>
-                  <h4>1Hz</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>localization RMSE:</h4>
-                </td>
-                <td>
-                  <h4>5cm</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4>Characteristic:</h4>
-                </td>
-                <td>
-                  <h4>post-processing using inertial explorer software</h4>
+                  <h4>400Hz</h4>
                 </td>
               </tr>
             </table>
@@ -684,18 +598,10 @@ text-justify: inter-word;
           <!-- (6)RGB Camera (FLIR BFLY-U3-23S3C) -->
           <details>
             <summary>
-              (7)RGB Camera (FLIR BFLY-U3-23S3C)
+              (6)RGB Camera (<a href="https://www.hipnuc.com/product_attitude_ch10x.html">Hikrobot MV-CI003-GL-N6</a>)
             </summary>
             <br>
             <table>
-              <tr>
-                <td>
-                  <h4>Quantity:</h4>
-                </td>
-                <td>
-                  <h4>X2</h4>
-                </td>
-              </tr>
               <tr>
                 <td>
                   <h4>Frequency:</h4>
@@ -709,7 +615,7 @@ text-justify: inter-word;
                   <h4>Resolution:</h4>
                 </td>
                 <td>
-                  <h4>1920×1200 pixel</h4>
+                  <h4>1440*1080 pixel</h4>
                 </td>
               </tr>
               <tr>
@@ -717,7 +623,7 @@ text-justify: inter-word;
                   <h4>FOV:</h4>
                 </td>
                 <td>
-                  <h4>96.8°(Horizontal)，79.4°(Vertical)</h4>
+                  <h4>96.8°(Horizontal),79.4°(Vertical)</h4>
                 </td>
               </tr>
             </table>
@@ -729,7 +635,7 @@ text-justify: inter-word;
           <!-- (7)Event Camera -->
           <details>
             <summary>
-              (8)Event Camera
+              (7)Event Camera
             </summary>
             <br>
             <table>
@@ -807,8 +713,8 @@ text-justify: inter-word;
 
         <h3>Sensor setups</h3>
         <figure style="text-align: center;">
-          <img style = "width: 48%" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/car.gif" alt="Image description">
-          <img style = "width: 48%" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/car_sensor.png" alt="Image description">
+          <img style = "width: 48%" src="" alt="Image description">
+          <img style = "width: 48%" src="" alt="Image description">
           <!-- <figcaption>Fig. 1. The location of sensors </figcaption> -->
         </figure>
       </div>
@@ -831,10 +737,10 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td><img style="text-align: center; width: 98%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/calibration.gif" alt="Image"></td>
-              <td><img style="text-align: center; width: 98%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
-              <td><img style="text-align: center; width: 98%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
-              <td><img style="text-align: center; width: 98%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td><h4 style="text-align: center;">Calibration:<a href="https://github.com/Huang-shulei/GIR_uart">rosbag</a></h4></td>
@@ -860,15 +766,15 @@ text-justify: inter-word;
             <col style="width: 23%;">
             <thead>
               <tr>
-                <th colspan="2" style="text-align: center;"><h3>hku_skypark_day</h3></th>
-                <th colspan="1" style="text-align: center;"><h3></h3></th>
-                <th colspan="2" style="text-align: center;"><h3>hku_skypark_night</h3></th>
+                <th colspan="2" style="text-align: center;" src="https://github.com/Huang-shulei/GIR_uart"><h3>hku_skypark_day</h3></th>
+                <th colspan="1" style="text-align: center;" src="https://github.com/Huang-shulei/GIR_uart"><h3></h3></th>
+                <th colspan="2" style="text-align: center;" src="https://github.com/Huang-shulei/GIR_uart"><h3>hku_skypark_night</h3></th>
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -909,9 +815,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -952,9 +858,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -995,9 +901,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -1038,9 +944,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -1077,13 +983,13 @@ text-justify: inter-word;
               <tr>
                 <th colspan="2" style="text-align: center;"><h3>hku_forest_day</h3></th>
                 <th colspan="1" style="text-align: center;"><h3></h3></th>
-                <th colspan="2" style="text-align: center;"><h3>hku_forest_night(有无待定？)</h3></th>
+                <th colspan="2" style="text-align: center;"><h3>hku_forest_night</h3></th>
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -1124,9 +1030,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -1167,9 +1073,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
@@ -1210,9 +1116,9 @@ text-justify: inter-word;
               </tr>
             </thead>
             <tr>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
               <td></td>
-              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://erglab.github.io/M3EDS/html/Download/Driving_pic/gif.png" alt="Image"></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="https://github.com/Huang-shulei/GIR_uart" alt="Image"></td>
             </tr>
             <tr>
               <td>
