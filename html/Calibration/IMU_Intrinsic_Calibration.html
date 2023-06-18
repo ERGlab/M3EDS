@@ -6,7 +6,7 @@
     padding-bottom: 5%;
 	}
   .code-box {
-      width: 70%; /* 设置固定宽度 */
+      width: 100%; /* 设置固定宽度 */
       height: auto; /* 自适应高度 */
       border: 1px solid #ccc;
       border-radius: 0%;
@@ -392,42 +392,51 @@
         <h1 align="center">IMU Intrinsics</h1>
         <h6 align="center"> <a href="https://github.com/lxw919">Xianwei Lv</a></h6>
 
-        <h2 id="简介：">简介：</h2>
-        <p>IMU的误差模型<br>
-          加速度计和陀螺仪的误差可分为确定性误差和随机误差,确定性误差可以事先标定，包括bias,scale,misalignment等.
-          随机误差通常假定噪声服从高斯分布,包括Gaussian white noise,random walker等.
-          Scale可以看成是实际数值和输入值之间的比值.misalignment多轴传感器制作的时候，由于制作工艺的问题，会使得xyz可能不垂直.
-          “White Noise”和“Bias”，都有连续时间模型和连续时间模型两种形式，两种模式可以相互转换，这里强调一下有的标定工具输出的是连续型（imu_utils），有的是离散型（kalibr_allan）。
-          我这里用imu_utils 标定 imu，得到的加速度的噪声和加速度随机游走噪声以及角速度的噪声和角速度的随机游走噪声。</p>
+        <h2 id="简介：">Introduction:</h2>
+        <p>The error model of the IMU<br>
+          The errors of accelerometers and gyroscopes can be divided into deterministic errors and random errors. 
+          Deterministic errors can be calibrated in advance, including bias, scale, misalignment, etc.
+          Random errors usually assume that the noise obeys a Gaussian distribution, including Gaussian white noise, 
+          random walker, etc.
+          Scale can be regarded as the ratio between the actual value and the input value. 
+          When the misalignment multi-axis sensor is manufactured, 
+          xyz may not be vertical due to manufacturing process problems.
+          Both "White Noise" and "Bias" have two forms: continuous time model and continuous time model. 
+          The two modes can be converted to each other. 
+          Here, it is emphasized that some calibration tools output continuous type (imu_utils) 
+          and some are discrete type (kalibr_allan ).
+          Here I use imu_utils to calibrate the imu, 
+          and the obtained acceleration noise and acceleration random walk noise 
+          as well as angular velocity noise and angular velocity random walk noise.</p>
 
-        <h2 id="方法与流程：">方法与流程：</h2>
-        <p>Allan 方差法是 20 世纪 60 年代由美国国家标准局的 David Allan 提出的,它是一种基于时域的分析方法。简要的流程如下:<br>
-          1. 保持传感器绝对静止获取数据。<br>
-          2. 对数据进行分段,设定时间段的时长。<br>
-          3. 将传感器数据按照时间段进行平均。<br>
-          4. 计算方差,绘制艾伦曲线。。<br>
+        <h2 id="Method and process:">Method and process:</h2>
+        <p>The Allan variance method was proposed by David Allan of the National Bureau of Standards in the 1960s, and it is an analysis method based on time domain. The brief process is as follows:<br>
+          1. Keep the sensor absolutely still to acquire data. <br>
+          2. Segment the data and set the duration of the time segment. <br>
+          3. Average the sensor data over time. <br>
+          4. Calculate the variance and draw the Allen curve. . <br>
         </p>
  
-        <p>1.安装依赖项</p>
+        <p>1.Install dependencies</p>
         <div class="code-box">
           <code>sudo apt-get install libdw-dev
           </code></div>
 
-        <p>2.安装imu驱动,能够录制imu topic。</p>
+        <p>2. Install the imu driver to be able to record imu topic.</p>
 
-        <p>3.下载imu_utils和code_utils</p>
-        <p>imu_utils下载地址为:<a href="https://github.com/gaowenliang/imu_utils">https://github.com/gaowenliang/imu_utils</a><br>
-          code_utils下载地址为: <a href="https://github.com/gaowenliang/code_utils">https://github.com/gaowenliang/code_utils</a><br>
+        <p>3.Down;oad imu_utils和code_utils</p>
+        <p>imu_utils download address is:<a href="https://github.com/gaowenliang/imu_utils">https://github.com/gaowenliang/imu_utils</a><br>
+          code_utils download address is: <a href="https://github.com/gaowenliang/code_utils">https://github.com/gaowenliang/code_utils</a><br>
         </p>
 
-        <p>4.在编译之前我们先注意三个问题</p>
+        <p>4. Before compiling, let's pay attention to three problems</p>
         <p>
-          (1)安装ceres库,code_imu依赖ceres。<br>
-          (2)不要同时把imu_utils和code_utils一起放到src下进行编译。由于imu_utils 依赖 code_utils，所以先把code_utils放在工作空间的src下面，进行编译。<br>
-        </p>  
-        <p>5..编译</p>
+          (1) Install the ceres library, code_imu depends on ceres. <br>
+          (2) Do not put imu_utils and code_utils together under src for compilation. Since imu_utils depends on code_utils, first put code_utils under the src of the workspace and compile it. <br>
+        </p>
+        <p>5. Compile</p>
 
-        <p>建立一个文件夹catkin_ws,内部文件夹src;先将code_utils放置于src内<br>
+        <p>Create a folder catkin_ws, internal folder src; put code_utils in src first<br>
           <div class="code-box">
             <code>cd catkin_ws/src <br>
               git clone https://github.com/gaowenliang/code_utils.git<br>
@@ -435,8 +444,7 @@
               catkin_make<br>
             </code></div>
 
-          再把imu_utils也放到工作空间的src下面，不要删除之前的文件，再编译：<br>
-          
+            Then put imu_utils under the src of the workspace, do not delete the previous files, and then compile:<br>
           <div class="code-box">
             <code>cd catkin_ws/src <br>
               cd catkin_ws/src<br>
@@ -444,36 +452,34 @@
               cd ..<br>
               catkin_make<br>
             </code></div>
-            编译安装完成
         </p>    
-
-        <p>6.标定</p>
+        Compile and install complete
+        <p>6.Calibration</p>
         <p>
-          1、让IMU保持静止两个小时,录制IMU数据;
-          <div class="code-box">
-            <code>rosbag record 话题名 -O imu.bag <br>
+          1. Keep the IMU still for two hours and record the IMU data;
+                    <div class="code-box">
+            <code>rosbag record topic -O imu.bag <br>
             </code></div>
-          2、然后根据需求对src/imu_utils/launch文件进行修改:主要包括话题名字、时长之类的； <br>
-          3、播放录制好的bag,一定要倍速播放。 <br>
-          <div class="code-box">
-            <code>rosbag play -r 200 imu-.bag (200倍速度发布) <br>
+          2. Then modify the src/imu_utils/launch file according to the requirements: mainly including topic name, duration and so on; <br>       
+          
+          3. To play the recorded bag, it must be played at double speed. <br>
+                    <div class="code-box">
+            <code>rosbag play -r 200 imu-.bag (Published at 200x speed) <br>
             </code></div>
 
           4、run launch <br>
            <div class="code-box">
             <code>roslaunch imu_utils xxx.launch <br>
             </code></div> <br>
-          5、最后标定结果文件保存在src里找到对应的yaml文件 <br>
-        </p>
+            5. The final calibration result file is saved in src to find the corresponding yaml file <br>        </p>
 
 
 
 
 
-        <h2 id="分析：">分析：</h2>
           
 
-        <h2 id="参考：">参考：</h2>
+        <h2 id="refer to:">refer to:</h2>
 
         <p><a href="https://blog.csdn.net/weixin_53073284/article/details/123341141?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165399820816782248580386%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165399820816782248580386&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-2-123341141-null-null.142%5Ev11%5Epc_search_result_control_group,157%5Ev12%5Enew_style&utm_term=%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8imu_utils%E6%A0%87%E5%AE%9A&spm=1018.2226.3001.4187"> csdn</a>
         </p>

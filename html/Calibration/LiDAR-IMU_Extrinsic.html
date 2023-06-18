@@ -408,12 +408,12 @@
         <h2>1 Abstract</h2>
 
         <p>
-          In the report, we presented the calibration of external parameters for LiDAR VLP32C and IMU
+          In the report, we presented the calibration of external parameters for LiDAR VLP-32C and IMU
           Currently, the only open source calibration package available online is the APRIL-ZJU open-source solution 
           lidar_IMU_Calib, lidar align, and a few others, among which lidar align has low accuracy in listening and speaking,
           So in the end, we chose Lidar, an open-source solution from ZJU lidar_IMU_Calib,
           After querying on Github, it was found that it currently only supports VLP-16 line LiDAR,
-          And we are using VLP32C line lidar, but according to the author's description, it should be easy to expand,
+          And we are using VLP-32C line lidar, but according to the author's description, it should be easy to expand,
           That is, modify the <mark>/include/utils</mark> from the downloaded code:<mark>dataset_reader.h and vlp_Common.h</mark> file, 
           modify the relevant functions, variables, constants, etc. related to the type of LiDAR.
           Here are some reference links of code and Blog:
@@ -424,75 +424,173 @@
 
 
         <h2>2 Process</h2>
+        We will show the whole process of calibration,
+         including starting from compiling the code, recording the calibration package, 
+         and executing the calibration. Finally give the result.
 
-        <h5>1、安装Pangolin和ceres1.14</h5>
-        <h5></h5>
-        <h5></h5>
-        <h5></h5>
-        <h5></h5>
-        <h5></h5>
-        <h5></h5>
-        <h5></h5>
+        <h5>2.1 Clone and Build </h5>
 
+        <p>First create a ros workspace,and clone the source code for the project and build it.</p>
 
+        <div class="code-box">
+          <code>
+          mkdir -p ~/lidar_imu_ws/src            <br>
+          cd ~/lidar_imu_ws/src <br>
+          catkin_init_workspace <br>
+          git clone https://github.com/APRIL-ZJU/lidar_IMU_calib <br>
+          </code></div>
 
+        <p>Still execute the following commands in the terminal of the src folder (download ndt_omp) </p>       
+    
+        <div class="code-box">
+          <code>
+            wstool init<br>
+            wstool merge lidar_IMU_calib/depend_pack.rosinstall<br>
+            wstool update            <br>
+          </code></div>
 
-
-        2、创建ros工作空间,and clone the source code for the project and build it.
-        mkdir -p ~/lidar_imu_ws/src
-        cd ~/lidar_imu_ws/src
-        catkin_init_workspace
-        git clone https://github.com/APRIL-ZJU/lidar_IMU_calib
         
-        3、仍然是在src文件夹的终端中执行下列指令(下载ndt_omp)
-        wstool init
-        wstool merge lidar_IMU_calib/depend_pack.rosinstall
-        wstool update
+        <p>Build</p>
+
+        <p>Then compile the code and refresh the workspace </p>       
+
+        <div class="code-box">
+          <code>
+          cd …/…
+          catkin_make
+          source ./devel/setup.bash<br>
+          </code></div>
+ 
+
+
+        <h5>2.2  Recording calibration package</h5>
+          <p>To record the calibration package, you need to record the topic of lidar and imu. 
+            First start the radar and imu, and then record the corresponding topic respectively. 
+            During the recording process, you should fix the two, 
+            and then perform three translations and rotations along the three axes, 
+            so that the imu There is sufficient incentive. 
+            The recording time is about one minute, and the parameters are filled in the corresponding yaml.</p>
+
+        <div class="code-box">
+          <code>
+            rosbag  record  -o  cal_held_vlp_imu.bag   /IMU_data  /velodyne_points
+            rosbag info cal_held_vlp_imu.bag
+          </code></div><br>
+
+          <figure style="text-align: center;">
+            <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/rosbag info.png" alt="Image description">
+            <figcaption>Fig. 1.rosbag info </figcaption>
+          </figure>
+
+
+        <h5>2.3 Modify the configuration file and Run</h5>
+
+        <p>For this calibration program, in addition to changing the configuration of the lidar to 32 lines, 
+          it is also necessary to modify its configuration file and startup file. 
+          Specifically, it is necessary to modify calib.sh or licalib_gui.launch. </p>
+
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/licalib_gui.png" alt="Image description">
+          <figcaption>Fig. 2.licalib_gui </figcaption>
+        </figure>
+
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/calib.sh.png" alt="Image description">
+          <figcaption>Fig. 3.calib.sh </figcaption>
+        </figure>
+
+      <p> Just modify the topics and corresponding sensor parameters inside. 
+          Then run the launch file to start the calibration procedure.</p>
+
+        <div class="code-box">
+          <code>
+          cd lidar_imu_ws/
+          ./calib.sh
+          roslaunch li_calib licalib_gui.launch
+          </code></div><br>
+
+
+          <figure style="text-align: center;">
+            <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/launch.png" alt="Image description">
+            <figcaption>Fig. 4.launch </figcaption>
+          </figure>
+    
+
+
+        <h5>2.4 process</h5>
+
+          <p>After running the launch file, 
+            you can click the button on the left side of the visual interface to perform calibration. 
+            The calibration process is divided into five parts, which are shown below.</p>
+
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/process.png" alt="Image description">
+          <figcaption>Fig. 5.process </figcaption>
+        </figure>
+
+        <p>
+          Initialization  and  BatchOptimization<br>
+          First initialize the external parameters, the calibration program will estimate a rough external parameter,
+           and then optimize this parameter. Then perform batch optimization.
+        </p>
         
-        
-        4、编译
-        cd …/…
-        catkin_make
-        source ./devel/setup.bash （设置变量环境)
-
-        5、录制标定包
-
-        rosbag  record  -o  cal_held_vlp_imu.bag   /IMU_data  /velodyne_points
-        rosbag info cal_held_vlp_imu.bag
-
-        6、cd lidar_imu_ws/
-
-        修改licalib_gui.launch/calib.sh
-        roslaunch li_calib licalib_gui.launch
-
-        7、process
-
-        Initialization  Euler_ItoL initial degree:  179.487  179.947 -80.1375
-
-        BatchOptimization
-
-        Association
-
-        Refinement
-
-        Save map
-
-        8、show pcd
-        pcl_viewer refined_map.pcd
+        <p>Then perform data association, the program will perform feature extraction based on the lidar point cloud, 
+          and then perform pose estimation and then associate with the measured value of the imu. 
+          Use the associated information for subsequent optimizations.</p>
 
 
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/data asso.png" alt="Image description">
+          <figcaption>Fig. 6.Data Association </figcaption>
+        </figure>
 
 
+        <p>After data association, the program will refine the external parameters obtained 
+          from batch optimization according to the associated information to make the results more accurate.</p>
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/refine.png" alt="Image description">
+          <figcaption>Fig. 7.refine </figcaption>
+        </figure>
+
+        <p>Finally, the calibrated point cloud result map can be saved and visualized</p>
+
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/map.png" alt="Image description">
+          <figcaption>Fig. 8.map </figcaption>
+        </figure>
+
+        <h5>2.5 show pcd</h5>
+          <p>You can view the saved point cloud through the following tools</p>
+
+        <div class="code-box">
+          <code>
+            pcl_viewer refined_map.pcd
+          </code></div><br>
 
 
 
+        <h2>3 Result</h2>
+        <p>After refine, an optimized result will be obtained. 
+          The result is Euler angles of three degrees of freedom and translation of three degrees of freedom. 
+          We use tools to convert Euler angles into rotation matrices and give calibration results.
+        </p>
+        <figure style="text-align: center;">
+          <img class="report-img" src="LiDAR-IMU_Extrinsic/vlp-imu/result.png" alt="Image description">
+          <figcaption>Fig. 9.result </figcaption>
+        </figure>
+
+        <p>The calibration results are as follows:</p>
+          <div class="code-box">
+           <code>
+            R:<br>
+             [ -0.037   -0.9994  -0.0034 ] <br>
+             [0.9993  -0.037  -0.0037 ] <br>
+             [0.0034  -0.0035  0.9999 ] <br>
+             T:<br>
+             [0.02489  0.01403  -0.07816]<br>
 
 
-
-
-
-
-
+         </code></div>
 
 
 
