@@ -104,6 +104,9 @@
                     <a href="https://erglab.github.io/M3EDS/html/Calibration/Event_Camera_Intrinsics.html" class="dropdown-item">Event Camera Intrinsics</a>
                   </li>
                   <li class="nav-item">
+                    
+                  </li>
+                  <li class="nav-item">
                     <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_Intrinsics.html" class="dropdown-item">Standard Camera Intrinsics</a>
                   </li>
                   <li class="nav-item">
@@ -205,7 +208,6 @@
     </div><!-- /.container -->
   </nav>
   <!--导航栏-->
-  
   <div class="content-wrapper">
     <header class="wrapper bg-gray">
       <nav class="navbar navbar-expand-lg fancy navbar-light navbar-bg-light">
@@ -283,9 +285,9 @@
                       <li class="nav-item">
                         <a href="https://erglab.github.io/M3EDS/html/Calibration/Event_Camera_Intrinsics.html" class="dropdown-item">Event Camera Intrinsics</a>
                       </li>
-                      <!-- <li class="nav-item">
+                      <li class="nav-item">
                         
-                      </li> -->
+                      </li>
                       <li class="nav-item">
                         <a href="https://erglab.github.io/M3EDS/html/Calibration/Standard_Camera_Intrinsics.html" class="dropdown-item">Standard Camera Intrinsics</a>
                       </li>
@@ -393,111 +395,77 @@
 
     <section class="wrapper bg-gray">
       <div id="myDiv">
-        <h1 align="center">A-LOAM</h1>
-        <h3 align="center"> <a href=</a></h3>
-        <h2>Introduction</h2>
+        <h1 align="center">Infrared camera drive</h1>
+        <h3 align="center"> <a href="https://github.com/Huang-shulei">Shulei Huang</a></h3>
+        <h2>1 Environment configuration</h2>
+        <h3>1.1 Download package</h3>
+        <div class="code-box">
+          <code>
+            (1)mkdirs catkin_ws/src
+            (2)cd catkin_ws/src
+            (3)git clone https://github.com/Huang-shulei/infrared_camera_ros.git
+          </code>
+        </div>
+
+        <h3>1.2 MVS Client installation</h3>
         <p>
-          LOAM is a real-time method for odometry and mapping using range measurements from a 2-axis lidar moving
-          in 6-DOF. 
-          It achieves both low-drift and low-computational complexity with-
-          out the need for high accuracy ranging or inertial measurements.
-          The key idea in obtaining this level of performance is the
-          division of the complex problem of simultaneous localization and
-          mapping, which seeks to optimize a large number of variables
-          simultaneously, by two algorithms. 
-          One algorithm performs
-          odometry at a high frequency but low fidelity to estimate velocity
-          of the lidar.
-          Another algorithm runs at a frequency of an order of
-          magnitude lower for fine matching and registration of the point
-          cloud.
-          Combination of the two algorithms allows the method to
-          map in real-time. The method has been evaluated by a large set
-          of experiments as well as on the KITTI odometry benchmark.
-          Here are some reference links:
-          <a href="GitHub - HKUST-Aerial-Robotics/A-LOAM: Advanced implementation of LOAM">code link</a>.
-          <a href="https://www.ri.cmu.edu/pub_files/2014/7/Ji_LidarMapping_RSS2014_v8.pdf">paper link</a>.
-          
-        </p> 
-        
+          (1)Found <a href="https://github.com/Huang-shulei/infrared_camera_ros/MVS_client/">MVS_STD_GML_V2.1.2_221208.zip</a> in the <code>MVS_Client</code> folder of <code>infrared_camera_ros</code> package
+        </p>
+        <div class="code-box">
+          <code>
+            cd infrared_camera_ros/MVS_client
+          </code>
+        </div>
         <figure style="text-align: center;">
-          <img style = "width: 70%" src="aloam_pic/frame.png" alt="Image description">
-          <figcaption>Fig. 1. Workflow diagram of LOAM</figcaption>
+          <img style = "width: 70%" src="https://erglab.github.io/M3EDS/html/Tools/Infrared_Camera_Driver_pic/MVS_client.png" alt="Image description">
+          <figcaption>Fig. 1. MVS_Client</figcaption>
         </figure>
 
-        <h3>2 <LOAM></LOAM> Compilation Process</h3>
-        <h4>2.1 Requirement</h4>
         <p>
-          ubuntu20.04 、ros-noetic、cmake、gcc、g++、opencv、cv-bridge、eigen、pcl1.10、ceres-solver-1.14.0、aloam code、bag。<br>
-          During the installation of third-party libraries, there may be many version mismatch issues. <br>
-          Below are just examples of installation. <br>
-          Please make sure to match the versions, otherwise compilation will have significant problems. <br>
-          If there are any issues during the appeal process, please search online to resolve them.<br> 
-                </p>
-          <p>install dependence</p>
-          <div class="code-box">
-            <code>
-              sudo apt-get update <br>
-              sudo apt-get install git gcc g++ vim make cmake <br>
-            </code>
-          </div>
-    
-          <p>install Eigen3</p>
-          <div class="code-box">
-            <code>
-              download <a href="https://github.com/eigenteam/eigen-git-mirror">Eigen3</a> <br>
-              cd eigen3<br>
-              mkdir build && cd build<br>
-              cmake ..<br>
-              make<br>
-              sudo make install<br>
-            </code>
-          </div>
-  
-          <p>install Ceres</p>
-          <div class="code-box">
-            <code>
-              sudo apt-get install libgoogle-glog-dev libgflags-dev<br>
-              sudo apt-get install libatlas-base-dev<br>
-              download <a href="http://ceres-solver.org/ceres-solver-2.1.0.tar.gz">Ceres</a> <br>
-              mkdir ceres-bin <br>
-              cd ceres-bin <br>
-              cmake ../ceres-solver-1.14.0 <br>
-              make  <br>
-              sudo make install <br>
-  
-            </code>
-                </div>    
-                
-                
-
-
-        <h4>2.2 Build LOAM</h4>
-        <p>Clone the repository and catkin_make:</p>
+          (2)Open this compressed package and install a suitable client for your computer
+        </p>
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="https://erglab.github.io/M3EDS/html/Tools/Infrared_Camera_Driver_pic/MVS_client-1.png" alt="Image description">
+          <figcaption>Fig. 2. MVS_STD_GML_V2.1.2_221208.zip</figcaption>
+        </figure>
         <div class="code-box">
           <code>
-            cd ~/catkin_ws/src<br>
-            git clone https://github.com/HKUST-Aerial-Robotics/A-LOAM.git <br>
-            cd ../<br>
-            catkin_make<br>
-            source ~/catkin_ws/devel/setup.bash
+            sudo dpkg install -i MVS-2.1.2_x86_64_20221208.deb (for example)
           </code>
         </div>
-        <p>if you fail in this step, try to find another computer with clean system or reinstall Ubuntu and ROS</p>
-        
-        <h4>2.3 Run LOAM</h4>
-       
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="https://erglab.github.io/M3EDS/html/Tools/Infrared_Camera_Driver_pic/MVS_client-2.png" alt="Image description">
+          <figcaption>Fig. 3. Install MVS_client</figcaption>
+        </figure>
+
+
+        <h2>2 Compile </h2>
         <div class="code-box">
           <code>
-            roslaunch aloam_velodyne xxxxx.launch<br>
-
+            (1)cd ~/catkin_ws
+            (2)catkin_make
+            (3)source devel/setup.bash
           </code>
         </div>
 
-        
-        <h1>Experiment</h1>
+        <h2>3 Run </h2>
+        <div class="code-box">
+          <code>
+            (1)roslaunch hikrobot_infrared_camera infrared_camera.launch
+            (2)roslaunch hikrobot_infrared_camera infrared_camera_rviz.launch (Visualization)
+          </code>
+        </div>
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="https://erglab.github.io/M3EDS/html/Tools/Infrared_Camera_Driver_pic/topic.png" alt="Image description">
+          <figcaption>Fig. 4. Rostopic of this package</figcaption>
+        </figure>
+        <figure style="text-align: center;">
+          <img style = "width: 70%" src="https://erglab.github.io/M3EDS/html/Tools/Infrared_Camera_Driver_pic/rviz.png" alt="Image description">
+          <figcaption>Fig. 5. Visualization of infrared camera</figcaption>
+        </figure>
 
-        <h1>Result</h1>
+
+
       </div>
     </section>
 
