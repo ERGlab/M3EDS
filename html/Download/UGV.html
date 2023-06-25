@@ -58,7 +58,7 @@
                     <a href="https://erglab.github.io/M3EDS/html/Download/UAV.html" class="dropdown-item">UAV</a>
                   </li>
                   <li class="nav-item">
-                    <a href="https://erglab.github.io/M3EDS/html/Download/Handheld.html" class="dropdown-item">Handheld</a>
+                    <a href="https://erglab.github.io/M3EDS/html/Download/UGV.html" class="dropdown-item">UGV</a>
                   </li>
                   <li class="nav-item">
                     <a href="https://erglab.github.io/M3EDS/html/Download/Quadruped_robot.html" class="dropdown-item">Quadruped robot</a>
@@ -240,7 +240,7 @@
                         <a href="https://erglab.github.io/M3EDS/html/Download/UAV.html" class="dropdown-item">UAV</a>
                       </li>
                       <li class="nav-item">
-                        <a href="https://erglab.github.io/M3EDS/html/Download/Handheld.html" class="dropdown-item">Handheld</a>
+                        <a href="https://erglab.github.io/M3EDS/html/Download/UGV.html" class="dropdown-item">UGV</a>
                       </li>
                       <li class="nav-item">
                         <a href="https://erglab.github.io/M3EDS/html/Download/Quadruped_robot.html" class="dropdown-item">Quadruped robot</a>
@@ -393,11 +393,538 @@
     <!-- /header -->
 
 
+
+
     <section class="wrapper bg-gray">
       <div id="myDiv">
         <!--在此插入内容-->
+        <h1 align="center">UGV</h1>
+
+        <h6 align="center">
+          <a href="https://kwanwaipang.github.io/">Weipeng Guan</a>,
+          <a href="https://github.com/cpymaple">Peiyu Chen</a>,
+          <a href="https://github.com/Huang-shulei">Shulei Huang</a>,
+          <a href="https://github.com/xukang2311">Kang Xu</a>,
+          <a href="https://github.com/lxw919">Xianwei Lv</a>,
+          <a href="https://github.com/Howtian">Haotian Zhang</a>
+        </h6>
+
+        <h2>Introduction</h2>
+        <h6>
+          <p>
+            The UGV platform adopts scenes suitable for unmanned vehicles, mainly collecting on flat ground,
+             including outdoor and indoor scenes, and records under different lighting conditions. 
+             To ensure enough data is captured in different scenarios, our platform includes multiple sensors, 
+             including 3D mechanical lidar, solid-state lidar, RGB-D camera, IMU, GNSS/INS-RTK (outdoor), 
+             RGB camera and four event camera. The sensor setup is similar to M3DES Quadruped_robot , 
+             enhancing the versatility and ease of use of our dataset.
+          </p>
+
+        </h6>
+        <br>
+
+        <h3>Sensor list</h3>
+        <h4 style="display: flex;">
+          <!-- (1)3D LiDAR sensor (<a href="https://velodynelidar.com/products/hdl-32e/">HDL 32E Velodyne</a>) -->
+          <details>
+            <summary>
+              (1)3D Mechanical LiDAR(<a href="https://velodynelidar.com/products/ultra-puck/">VLP-32C</a>)
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>10Hz</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>FOV:</h4>
+                </td>
+                <td>
+                  <h4>360°(Horizontal),-25°~15°(Vertical)</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Beam:</h4>
+                </td>
+                <td>
+                  <h4>32</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Distance:</h4>
+                </td>
+                <td>
+                  <h4>up to 200m</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+
+        <h4 style="display: flex;">
+          <!-- (2)Right slant LiDAR (<a href="https://velodynelidar.com/products/puck/">Velodyne VLP-16</a>) -->
+          <details>
+            <summary>
+              (2)Solid-state LiDAR (<a href="https://www.livoxtech.com/mid-360">Livox Mid-360</a>)
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>10Hz</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>FOV:</h4>
+                </td>
+                <td>
+                  <h4>360°(Horizontal),59°(Vertical)</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Distance:</h4>
+                </td>
+                <td>
+                  <h4>up to 70m</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+
+        <h4 style="display: flex;">
+          <!-- (3)Left slant LiDAR (<a href="http://wiki.ros.org/lslidar_c16">Lslidar C16</a>) -->
+          <details>
+            <summary>
+              (3)RGB-D Camera (<a href="https://www.intelrealsense.com/zh-hans/depth-camera-d455/">Lslidar C16</a>)
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>30Hz</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Resolution:</h4>
+                </td>
+                <td>
+                  <h4>1280*720 pixel</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>FOV:</h4>
+                </td>
+                <td>
+                  <h4>87°(Horizontal),58°(Vertical)</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+
+        <h4 style="display: flex;">
+          <!-- (4)IMU (<a href="https://www.xsens.com/products/mti-10-series">Xsens Mti-10</a>) -->
+          <details>
+            <summary>
+              (4)IMU (<a href="https://www.hipnuc.com/product_attitude_ch10x.html">Hipnuc CH104_UM_CN</a>)
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>400Hz</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+
+        <h4 style="display: flex;">
+          <!-- (5)GNSS receivers -->
+          <details>
+            <summary>
+              (5)GNSS/INS-RTK (<a href="https://www.hipnuc.com/product_position_nav_ch310.html">Hipnuc CH310S</a>)
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>400Hz</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+
+
+        <h4 style="display: flex;">
+          <!-- (6)RGB Camera (FLIR BFLY-U3-23S3C) -->
+          <details>
+            <summary>
+              (6)RGB Camera (<a href="https://www.hipnuc.com/product_attitude_ch10x.html">Hikrobot MV-CI003-GL-N6</a>)
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>20Fps</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Resolution:</h4>
+                </td>
+                <td>
+                  <h4>1440*1080 pixel</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>FOV:</h4>
+                </td>
+                <td>
+                  <h4>96.8°(Horizontal),79.4°(Vertical)</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+
+        <h4 style="display: flex;">
+          <!-- (7)Event Camera -->
+          <details>
+            <summary>
+              (7)Event Camera
+            </summary>
+            <br>
+            <table>
+              <tr>
+                <td rowspan="4">
+                  <h4>Inivation DAVIS346-color:</h4>
+                </td>
+                <td>
+                  <h4>Quantity:</h4>
+                </td>
+                <td>
+                  <h4>X2</h4>
+                </td>
+                <td>&nbsp&nbsp&nbsp&nbsp</td>
+                <td rowspan="4">
+                  <h4>Inivation DVXplorer:</h4>
+                </td>
+                <td>
+                  <h4>Quantity:</h4>
+                </td>
+                <td>
+                  <h4>X2</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>1000Hz</h4>
+                </td>
+                <td>&nbsp&nbsp&nbsp&nbsp</td>
+                <td>
+                  <h4>Frequency:</h4>
+                </td>
+                <td>
+                  <h4>1000Hz</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Resolution:</h4>
+                </td>
+                <td>
+                  <h4>346×260 pixel</h4>
+                </td>
+                <td>&nbsp&nbsp&nbsp&nbsp</td>
+                <td>
+                  <h4>Resolution:</h4>
+                </td>
+                <td>
+                  <h4>640×480 pixel</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4>IMU:</h4>
+                </td>
+                <td>
+                  <h4>MPU6150, 6-axis</h4>
+                </td>
+                <td>&nbsp&nbsp&nbsp&nbsp</td>
+                <td>
+                  <h4>IMU:</h4>
+                </td>
+                <td>
+                  <h4>MPU6150, 6-axis</h4>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </details>
+        </h4>
+        <br>
+
+        <h3>Sensor setups</h3>
+        <figure style="text-align: center;">
+          <img style = "width: 48%" src="UGV_pic/gif.png" alt="Image description">
+          <img style = "width: 48%" src="UGV_pic/gif.png" alt="Image description">
+          <!-- <figcaption>Fig. 1. The location of sensors </figcaption> -->
+        </figure>
+      </div>
+      
+      
+      <div id="myDiv2">
+        <h2>Calibration rosbag and Our calibration result</h2>
+        <center>
+          <table style="width: 100%;">
+            <col style="width: 25%;">
+            <col style="width: 25%;">
+            <col style="width: 25%;">
+            <col style="width: 25%;">
+            <thead>
+              <tr>
+                <th style="text-align: center;"><h4>title1</h4></th>
+                <th style="text-align: center;"><h4>title2</h4></th>
+                <th style="text-align: center;"><h4>title3</h4></th>
+                <th style="text-align: center;"><h4>title4</h4></th>
+              </tr>
+            </thead>
+            <tr>
+              <td><img style="text-align: center; width: 98%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td><img style="text-align: center; width: 98%;" src="UGV_pic/gif.png" alt="Image"></td>
+            </tr>
+            <tr>
+              <td><h4 style="text-align: center;">Calibration：<a href="">rosbag</a></h4></td>
+              <td><h4 style="text-align: center;">Calibration：<a href="">rosbag</a></h4></td>
+              <td><h4 style="text-align: center;">Calibration：<a href="">rosbag</a></h4></td>
+              <td><h4 style="text-align: center;">Calibration：<a href="">rosbag</a></h4></td>
+            </tr>
+          </table>
+        </center>
+        <br> 
+        <h3 style="text-align: center;">Our calibration result：<a href="">txt</a></h3> 
+        <br> 
+        
+        
+        
+        <h2>Data</h2>
+        <center>
+          <table style="width: 100%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <col style="width: 8%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <thead>
+              <tr>
+                <th colspan="2" style="text-align: center;"><h3>Street_day</h3></th>
+                <th colspan="1" style="text-align: center;"><h3></h3></th>
+                <th colspan="2" style="text-align: center;"><h3>Street_night</h3></th>
+              </tr>
+            </thead>
+            <tr>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+            </tr>
+            <tr>
+              <td>
+                <br>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+              <td></td>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+            </tr> 
+          </table>
+        </center><br>
+        <br>
+
+        <center>
+          <table style="width: 100%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <col style="width: 8%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <thead>
+              <tr>
+                <th colspan="2" style="text-align: center;"><h3>Parkway_day</h3></th>
+                <th colspan="1" style="text-align: center;"><h3></h3></th>
+                <th colspan="2" style="text-align: center;"><h3>Parkway_night</h3></th>
+              </tr>
+            </thead>
+            <tr>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+            </tr>
+            <tr>
+              <td>
+                <br>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+              <td></td>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+            </tr> 
+          </table>
+        </center><br>
+        <br>
+
+        <center>
+          <table style="width: 100%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <col style="width: 8%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <thead>
+              <tr>
+                <th colspan="2" style="text-align: center;"><h3>Elevator </h3></th>
+                <th colspan="1" style="text-align: center;"><h3></h3></th>
+                <th colspan="2" style="text-align: center;"><h3>MCR 01</h3></th>
+              </tr>
+            </thead>
+            <tr>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+            </tr>
+            <tr>
+              <td>
+                <br>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+              <td></td>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+            </tr> 
+          </table>
+        </center><br>
+        <br>
+
+        <center>
+          <table style="width: 100%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <col style="width: 8%;">
+            <col style="width: 23%;">
+            <col style="width: 23%;">
+            <thead>
+              <tr>
+                <th colspan="2" style="text-align: center;"><h3>MCR 02</h3></th>
+                <th colspan="1" style="text-align: center;"><h3></h3></th>
+                <th colspan="2" style="text-align: center;"><h3>MCR 03</h3></th>
+              </tr>
+            </thead>
+            <tr>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+              <td></td>
+              <td colspan="2"><img style="text-align: center; width: 100%;" src="UGV_pic/gif.png" alt="Image"></td>
+            </tr>
+            <tr>
+              <td>
+                <br>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+              <td></td>
+              <td>
+                <h3  style="text-align: center;">Data： <a href="">rosbag</a></h3>
+              </td>
+              <td>
+                <h3  style="text-align: center;">Groud-Truth： <a href="">rosbag</a></h3>
+              </td>
+            </tr> 
+          </table>
+        </center><br>
+        <br>
+
+
       </div>
     </section>
+
 
 
   </div>
